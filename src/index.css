@@ -1,0 +1,21 @@
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  background: rgba(64, 49, 38, 0.08);
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin: 0 1px;
+}
