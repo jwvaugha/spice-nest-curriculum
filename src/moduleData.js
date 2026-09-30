@@ -29,7 +29,7 @@ export const MODULES = [
     chapters: [
       { chapterId: 'mod1ch1', label: 'Chapter 1', title: 'Why Diet Matters', to: '/module-1-chapter-1' },
       { chapterId: 'mod1ch2', label: 'Chapter 2', title: 'Food Groups', to: '/module-1-chapter-2' },
-      { chapterId: 'mod1ch4', label: 'Chapter 3', title: 'The Nutrition Facts Label', to: null },
+      { chapterId: 'mod1ch4', label: 'Chapter 3', title: 'The Nutrition Facts Label', to: '/module-1-chapter-4' },
       { chapterId: 'mod1ch5', label: 'Chapter 4', title: 'Common Food Myths vs. Facts', to: '/module-1-chapter-5' },
     ],
   },

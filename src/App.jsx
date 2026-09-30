@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Calendar from './pages/Calendar';
 import Module1Chapter1 from './pages/Module1Chapter1';
 import Module1Chapter2 from './pages/Module1Chapter2';
+import Module1Chapter4 from './pages/Module1Chapter4';
 import Module1Chapter5 from './pages/Module1Chapter5';
 import Module2Chapter1 from './pages/Module2Chapter1';
 import Module2Chapter2 from './pages/Module2Chapter2';
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/module-1-chapter-1" element={<Module1Chapter1 />} />
         <Route path="/module-1-chapter-2" element={<Module1Chapter2 />} />
+        <Route path="/module-1-chapter-4" element={<Module1Chapter4 />} />
         <Route path="/module-1-chapter-5" element={<Module1Chapter5 />} />
         <Route path="/module-2-chapter-1" element={<Module2Chapter1 />} />
         <Route path="/module-2-chapter-2" element={<Module2Chapter2 />} />

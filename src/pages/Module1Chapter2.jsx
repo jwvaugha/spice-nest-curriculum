@@ -45,7 +45,14 @@ const SIDEBAR_ITEM_DEFS = [
     active: true,
     sections: [{ label: 'Food Groups', id: 'food-groups' }],
   },
-  { chapterId: 'mod1ch4', icon: ArticleTextIcon, label: 'Chapter 3', title: 'The Nutrition Facts Label' },
+  {
+    chapterId: 'mod1ch4',
+    icon: ArticleTextIcon,
+    label: 'Chapter 3',
+    title: 'The Nutrition Facts Label',
+    to: '/module-1-chapter-4',
+    sections: [{ label: 'Explore the Label', id: 'explore-the-label' }],
+  },
   {
     chapterId: 'mod1ch5',
     icon: ArticleTextIcon,
@@ -171,7 +178,7 @@ export default function Module1Chapter2() {
             </Box>
           </Box>
 
-          <ChapterFooter to="/module-1-chapter-5" chapterId="mod1ch2" reachedEnd={reachedEnd} />
+          <ChapterFooter to="/module-1-chapter-4" chapterId="mod1ch2" reachedEnd={reachedEnd} />
         </Box>
       </Box>
     </>
