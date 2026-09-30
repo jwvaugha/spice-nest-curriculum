@@ -1,8 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import AttachmentRoundedIcon from '@mui/icons-material/AttachmentRounded';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
@@ -20,19 +19,34 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
-const CODE_SX = { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: '0.9em', bgcolor: 'action.hover', px: 0.75, py: 0.15, borderRadius: 1 };
+const ITEM_IMAGE_SX = {
+  width: '100%',
+  aspectRatio: '16/10',
+  objectFit: 'cover',
+  borderRadius: 1.5,
+};
 
 // Built from Figma node 3436:20958 ("Mod-6-Ch-5 — Managing Multiple
-// Caregiving Relationships"), NEST Prototype page. Every Image slot in the
-// real Figma chapter has no real imageHash (still a generic placeholder),
-// and no local drop-folder exists for Module 6 yet -- so this page carries
-// zero photos, matching the source exactly rather than inventing any.
+// Caregiving Relationships"), NEST Prototype page.
+// 2026-09-29: hero + 3 body photos synced from
+// `Chapter Content/Images/Module 6/Chapter 5 - Managing Multiple Caregiving
+// Relationships/` after re-checking the live Figma node's actual image
+// slots (walked via the Plugin API, not screenshot-guessed) -- confirmed
+// exact identity via SHA-1 against Figma's own raw asset bytes. Two of the
+// four sit in a DIFFERENT position than a typical list-item photo: "Exploring
+// Outside Help"'s photo is attached to its 3rd NumberedListItem ("Local
+// Agencies", which the source hash confirms is literally the Peace Meal
+// Senior Nutrition Program photo), but "Tips for Balancing Different Dietary
+// Needs" and "Tips for Family Teamwork" each got their photo appended at the
+// END of the whole Section instead -- after the NumberedList, not attached
+// to any specific item -- matching exactly where the user placed them on the
+// live Figma node, not the more common per-list-item pattern.
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod6-video1', icon: VideocamRoundedIcon, label: 'Video', title: 'Role reversal dynamics: strategies for respectful conversations without guilt' },
   {
     chapterId: 'mod6ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Motivational interviewing strategies',
     to: '/module-6-chapter-2',
@@ -45,10 +59,9 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod6-video2', icon: VideocamRoundedIcon, label: 'Video', title: 'When to be flexible: balancing health and happiness' },
   {
     chapterId: 'mod6ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Self Care as a Caregiver',
     to: '/module-6-chapter-4',
@@ -66,7 +79,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod6ch5',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: 'Managing multiple caregiving relationships',
     active: true,
@@ -115,13 +128,8 @@ export default function Module6Chapter5() {
               <ChapterHero
                 eyebrow="Chapter 4"
                 title="Managing Multiple Caregiving Relationships"
-                placeholderNote={
-                  <>
-                    Hero photo needed — drop a file named{' '}
-                    <Box component="code" sx={CODE_SX}>hero.jpg</Box> into{' '}
-                    <Box component="code" sx={CODE_SX}>public/images/module-6-chapter-5/</Box>
-                  </>
-                }
+                imageSrc={asset('/images/module-6-chapter-5/hero.jpg')}
+                imageAlt="A multi-generational family gathered around a table together"
               />
 
               <Section id="figuring-out-what-comes-first" title="Figuring Out What Comes First" sx={{ pt: 0 }}>
@@ -158,7 +166,12 @@ export default function Module6Chapter5() {
                     Seniors) has trained volunteers who are age 55 or older. They visit older adults who are
                     homebound or feel lonely.
                   </NumberedListItem>
-                  <NumberedListItem number={3} title="Local Agencies">
+                  <NumberedListItem
+                    number={3}
+                    title="Local Agencies"
+                    imageSrc={asset('/images/module-6-chapter-5/item-local-agencies.jpg')}
+                    imageAlt="The Peace Meal Senior Nutrition Program serving a meal"
+                  >
                     Your local Area Agency on Aging can help you find free or low-cost community programs. For
                     instance, the Peace Meal Senior Nutrition Program (part of Meals on Wheels) provides congregate
                     and home delivered meals in Central Illinois. Additionally, some adult day care centers offer
@@ -196,6 +209,12 @@ export default function Module6Chapter5() {
                     fruits and leafy greens might be a great mid-day snack for kids and for older adults.
                   </NumberedListItem>
                 </NumberedList>
+                <Box
+                  component="img"
+                  src={asset('/images/module-6-chapter-5/item-tips-for-balancing-different-dietary-needs.jpg')}
+                  alt="A multi-generational family preparing a meal together outdoors"
+                  sx={ITEM_IMAGE_SX}
+                />
               </Section>
 
               <SectionDivider />
@@ -223,6 +242,12 @@ export default function Module6Chapter5() {
                     little easier.
                   </NumberedListItem>
                 </NumberedList>
+                <Box
+                  component="img"
+                  src={asset('/images/module-6-chapter-5/item-tips-for-family-teamwork.jpg')}
+                  alt="A multi-generational family talking together in a living room"
+                  sx={ITEM_IMAGE_SX}
+                />
               </Section>
 
               <SectionDivider />

@@ -1,8 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
@@ -20,6 +19,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3253:18408 ("Mod-2-Ch-5 — Medication and Diet:
 // What's The Relationship?"). "Diabetes Medicines"' 5 list items each pair a
@@ -31,7 +31,7 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod2ch1',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 1',
     title: 'Basics of Diabetes',
     to: '/module-2-chapter-1',
@@ -47,7 +47,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Managing diabetes through diet',
     to: '/module-2-chapter-2',
@@ -61,7 +61,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Alternative approaches to managing diabetes',
     to: '/module-2-chapter-4',
@@ -76,7 +76,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch5',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: "Medication and diet: what's the relationship?",
     active: true,
@@ -87,9 +87,8 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod2-video', icon: VideocamRoundedIcon, label: 'Video', title: 'South Asian expert dietitian video clip on diabetes' },
-  { chapterId: 'mod2-infographic', icon: DescriptionRoundedIcon, label: 'Text / Infographic', title: 'Diabetes factsheet' },
-  { chapterId: 'mod2-text', icon: DescriptionRoundedIcon, label: 'Text', title: 'South Asian diabetes myths and facts' },
+  { chapterId: 'mod2-infographic', icon: ArticleTextIcon, label: 'Text / Infographic', title: 'Diabetes factsheet' },
+  { chapterId: 'mod2-text', icon: ArticleTextIcon, label: 'Text', title: 'South Asian diabetes myths and facts' },
   { chapterId: 'mod2-interactive', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game lvl 2' },
   { chapterId: 'mod2-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 2 Reflection' },
 ];
@@ -98,31 +97,31 @@ const MEDICINES = [
   {
     title: 'Helping the body use insulin better',
     examples: 'Metformin, TZDs',
-    imageSrc: '/images/module-2-chapter-5/item-insulin-better.jpg',
+    imageSrc: asset('/images/module-2-chapter-5/item-insulin-better.jpg'),
     imageAlt: 'Metformin tablets',
   },
   {
     title: 'Helping the body make more insulin',
     examples: 'Sulfonylureas, DPP-4 inhibitors, GLP-1 medicines',
-    imageSrc: '/images/module-2-chapter-5/item-more-insulin.jpg',
+    imageSrc: asset('/images/module-2-chapter-5/item-more-insulin.jpg'),
     imageAlt: 'GLP-1 injectable medication',
   },
   {
     title: 'Helping remove extra sugar from the body',
     examples: 'SGLT2 inhibitors',
-    imageSrc: '/images/module-2-chapter-5/item-remove-sugar.jpg',
+    imageSrc: asset('/images/module-2-chapter-5/item-remove-sugar.jpg'),
     imageAlt: 'SGLT2 inhibitor medication',
   },
   {
     title: 'Slowing down the digestion of carbs',
     examples: 'Alpha-glucosidase inhibitors',
-    imageSrc: '/images/module-2-chapter-5/item-slow-digestion.jpg',
+    imageSrc: asset('/images/module-2-chapter-5/item-slow-digestion.jpg'),
     imageAlt: 'Alpha-glucosidase inhibitor (Acarbose) medication',
   },
   {
     title: "Replacing or supplementing the body's natural insulin production",
     examples: 'Injected insulin',
-    imageSrc: '/images/module-2-chapter-5/item-injected-insulin.jpg',
+    imageSrc: asset('/images/module-2-chapter-5/item-injected-insulin.jpg'),
     imageAlt: 'Insulin injection pen',
   },
 ];
@@ -159,7 +158,7 @@ export default function Module2Chapter5() {
                 eyebrow="Chapter 4"
                 title="Medication and Diet: What's The Relationship?"
                 intro="To keep your blood sugar stable, your daily meals and your medications must work together as a team."
-                imageSrc="/images/module-2-chapter-5/hero.jpg"
+                imageSrc={asset('/images/module-2-chapter-5/hero.jpg')}
                 imageAlt="Diabetes medications alongside healthy food"
               />
 

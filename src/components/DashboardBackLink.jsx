@@ -38,9 +38,14 @@ export default function DashboardBackLink() {
         height: 48,
       }}
     >
+      {/* Goes to Home ("/"), not the Modules list -- per direct user
+          direction, leaving a chapter should return to the same "Up Next"/
+          "Get Started" splash screen a learner would land on fresh, not the
+          full Modules list (that's still reachable from there, or via the
+          NestNavSwitcher dropdown, in one more click). */}
       <Box
         component={Link}
-        to="/dashboard"
+        to="/"
         sx={{
           display: 'flex',
           alignItems: 'center',
@@ -56,7 +61,7 @@ export default function DashboardBackLink() {
         }}
       >
         <KeyboardBackspaceRoundedIcon fontSize="small" />
-        Nest Dashboard
+        NEST Home
       </Box>
     </Box>
   );

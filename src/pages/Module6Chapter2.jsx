@@ -2,8 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import AttachmentRoundedIcon from '@mui/icons-material/AttachmentRounded';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
@@ -22,8 +21,8 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
-const CODE_SX = { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: '0.9em', bgcolor: 'action.hover', px: 0.75, py: 0.15, borderRadius: 1 };
 
 // Built from Figma node 3433:19955 ("Mod-6-Ch-2 — Motivational Interviewing
 // Strategies"), NEST Prototype page. First page in Module 6, so the
@@ -45,10 +44,9 @@ const CODE_SX = { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', 
 // chapter -- every section is a communication technique with no strong
 // visual referent -- so no photos anywhere on this page, by design.
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod6-video1', icon: VideocamRoundedIcon, label: 'Video', title: 'Role reversal dynamics: strategies for respectful conversations without guilt' },
   {
     chapterId: 'mod6ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Motivational interviewing strategies',
     active: true,
@@ -61,10 +59,9 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod6-video2', icon: VideocamRoundedIcon, label: 'Video', title: 'When to be flexible: balancing health and happiness' },
   {
     chapterId: 'mod6ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Self Care as a Caregiver',
     to: '/module-6-chapter-4',
@@ -82,7 +79,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod6ch5',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: 'Managing multiple caregiving relationships',
     to: '/module-6-chapter-5',
@@ -141,13 +138,8 @@ export default function Module6Chapter2() {
               <ChapterHero
                 eyebrow="Chapter 2"
                 title="Motivational Interviewing Strategies"
-                placeholderNote={
-                  <>
-                    Hero photo needed — drop a file named{' '}
-                    <Box component="code" sx={CODE_SX}>hero.jpg</Box> into{' '}
-                    <Box component="code" sx={CODE_SX}>public/images/module-6-chapter-2/</Box>
-                  </>
-                }
+                imageSrc={asset('/images/module-6-chapter-2/hero.jpg')}
+                imageAlt="A supportive conversation between a caregiver and older adult"
               />
 
               <Section id="what-is-motivational-interviewing-mi" title="What is Motivational Interviewing (MI)?" sx={{ pt: 0 }}>

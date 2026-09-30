@@ -1,8 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import AttachmentRoundedIcon from '@mui/icons-material/AttachmentRounded';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
@@ -18,37 +17,35 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
-const CODE_SX = { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: '0.9em', bgcolor: 'action.hover', px: 0.75, py: 0.15, borderRadius: 1 };
-
-const PLACEHOLDER_IMAGE_SX = {
+const ITEM_IMAGE_SX = {
   width: '100%',
   aspectRatio: '16/10',
+  objectFit: 'cover',
   borderRadius: 1.5,
-  border: '1px dashed',
-  borderColor: 'divider',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  textAlign: 'center',
-  color: 'text.secondary',
-  fontSize: 12,
-  px: 1.5,
 };
 
 // Built from Figma node 3435:20406 ("Mod-6-Ch-4 — Self Care as a
 // Caregiver"). First page in Module 6, so the Sidebar's Chapter List Slot
 // is built from scratch from the real Figma sidebar (not guessed) -- see
-// the two Video rows and the Printable/Interactive/Reflection resources.
-// Every Image slot in this chapter's real Figma content has only a generic
-// placeholder fill (no real per-item photo), confirmed via a live imageHash
-// sweep -- so all three photo slots below stay on the placeholder pattern,
-// matching the source rather than inventing stock photography.
+// the Printable/Interactive/Reflection resources (the two Video rows this
+// once had were removed entirely 2026-09-28 -- those videos were canceled,
+// so there's no content to reference, not even as a disabled placeholder).
+// 2026-09-29: hero + all 3 body-section photos synced from
+// `Chapter Content/Images/Module 6/Chapter 4 - Self Care as a Caregiver/`
+// after re-verifying the live Figma prototype's own image nodes (each now
+// has a real imageHash, not the earlier generic placeholder fill) --
+// confirmed exact identity via SHA-1 against Figma's own raw asset bytes for
+// the hero, and visual match for the other three. All three body photos sit
+// at the END of their Section's flowing content (after the closing
+// paragraph, not attached to a list item -- these sections use a flat
+// BulletedList, not numbered items), matching the exact position already
+// confirmed on the Figma node.
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod6-video1', icon: VideocamRoundedIcon, label: 'Video', title: 'Role reversal dynamics: strategies for respectful conversations without guilt' },
   {
     chapterId: 'mod6ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Motivational interviewing strategies',
     to: '/module-6-chapter-2',
@@ -61,10 +58,9 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod6-video2', icon: VideocamRoundedIcon, label: 'Video', title: 'When to be flexible: balancing health and happiness' },
   {
     chapterId: 'mod6ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Self Care as a Caregiver',
     active: true,
@@ -82,7 +78,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod6ch5',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: 'Managing multiple caregiving relationships',
     to: '/module-6-chapter-5',
@@ -131,13 +127,8 @@ export default function Module6Chapter4() {
               <ChapterHero
                 eyebrow="Chapter 3"
                 title="Self Care as a Caregiver"
-                placeholderNote={
-                  <>
-                    Hero photo needed — drop a file named{' '}
-                    <Box component="code" sx={CODE_SX}>hero.jpg</Box> into{' '}
-                    <Box component="code" sx={CODE_SX}>public/images/module-6-chapter-4/</Box>
-                  </>
-                }
+                imageSrc={asset('/images/module-6-chapter-4/hero.jpg')}
+                imageAlt="A woman standing by a window, hand resting on her heart"
               />
 
               <Section id="why-self-care-matters" title="Why Self-Care Matters" sx={{ pt: 0 }}>
@@ -190,9 +181,7 @@ export default function Module6Chapter4() {
                   ]}
                 />
                 <Typography>Remember: A healthy caregiver is better able to care for others.</Typography>
-                <Box sx={PLACEHOLDER_IMAGE_SX}>
-                  Photo needed — <Box component="code" sx={CODE_SX}>item-take-care-of-your-body.jpg</Box>
-                </Box>
+                <Box component="img" src={asset('/images/module-6-chapter-4/item-take-care-of-your-body.jpg')} alt="A man stretching outdoors before a run" sx={ITEM_IMAGE_SX} />
               </Section>
 
               <SectionDivider />
@@ -216,9 +205,7 @@ export default function Module6Chapter4() {
                   Even a few minutes each day can help. If stress, sadness, anxiety, or loss of interest continues or
                   affects your daily life, talk with a healthcare professional or mental health provider.
                 </Typography>
-                <Box sx={PLACEHOLDER_IMAGE_SX}>
-                  Photo needed — <Box component="code" sx={CODE_SX}>item-manage-stress.jpg</Box>
-                </Box>
+                <Box component="img" src={asset('/images/module-6-chapter-4/item-manage-stress.jpg')} alt="A person relaxing on a couch, reading a book" sx={ITEM_IMAGE_SX} />
               </Section>
 
               <SectionDivider />
@@ -252,9 +239,7 @@ export default function Module6Chapter4() {
                 </Typography>
                 <BulletedList items={['Family members', 'Friends', 'Volunteers', 'Adult day programs', 'Professional caregivers']} />
                 <Typography>Even a few hours of respite care can help reduce stress and prevent burnout.</Typography>
-                <Box sx={PLACEHOLDER_IMAGE_SX}>
-                  Photo needed — <Box component="code" sx={CODE_SX}>item-respite-care.jpg</Box>
-                </Box>
+                <Box component="img" src={asset('/images/module-6-chapter-4/item-respite-care.jpg')} alt="A professional caregiver helping an older woman" sx={ITEM_IMAGE_SX} />
               </Section>
 
               <SectionDivider />

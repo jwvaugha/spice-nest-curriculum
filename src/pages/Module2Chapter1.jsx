@@ -1,8 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
@@ -19,6 +18,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3414:17465 ("Mod-2-Ch-1 — Basics of Diabetes"),
 // NEST Prototype page. Second page in Module 2 (after Module2Chapter2.jsx),
@@ -32,7 +32,7 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod2ch1',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 1',
     title: 'Basics of Diabetes',
     active: true,
@@ -48,7 +48,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Managing diabetes through diet',
     to: '/module-2-chapter-2',
@@ -62,7 +62,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Alternative approaches to managing diabetes',
     to: '/module-2-chapter-4',
@@ -77,7 +77,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch5',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: "Medication and diet: what's the relationship?",
     to: '/module-2-chapter-5',
@@ -88,9 +88,8 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod2-video', icon: VideocamRoundedIcon, label: 'Video', title: 'South Asian expert dietitian video clip on diabetes' },
-  { chapterId: 'mod2-infographic', icon: DescriptionRoundedIcon, label: 'Text / Infographic', title: 'Diabetes factsheet' },
-  { chapterId: 'mod2-text', icon: DescriptionRoundedIcon, label: 'Text', title: 'South Asian diabetes myths and facts' },
+  { chapterId: 'mod2-infographic', icon: ArticleTextIcon, label: 'Text / Infographic', title: 'Diabetes factsheet' },
+  { chapterId: 'mod2-text', icon: ArticleTextIcon, label: 'Text', title: 'South Asian diabetes myths and facts' },
   { chapterId: 'mod2-interactive', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game lvl 2' },
   { chapterId: 'mod2-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 2 Reflection' },
 ];
@@ -126,7 +125,7 @@ export default function Module2Chapter1() {
               <ChapterHero
                 eyebrow="Chapter 1"
                 title="Basics of Diabetes"
-                imageSrc="/images/module-2-chapter-1/hero.jpg"
+                imageSrc={asset('/images/module-2-chapter-1/hero.jpg')}
                 imageAlt="Lancet device used for blood glucose testing"
               />
 
@@ -146,7 +145,7 @@ export default function Module2Chapter1() {
                 </Typography>
                 <Box
                   component="img"
-                  src="/images/module-2-chapter-1/item-what-is-diabetes.jpg"
+                  src={asset('/images/module-2-chapter-1/item-what-is-diabetes.jpg')}
                   alt="Blood sugar testing for diabetes"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -168,7 +167,7 @@ export default function Module2Chapter1() {
                 <Typography>When this happens, sugar builds up in the blood.</Typography>
                 <Box
                   component="img"
-                  src="/images/module-2-chapter-1/item-what-is-insulin.jpg"
+                  src={asset('/images/module-2-chapter-1/item-what-is-insulin.jpg')}
                   alt="Insulin vial and syringe"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -187,7 +186,7 @@ export default function Module2Chapter1() {
                       'It cannot be prevented.',
                       'If insulin is a key, in type 1, the key is missing to open the gate to move sugar out of the blood.',
                     ]}
-                    imageSrc="/images/module-2-chapter-1/item-type-1.jpg"
+                    imageSrc={asset('/images/module-2-chapter-1/item-type-1.jpg')}
                     imageAlt="Type 1 diabetes"
                   />
                   <NumberedListItem
@@ -200,7 +199,7 @@ export default function Module2Chapter1() {
                       'A family history of diabetes or a personal history of prediabetes or gestational diabetes can put one at risk for Type 2 diabetes',
                       'If insulin is a key, the lock is not working as well as it should. Sugar has a hard time moving out of the blood into the cells.',
                     ]}
-                    imageSrc="/images/module-2-chapter-1/item-type-2.jpg"
+                    imageSrc={asset('/images/module-2-chapter-1/item-type-2.jpg')}
                     imageAlt="Type 2 diabetes"
                   />
                   <NumberedListItem
@@ -212,7 +211,7 @@ export default function Module2Chapter1() {
                       'It often resolves after birth, once the placenta is removed from the body',
                       'It increases the risk of type 2 diabetes later in life.',
                     ]}
-                    imageSrc="/images/module-2-chapter-1/item-gestational.jpg"
+                    imageSrc={asset('/images/module-2-chapter-1/item-gestational.jpg')}
                     imageAlt="Gestational diabetes"
                   />
                   <NumberedListItem
@@ -279,7 +278,7 @@ export default function Module2Chapter1() {
                 <Typography>Healthy eating and regular activity both help reduce risk.</Typography>
                 <Box
                   component="img"
-                  src="/images/module-2-chapter-1/item-prevention.jpg"
+                  src={asset('/images/module-2-chapter-1/item-prevention.jpg')}
                   alt="Healthy lifestyle choices for diabetes prevention"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />

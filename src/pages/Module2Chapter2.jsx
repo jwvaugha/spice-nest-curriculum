@@ -1,8 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
@@ -19,19 +18,21 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
-
-const CODE_SX = { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: '0.9em', bgcolor: 'action.hover', px: 0.75, py: 0.15, borderRadius: 1 };
+import { asset } from '../assetPath';
 
 // Every built chapter gets a real expand/collapse section list (not just the
 // currently-active one) — matching the Figma sidebar, where Chapters 1, 4,
-// and 5 are independently openable too. Resource rows (Video/Text/etc.) have
-// no page and no sections, so they get neither a chevron nor `to`. Content
-// spacing comes entirely from `Section`/`NumberedList`/`BulletedList` owning
-// their own real Figma gap values — no page-level Stack/mb spacing.
+// and 5 are independently openable too. Resource rows (Text/etc.) have no
+// page and no sections, so they get neither a chevron nor `to`. Video rows
+// were removed entirely (2026-09-28) -- those videos were canceled, so
+// there's no content to reference, not even as a disabled placeholder row.
+// Content spacing comes entirely from `Section`/`NumberedList`/
+// `BulletedList` owning their own real Figma gap values — no page-level
+// Stack/mb spacing.
 const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod2ch1',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 1',
     title: 'Basics of Diabetes',
     to: '/module-2-chapter-1',
@@ -47,7 +48,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Managing diabetes through diet',
     active: true,
@@ -65,7 +66,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Alternative approaches to managing diabetes',
     to: '/module-2-chapter-4',
@@ -80,7 +81,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch5',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: "Medication and diet: what's the relationship?",
     to: '/module-2-chapter-5',
@@ -91,9 +92,8 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod2-video', icon: VideocamRoundedIcon, label: 'Video', title: 'South Asian expert dietitian video clip on diabetes' },
-  { chapterId: 'mod2-infographic', icon: DescriptionRoundedIcon, label: 'Text / Infographic', title: 'Diabetes factsheet' },
-  { chapterId: 'mod2-text', icon: DescriptionRoundedIcon, label: 'Text', title: 'South Asian diabetes myths and facts' },
+  { chapterId: 'mod2-infographic', icon: ArticleTextIcon, label: 'Text / Infographic', title: 'Diabetes factsheet' },
+  { chapterId: 'mod2-text', icon: ArticleTextIcon, label: 'Text', title: 'South Asian diabetes myths and facts' },
   { chapterId: 'mod2-interactive', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game lvl 2' },
   { chapterId: 'mod2-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 2 Reflection' },
 ];
@@ -145,7 +145,7 @@ export default function Module2Chapter2() {
               <ChapterHero
                 eyebrow="Chapter 2"
                 title="Managing diabetes through diet"
-                imageSrc="/images/module-2-chapter-2/hero.jpg"
+                imageSrc={asset('/images/module-2-chapter-2/hero.jpg')}
                 imageAlt="Glucose monitor, stethoscope, and fresh vegetables on a counter"
               />
 
@@ -163,24 +163,24 @@ export default function Module2Chapter2() {
 
               <Section id="examples-of-food-to-eat-less-often" title="Examples of Food to Eat Less Often">
                 <NumberedList>
-                  <NumberedListItem number={1} title="Refined Carbohydrates" imageSrc="/images/module-2-chapter-2/item-refined-carbohydrates.jpg" imageAlt="White bread">
+                  <NumberedListItem number={1} title="Refined Carbohydrates" imageSrc={asset('/images/module-2-chapter-2/item-refined-carbohydrates.jpg')} imageAlt="White bread">
                     These foods have less fiber and are digested quickly, which can cause fast blood sugar spikes.
                     Examples: white bread, white rice, white pasta, breakfast cereals, chips, crackers, pretzels, pizza.
                   </NumberedListItem>
-                  <NumberedListItem number={2} title="Foods High in Saturated Fat" imageSrc="/images/module-2-chapter-2/item-saturated-fat.jpg" imageAlt="Butter">
+                  <NumberedListItem number={2} title="Foods High in Saturated Fat" imageSrc={asset('/images/module-2-chapter-2/item-saturated-fat.jpg')} imageAlt="Butter">
                     Saturated fat can make it harder for the body to use insulin, and increases the risk of heart
                     disease, which is a concern for people with diabetes. Examples: fatty cuts of red meat, chicken with
                     skin, butter and full-fat cheese, coconut oil and palm kernel oil, cakes, cookies, and pastries.
                   </NumberedListItem>
-                  <NumberedListItem number={3} title="Sugary Drinks" imageSrc="/images/module-2-chapter-2/item-sugary-drinks.jpg" imageAlt="Soda">
+                  <NumberedListItem number={3} title="Sugary Drinks" imageSrc={asset('/images/module-2-chapter-2/item-sugary-drinks.jpg')} imageAlt="Soda">
                     Sugary drinks raise blood sugar very fast and make it harder to keep blood sugar levels stable.
                     Examples: soda, fruit punch, sweetened juices, sweetened yogurt drinks, sports drinks.
                   </NumberedListItem>
-                  <NumberedListItem number={4} title="Fried Foods" imageSrc="/images/module-2-chapter-2/item-fried-foods.jpg" imageAlt="Fried food">
+                  <NumberedListItem number={4} title="Fried Foods" imageSrc={asset('/images/module-2-chapter-2/item-fried-foods.jpg')} imageAlt="Fried food">
                     Fried foods are high in unhealthy fats and extra calories, which can make blood sugar and weight
                     management harder. Examples: French fries, fried chicken, fried snacks.
                   </NumberedListItem>
-                  <NumberedListItem number={5} title="Highly Processed Foods" imageSrc="/images/module-2-chapter-2/item-processed-foods.jpg" imageAlt="Frozen meals">
+                  <NumberedListItem number={5} title="Highly Processed Foods" imageSrc={asset('/images/module-2-chapter-2/item-processed-foods.jpg')} imageAlt="Frozen meals">
                     Processed foods are often high in sugar, salt, and unhealthy fats, but low in fiber. Examples:
                     packaged snacks, fast foods, frozen meals, processed meats (sausage, bacon).
                   </NumberedListItem>
@@ -194,21 +194,21 @@ export default function Module2Chapter2() {
                   These foods provide important nutrients and can help keep blood sugar more stable throughout the day.
                 </Typography>
                 <NumberedList>
-                  <NumberedListItem number={1} title="Vegetables" placeholderNote={<>Photo needed — <Box component="code" sx={CODE_SX}>item-vegetables.jpg</Box></>}>
+                  <NumberedListItem number={1} title="Vegetables" imageSrc={asset('/images/module-2-chapter-2/item-vegetables.jpg')} imageAlt="Vegetables">
                     Keep an eye out for non-starchy vegetables like broccoli, carrots, and peppers.
                   </NumberedListItem>
-                  <NumberedListItem number={2} title="Fruits" placeholderNote={<>Photo needed — <Box component="code" sx={CODE_SX}>item-fruits.jpg</Box></>}>
+                  <NumberedListItem number={2} title="Fruits" imageSrc={asset('/images/module-2-chapter-2/item-fruits.jpg')} imageAlt="Fruits">
                     Whole fruits provide fiber, vitamins, and natural sweetness with less impact on blood sugar than
                     juice or sugary snacks.
                   </NumberedListItem>
-                  <NumberedListItem number={3} title="Whole Grains" placeholderNote={<>Photo needed — <Box component="code" sx={CODE_SX}>item-whole-grains.jpg</Box></>}>
+                  <NumberedListItem number={3} title="Whole Grains" imageSrc={asset('/images/module-2-chapter-2/item-whole-grains.jpg')} imageAlt="Whole grains">
                     Whole grains like brown rice, quinoa, and oats digest more slowly than refined grains, helping keep
                     blood sugar steadier.
                   </NumberedListItem>
-                  <NumberedListItem number={4} title="Lean Protein" imageSrc="/images/module-2-chapter-2/item-lean-protein.jpg" imageAlt="Lean protein (chicken)">
+                  <NumberedListItem number={4} title="Lean Protein" imageSrc={asset('/images/module-2-chapter-2/item-lean-protein.jpg')} imageAlt="Lean protein (chicken)">
                     Chicken, fish, eggs, etc.
                   </NumberedListItem>
-                  <NumberedListItem number={5} title="Healthy Fats" imageSrc="/images/module-2-chapter-2/item-healthy-fats.jpg" imageAlt="Nuts">
+                  <NumberedListItem number={5} title="Healthy Fats" imageSrc={asset('/images/module-2-chapter-2/item-healthy-fats.jpg')} imageAlt="Nuts">
                     Nuts, seeds, avocados.
                   </NumberedListItem>
                 </NumberedList>

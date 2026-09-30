@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import AttachmentRoundedIcon from '@mui/icons-material/AttachmentRounded';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
@@ -18,6 +18,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3263:16422 ("Mod-4-Ch-4 — Budgeting"). One of three
 // Module 4 pages built together — the Module 4 SIDEBAR_ITEM_DEFS base below
@@ -31,10 +32,10 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 // uses four Paragraph label+body pairs (Section Label pattern, same as
 // Cook Once Eat Twice's "Day 1"/"Day 2").
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod4ch1', icon: DescriptionRoundedIcon, label: 'Chapter 1', title: 'Navigating the Grocery Store' },
+  { chapterId: 'mod4ch1', icon: ArticleTextIcon, label: 'Chapter 1', title: 'Navigating the Grocery Store' },
   {
     chapterId: 'mod4ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Seasonal and Ethnic Markets',
     to: '/module-4-chapter-2',
@@ -50,7 +51,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod4ch3',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Grocery Shopping With Limited Resources',
     to: '/module-4-chapter-3',
@@ -64,7 +65,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod4ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: 'Budgeting',
     active: true,
@@ -113,7 +114,7 @@ export default function Module4Chapter4() {
               <ChapterHero
                 eyebrow="Chapter 4"
                 title="Budgeting"
-                imageSrc="/images/module-4-chapter-4/hero.jpg"
+                imageSrc={asset('/images/module-4-chapter-4/hero.jpg')}
                 imageAlt="Grocery receipt showing itemized prices"
               />
 
@@ -133,7 +134,7 @@ export default function Module4Chapter4() {
                 />
                 <Box
                   component="img"
-                  src="/images/module-4-chapter-4/item-unit-pricing.jpg"
+                  src={asset('/images/module-4-chapter-4/item-unit-pricing.jpg')}
                   alt="Unit price label on a bottle of lime juice"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -154,7 +155,7 @@ export default function Module4Chapter4() {
                 />
                 <Box
                   component="img"
-                  src="/images/module-4-chapter-4/item-store-brands.jpg"
+                  src={asset('/images/module-4-chapter-4/item-store-brands.jpg')}
                   alt="Store-brand cereal box"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -212,7 +213,7 @@ export default function Module4Chapter4() {
                 </Paragraph>
                 <Box
                   component="img"
-                  src="/images/module-4-chapter-4/item-freezer.jpg"
+                  src={asset('/images/module-4-chapter-4/item-freezer.jpg')}
                   alt="Organized freezer with labeled containers"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />

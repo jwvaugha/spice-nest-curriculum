@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
 import ChapterHero from '../components/ChapterHero';
@@ -20,6 +20,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3429:18490 ("Mod-3-Ch-2 — Cook Once, Eat Twice").
 // First page to use real Bulleted List (BulletedList.jsx) and a List nested
@@ -43,7 +44,7 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod3ch1',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 1',
     title: 'Creating a meal plan and aligning with grocery list',
     to: '/module-3-chapter-1',
@@ -57,7 +58,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod3ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Efficiency Strategies',
     active: true,
@@ -72,7 +73,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod3ch3',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Avoiding Food Waste',
     to: '/module-3-chapter-3',
@@ -85,8 +86,8 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'Simple habits to reduce waste', id: 'simple-habits-to-reduce-waste' },
     ],
   },
-  { chapterId: 'mod3ch4', icon: DescriptionRoundedIcon, label: 'Chapter 4', title: 'Meal Planning Tools' },
-  { chapterId: 'mod3ch5', icon: DescriptionRoundedIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
+  { chapterId: 'mod3ch4', icon: ArticleTextIcon, label: 'Chapter 4', title: 'Meal Planning Tools' },
+  { chapterId: 'mod3ch5', icon: ArticleTextIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
   { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection' },
 ];
 
@@ -125,7 +126,7 @@ export default function Module3Chapter2() {
                 eyebrow="Chapter 2"
                 title="Cook Once, Eat Twice: Strategies for Simplifying Cooking"
                 intro='Meal preparation ("meal prep") can save time, lower stress, control chronic illness, and make healthy eating easier during the week.'
-                imageSrc="/images/module-3-chapter-2/hero.jpg"
+                imageSrc={asset('/images/module-3-chapter-2/hero.jpg')}
                 imageAlt="Sheet pan meal prep with roasted vegetables and protein"
               />
 
@@ -171,7 +172,7 @@ export default function Module3Chapter2() {
                 />
                 <Box
                   component="img"
-                  src="/images/module-3-chapter-2/item-batch-cooking.jpg"
+                  src={asset('/images/module-3-chapter-2/item-batch-cooking.jpg')}
                   alt="Sheet pan of roasted potatoes and vegetables prepared in batch"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -196,7 +197,7 @@ export default function Module3Chapter2() {
                     number={3}
                     title="Choose Foods That Store Well"
                     bullets={['Beans and lentils', 'Cooked grains', 'Soups and stews', 'Roasted vegetables', 'Cooked chicken or turkey']}
-                    imageSrc="/images/module-3-chapter-2/item-foods-that-store-well.jpg"
+                    imageSrc={asset('/images/module-3-chapter-2/item-foods-that-store-well.jpg')}
                     imageAlt="Beans being stored in a sealed container"
                   >
                     Some foods work especially well for meal prep. Examples include:
@@ -207,7 +208,7 @@ export default function Module3Chapter2() {
                   <NumberedListItem
                     number={5}
                     title="Label and Date Everything"
-                    imageSrc="/images/module-3-chapter-2/item-label-and-date.jpg"
+                    imageSrc={asset('/images/module-3-chapter-2/item-label-and-date.jpg')}
                     imageAlt="Container labeled with food name and date"
                   >
                     Write the name of the food and the date on the container. This helps you remember what to use

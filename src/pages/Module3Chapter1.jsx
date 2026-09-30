@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
 import ChapterHero from '../components/ChapterHero';
@@ -17,6 +17,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3427:18043 ("Mod-3-Ch-1 — Creating a Meal Plan &
 // Grocery List"). Sidebar's Chapter List Slot mirrors Module3Chapter2.jsx's
@@ -31,7 +32,7 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod3ch1',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 1',
     title: 'Creating a meal plan and aligning with grocery list',
     active: true,
@@ -45,7 +46,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod3ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Efficiency Strategies',
     to: '/module-3-chapter-2',
@@ -60,7 +61,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod3ch3',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Avoiding Food Waste',
     to: '/module-3-chapter-3',
@@ -73,8 +74,8 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'Simple habits to reduce waste', id: 'simple-habits-to-reduce-waste' },
     ],
   },
-  { chapterId: 'mod3ch4', icon: DescriptionRoundedIcon, label: 'Chapter 4', title: 'Meal Planning Tools' },
-  { chapterId: 'mod3ch5', icon: DescriptionRoundedIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
+  { chapterId: 'mod3ch4', icon: ArticleTextIcon, label: 'Chapter 4', title: 'Meal Planning Tools' },
+  { chapterId: 'mod3ch5', icon: ArticleTextIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
   { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection' },
 ];
 
@@ -110,7 +111,7 @@ export default function Module3Chapter1() {
                 eyebrow="Chapter 1"
                 title="Creating a Meal Plan & Grocery List"
                 intro="Learning how to efficiently plan meals and grocery shopping can save you time and money. It also cuts down on food waste and helps you stay healthy."
-                imageSrc="/images/module-3-chapter-1/hero.jpg"
+                imageSrc={asset('/images/module-3-chapter-1/hero.jpg')}
                 imageAlt="Weekly meal plan and grocery list on a kitchen counter"
               />
 
@@ -119,7 +120,7 @@ export default function Module3Chapter1() {
                   <NumberedListItem
                     number={1}
                     title="Plan Meals Before You Shop"
-                    imageSrc="/images/module-3-chapter-1/item-plan-meals-before-you-shop.jpg"
+                    imageSrc={asset('/images/module-3-chapter-1/item-plan-meals-before-you-shop.jpg')}
                     imageAlt="Handwritten grocery list"
                     extra={
                       <>
@@ -149,7 +150,7 @@ export default function Module3Chapter1() {
                   <NumberedListItem
                     number={2}
                     title="Shop Essentials First, Plan Later"
-                    imageSrc="/images/module-3-chapter-1/item-shop-essentials-first.jpg"
+                    imageSrc={asset('/images/module-3-chapter-1/item-shop-essentials-first.jpg')}
                     imageAlt="Seasonal produce on sale at a grocery store"
                     extra={
                       <>
@@ -246,7 +247,7 @@ export default function Module3Chapter1() {
                 </Typography>
                 <Box
                   component="img"
-                  src="/images/module-3-chapter-1/item-meal-preparation.jpg"
+                  src={asset('/images/module-3-chapter-1/item-meal-preparation.jpg')}
                   alt="Prepped ingredients in containers, ready to combine into meals"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />

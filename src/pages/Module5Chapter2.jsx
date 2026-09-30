@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
@@ -20,6 +20,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3430:19106 ("Mod-5-Ch-2 — Enhancing Flavor Through
 // Spices and Herbs"). First page in Module 5, so the Sidebar's Chapter List
@@ -32,10 +33,10 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 // (not attached to a specific list item -- Figma has it as its own
 // Content Slot child after the NumberedList, not nested in item 3).
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod5ch1', icon: DescriptionRoundedIcon, label: 'Chapter 1', title: 'Measuring and portion size techniques' },
+  { chapterId: 'mod5ch1', icon: ArticleTextIcon, label: 'Chapter 1', title: 'Measuring and portion size techniques' },
   {
     chapterId: 'mod5ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Enhancing flavor through spices and herbs',
     active: true,
@@ -50,7 +51,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod5ch3',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Substitutions and experimentation',
     to: '/module-5-chapter-3',
@@ -65,7 +66,7 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod5ch4', icon: DescriptionRoundedIcon, label: 'Chapter 4', title: 'Adapting recipes for cuisine, condition, and taste' },
+  { chapterId: 'mod5ch4', icon: ArticleTextIcon, label: 'Chapter 4', title: 'Adapting recipes for cuisine, condition, and taste' },
   { chapterId: 'mod5-interactive1', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Changing the recipe...' },
   { chapterId: 'mod5-interactive2', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Spices and Herbs Explorer' },
   { chapterId: 'mod5-interactive3', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game Level 3' },
@@ -103,22 +104,22 @@ export default function Module5Chapter2() {
               <ChapterHero
                 eyebrow="Chapter 2"
                 title="Enhancing Flavor Through Spices and Herbs"
-                imageSrc="/images/module-5-chapter-2/hero.jpg"
+                imageSrc={asset('/images/module-5-chapter-2/hero.jpg')}
                 imageAlt="Assorted fresh herbs and ground spices"
               />
 
               <Section id="herbs-vs-spices" title="Herbs vs. Spices: What’s the Difference?" sx={{ pt: 0 }}>
                 <NumberedList>
-                  <NumberedListItem number={1} title="Herbs" imageSrc="/images/module-5-chapter-2/item-herbs.jpg" imageAlt="Fresh green herbs">
+                  <NumberedListItem number={1} title="Herbs" imageSrc={asset('/images/module-5-chapter-2/item-herbs.jpg')} imageAlt="Fresh green herbs">
                     Herbs are the green leaves of a plant. You can use them fresh or dried. Examples: basil, parsley,
                     rosemary, thyme, mint, and cilantro.
                   </NumberedListItem>
-                  <NumberedListItem number={2} title="Spices" imageSrc="/images/module-5-chapter-2/item-spices.jpg" imageAlt="Assorted ground spices">
+                  <NumberedListItem number={2} title="Spices" imageSrc={asset('/images/module-5-chapter-2/item-spices.jpg')} imageAlt="Assorted ground spices">
                     Spices come from other parts of the plant, like the bark, roots, seeds, or berries. They are
                     almost always dried. Drying them makes their flavor stronger and helps them last longer. Examples:
                     cinnamon (bark), ginger (root), black pepper (berries), and cumin (seeds).
                   </NumberedListItem>
-                  <NumberedListItem number={3} title="Seasonings" imageSrc="/images/module-5-chapter-2/item-seasonings.jpg" imageAlt="Blended seasoning mixes">
+                  <NumberedListItem number={3} title="Seasonings" imageSrc={asset('/images/module-5-chapter-2/item-seasonings.jpg')} imageAlt="Blended seasoning mixes">
                     A blend of spices and herbs. You can use a seasoning blend to easily add many flavors to your food
                     at once. Examples: Italian seasoning (basil, oregano, and thyme), taco seasoning (chili powder,
                     cumin, and garlic), and curry powder (turmeric, coriander, and cumin).
@@ -186,7 +187,7 @@ export default function Module5Chapter2() {
                 />
                 <Box
                   component="img"
-                  src="/images/module-5-chapter-2/item-tasty-pairings.jpg"
+                  src={asset('/images/module-5-chapter-2/item-tasty-pairings.jpg')}
                   alt="Caprese salad with basil, tomato, and fresh herbs"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />

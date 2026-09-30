@@ -1,10 +1,44 @@
+import { spiceTokens } from './theme';
+
 // Shared sticky-offset math. GlobalHeader and DashboardBackLink are both
 // sticky (stacked at the top of the viewport); anything else that's sticky
-// further down the page (Sidebar, DashboardDrawer) needs to offset its own
-// `top` past whichever of these bars are present above it, or it slides
-// underneath them as the page scrolls instead of stopping below them.
+// further down the page (Sidebar) needs to offset its own `top` past
+// whichever of these bars are present above it, or it slides underneath them
+// as the page scrolls instead of stopping below them.
 export const HEADER_HEIGHT = 64; // GlobalHeader's AppBar toolbar height
 export const BACKLINK_HEIGHT = 48; // DashboardBackLink bar height (chapter pages only)
+// PageTopBar.jsx: a fixed-height, non-scrolling, PAGE-WIDE bar (the
+// NestNavSwitcher dropdown / "Next Live Session") above the content column
+// on every page that uses this shell (Home, Dashboard, Calendar) --
+// persistent across those pages, not specific to the Modules list the way
+// the old "Hi, Jane!" greeting bar was. A fixed, deliberately-set height
+// (like BACKLINK_HEIGHT) rather than one measured from its own text content,
+// so the flex column below can size itself exactly via calc().
+export const DASHBOARD_GREETING_HEIGHT = 64;
+// Top offset for every page that uses this shell (Home, Dashboard,
+// Calendar) -- the content Container's own `pt`. Used to be shared with
+// DashboardDrawer's own `mt` too (a permanently-visible side nav that sat
+// beside the content column) before that nav moved into PageTopBar's
+// NestNavSwitcher dropdown -- kept as a named constant regardless, since
+// every one of these pages' content still starts at this same offset.
+export const DASHBOARD_CONTENT_PT = 4.5; // 36px
+
+// A super-subtle top-to-bottom gradient for the outermost frame Box on
+// every page that uses this shell (Home, Dashboard, Calendar) -- per direct
+// user direction, slightly darker at the top, easing down to the page's
+// normal flat background color by the bottom of the viewport. Deliberately
+// NOT applied at the global App.jsx/CssBaseline level (see main.jsx) even
+// though that would technically cover these three pages too -- that level
+// also covers every chapter page (Module#Chapter# via Sidebar), which the
+// user didn't ask to change, so this is set directly on each of these three
+// pages' own outer Box instead. `spiceTokens.orange[25]` is one step up
+// from `background.default` (`orange[10]`) on the SAME primitive scale
+// theme.js already uses -- not an arbitrarily chosen darker color -- so the
+// gradient reads as a gentle shading of the existing palette, not a new
+// hue. Percentage-based (0% -> 100% of the box's own height), not a fixed
+// px stop, so it scales correctly regardless of viewport height instead of
+// finishing early (or late) on an unusually short/tall window.
+export const DASHBOARD_SHELL_BACKGROUND = `linear-gradient(180deg, ${spiceTokens.orange[25]} 0%, ${spiceTokens.orange[10]} 100%)`;
 
 // Cascading content widths (all centered on the same axis, widest to
 // narrowest) — deliberately NOT one single column for everything below the

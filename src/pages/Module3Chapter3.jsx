@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
 import ChapterHero from '../components/ChapterHero';
@@ -17,6 +17,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3239:15306 ("Mod-3-Ch-3 — Avoiding Food Waste").
 // "How to store food properly" is a NumberedList of 5 independent food-safety
@@ -32,7 +33,7 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod3ch1',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 1',
     title: 'Creating a meal plan and aligning with grocery list',
     to: '/module-3-chapter-1',
@@ -46,7 +47,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod3ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Efficiency Strategies',
     to: '/module-3-chapter-2',
@@ -61,7 +62,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod3ch3',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Avoiding Food Waste',
     active: true,
@@ -74,8 +75,8 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'Simple habits to reduce waste', id: 'simple-habits-to-reduce-waste' },
     ],
   },
-  { chapterId: 'mod3ch4', icon: DescriptionRoundedIcon, label: 'Chapter 4', title: 'Meal Planning Tools' },
-  { chapterId: 'mod3ch5', icon: DescriptionRoundedIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
+  { chapterId: 'mod3ch4', icon: ArticleTextIcon, label: 'Chapter 4', title: 'Meal Planning Tools' },
+  { chapterId: 'mod3ch5', icon: ArticleTextIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
   { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection' },
 ];
 
@@ -110,7 +111,7 @@ export default function Module3Chapter3() {
               <ChapterHero
                 eyebrow="Chapter 3"
                 title="Avoiding Food Waste"
-                imageSrc="/images/module-3-chapter-3/hero.jpg"
+                imageSrc={asset('/images/module-3-chapter-3/hero.jpg')}
                 imageAlt="Reducing food waste at home"
               />
 
@@ -131,7 +132,7 @@ export default function Module3Chapter3() {
                   <NumberedListItem
                     number={1}
                     title="Follow Storage Instructions"
-                    imageSrc="/images/module-3-chapter-3/item-follow-storage-instructions.jpg"
+                    imageSrc={asset('/images/module-3-chapter-3/item-follow-storage-instructions.jpg')}
                     imageAlt="Following food storage instructions on packaging"
                   >
                     If an item says "Keep Frozen or Keep Refrigerated," follow those instructions to ensure the best
@@ -140,7 +141,7 @@ export default function Module3Chapter3() {
                   <NumberedListItem
                     number={2}
                     title="Keep Foods Properly Sealed"
-                    imageSrc="/images/module-3-chapter-3/item-keep-foods-sealed.jpg"
+                    imageSrc={asset('/images/module-3-chapter-3/item-keep-foods-sealed.jpg')}
                     imageAlt="Food stored in a sealed container"
                   >
                     If the item requires a closed environment, keep it closed in a container.
@@ -148,7 +149,7 @@ export default function Module3Chapter3() {
                   <NumberedListItem
                     number={3}
                     title="Maintain Safe Refrigerator and Freezer Temperatures"
-                    imageSrc="/images/module-3-chapter-3/item-fridge-temp.jpg"
+                    imageSrc={asset('/images/module-3-chapter-3/item-fridge-temp.jpg')}
                     imageAlt="Checking refrigerator temperature"
                   >
                     According to the US EPA, you should keep your refrigerator at 40 degrees Fahrenheit or lower, and
@@ -157,7 +158,7 @@ export default function Module3Chapter3() {
                   <NumberedListItem
                     number={4}
                     title="Refrigerate Leftovers Within 2 Hours"
-                    imageSrc="/images/module-3-chapter-3/item-refrigerate-leftovers.jpg"
+                    imageSrc={asset('/images/module-3-chapter-3/item-refrigerate-leftovers.jpg')}
                     imageAlt="Refrigerating leftovers"
                   >
                     Say you go out with friends to get dinner at a restaurant. You should make sure to put any
@@ -167,7 +168,7 @@ export default function Module3Chapter3() {
                   <NumberedListItem
                     number={5}
                     title='Use the "First In, First Out" Method'
-                    imageSrc="/images/module-3-chapter-3/item-first-in-first-out.jpg"
+                    imageSrc={asset('/images/module-3-chapter-3/item-first-in-first-out.jpg')}
                     imageAlt="Organizing pantry items using first in, first out"
                   >
                     The FDA also recommends using the "first in, first out" method, which means to eat your older
@@ -191,7 +192,7 @@ export default function Module3Chapter3() {
                 </Typography>
                 <Box
                   component="img"
-                  src="/images/module-3-chapter-3/item-date-labels.jpg"
+                  src={asset('/images/module-3-chapter-3/item-date-labels.jpg')}
                   alt="Checking the best-by date on a package"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -216,7 +217,7 @@ export default function Module3Chapter3() {
                 </Typography>
                 <Box
                   component="img"
-                  src="/images/module-3-chapter-3/item-good-bulk-foods.jpg"
+                  src={asset('/images/module-3-chapter-3/item-good-bulk-foods.jpg')}
                   alt="Canned foods that store well when bought in bulk"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -234,7 +235,7 @@ export default function Module3Chapter3() {
                 </Typography>
                 <Box
                   component="img"
-                  src="/images/module-3-chapter-3/item-bad-bulk-foods.jpg"
+                  src={asset('/images/module-3-chapter-3/item-bad-bulk-foods.jpg')}
                   alt="Fruit that has spoiled from being bought in bulk and not used in time"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />

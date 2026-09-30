@@ -29,6 +29,22 @@ export function markChapterViewed(chapterId) {
   window.dispatchEvent(new CustomEvent(EVENT_NAME));
 }
 
+// Wipes every "viewed" flag back to a fresh-learner state -- added as a
+// testing affordance (GlobalHeader's "Jane Doe" menu) so it's easy to flip
+// between "initial state" and "in-progress" without manually clearing
+// localStorage via devtools. Dispatches the same event `markChapterViewed`
+// does, so every consumer (Home's "Get Started"/"Dive Back In" card,
+// Dashboard's module rows, every chapter Sidebar's unviewed dots) re-renders
+// immediately, not just on next reload.
+export function resetViewedChapters() {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (e) {
+    /* localStorage unavailable — fail silently */
+  }
+  window.dispatchEvent(new CustomEvent(EVENT_NAME));
+}
+
 export function useViewedChapters() {
   const [viewed, setViewed] = useState(readViewed);
 
@@ -44,5 +60,5 @@ export function useViewedChapters() {
 
   const isViewed = useCallback((chapterId) => !!viewed[chapterId], [viewed]);
 
-  return { isViewed, markViewed: markChapterViewed };
+  return { isViewed, markViewed: markChapterViewed, resetViewed: resetViewedChapters };
 }

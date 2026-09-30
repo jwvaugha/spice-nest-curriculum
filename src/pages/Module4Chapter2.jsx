@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import AttachmentRoundedIcon from '@mui/icons-material/AttachmentRounded';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
@@ -19,6 +19,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3154:14345 ("Mod-4-Ch-2 — Seasonal and Ethnic
 // Markets"). First page in Module 4, so the Sidebar's Chapter List Slot is
@@ -40,10 +41,10 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 // Seasonal and Ethnic Markets -- omitted rather than propagated. Flag for a
 // follow-up pass once real references for this chapter are available.
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod4ch1', icon: DescriptionRoundedIcon, label: 'Chapter 1', title: 'Navigating the Grocery Store' },
+  { chapterId: 'mod4ch1', icon: ArticleTextIcon, label: 'Chapter 1', title: 'Navigating the Grocery Store' },
   {
     chapterId: 'mod4ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Seasonal and Ethnic Markets',
     active: true,
@@ -59,7 +60,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod4ch3',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Grocery Shopping With Limited Resources',
     to: '/module-4-chapter-3',
@@ -73,7 +74,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod4ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: 'Budgeting',
     to: '/module-4-chapter-4',
@@ -122,7 +123,7 @@ export default function Module4Chapter2() {
               <ChapterHero
                 eyebrow="Chapter 2"
                 title="Seasonal and Ethnic Markets"
-                imageSrc="/images/module-4-chapter-2/hero.jpg"
+                imageSrc={asset('/images/module-4-chapter-2/hero.jpg')}
                 imageAlt="Outdoor farmers market with fresh produce stalls"
               />
 
@@ -145,7 +146,7 @@ export default function Module4Chapter2() {
                   <NumberedListItem
                     number={1}
                     title="Spring"
-                    imageSrc="/images/module-4-chapter-2/item-spring.jpg"
+                    imageSrc={asset('/images/module-4-chapter-2/item-spring.jpg')}
                     imageAlt="Fresh radishes"
                   >
                     In season: Leafy greens, radishes, strawberries.
@@ -153,7 +154,7 @@ export default function Module4Chapter2() {
                   <NumberedListItem
                     number={2}
                     title="Summer"
-                    imageSrc="/images/module-4-chapter-2/item-summer.jpg"
+                    imageSrc={asset('/images/module-4-chapter-2/item-summer.jpg')}
                     imageAlt="Fresh peaches"
                   >
                     In season: Strawberries, tomatoes, corn, and peaches.
@@ -161,7 +162,7 @@ export default function Module4Chapter2() {
                   <NumberedListItem
                     number={3}
                     title="Fall"
-                    imageSrc="/images/module-4-chapter-2/item-fall.jpg"
+                    imageSrc={asset('/images/module-4-chapter-2/item-fall.jpg')}
                     imageAlt="Fresh squash"
                   >
                     In season: Apples, carrots, sweet potatoes, squash.
@@ -169,7 +170,7 @@ export default function Module4Chapter2() {
                   <NumberedListItem
                     number={4}
                     title="Winter"
-                    imageSrc="/images/module-4-chapter-2/item-winter.jpg"
+                    imageSrc={asset('/images/module-4-chapter-2/item-winter.jpg')}
                     imageAlt="Fresh citrus fruit"
                   >
                     In season: Citrus fruits, cabbage, winter squash.
@@ -192,7 +193,7 @@ export default function Module4Chapter2() {
                 </Typography>
                 <Box
                   component="img"
-                  src="/images/module-4-chapter-2/item-ethnic-markets.jpg"
+                  src={asset('/images/module-4-chapter-2/item-ethnic-markets.jpg')}
                   alt="Shelves of goods in an international grocery store"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -222,7 +223,7 @@ export default function Module4Chapter2() {
                 />
                 <Box
                   component="img"
-                  src="/images/module-4-chapter-2/item-why-seasonal.jpg"
+                  src={asset('/images/module-4-chapter-2/item-why-seasonal.jpg')}
                   alt="Farmers market produce stand"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -242,7 +243,7 @@ export default function Module4Chapter2() {
                 />
                 <Box
                   component="img"
-                  src="/images/module-4-chapter-2/item-why-ethnic.jpg"
+                  src={asset('/images/module-4-chapter-2/item-why-ethnic.jpg')}
                   alt="Shelves of goods in an Indonesian grocery store"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />

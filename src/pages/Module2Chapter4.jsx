@@ -1,8 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
@@ -18,6 +17,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3214:14890 ("Mod-2-Ch-4 — Alternative Approaches to
 // Managing Diabetes"). "Change Your Meal Order" uses SequenceTimeline (built
@@ -29,7 +29,7 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod2ch1',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 1',
     title: 'Basics of Diabetes',
     to: '/module-2-chapter-1',
@@ -45,7 +45,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Managing diabetes through diet',
     to: '/module-2-chapter-2',
@@ -59,7 +59,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Alternative approaches to managing diabetes',
     active: true,
@@ -74,7 +74,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod2ch5',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: "Medication and diet: what's the relationship?",
     to: '/module-2-chapter-5',
@@ -85,9 +85,8 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod2-video', icon: VideocamRoundedIcon, label: 'Video', title: 'South Asian expert dietitian video clip on diabetes' },
-  { chapterId: 'mod2-infographic', icon: DescriptionRoundedIcon, label: 'Text / Infographic', title: 'Diabetes factsheet' },
-  { chapterId: 'mod2-text', icon: DescriptionRoundedIcon, label: 'Text', title: 'South Asian diabetes myths and facts' },
+  { chapterId: 'mod2-infographic', icon: ArticleTextIcon, label: 'Text / Infographic', title: 'Diabetes factsheet' },
+  { chapterId: 'mod2-text', icon: ArticleTextIcon, label: 'Text', title: 'South Asian diabetes myths and facts' },
   { chapterId: 'mod2-interactive', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game lvl 2' },
   { chapterId: 'mod2-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 2 Reflection' },
 ];
@@ -123,7 +122,7 @@ export default function Module2Chapter4() {
               <ChapterHero
                 eyebrow="Chapter 3"
                 title="Alternative Approaches to Managing Diabetes"
-                imageSrc="/images/module-2-chapter-4/hero.jpg"
+                imageSrc={asset('/images/module-2-chapter-4/hero.jpg')}
                 imageAlt="Assorted healthy foods and daily habits that support blood sugar management"
               />
 
@@ -157,7 +156,7 @@ export default function Module2Chapter4() {
                 />
                 <Box
                   component="img"
-                  src="/images/module-2-chapter-4/item-stay-hydrated.jpg"
+                  src={asset('/images/module-2-chapter-4/item-stay-hydrated.jpg')}
                   alt="Glass water bottle with cucumber and lemon slices"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -177,7 +176,7 @@ export default function Module2Chapter4() {
                 />
                 <Box
                   component="img"
-                  src="/images/module-2-chapter-4/item-move-your-body.jpg"
+                  src={asset('/images/module-2-chapter-4/item-move-your-body.jpg')}
                   alt="Older adult taking a light walk outdoors"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -196,7 +195,7 @@ export default function Module2Chapter4() {
                 />
                 <Box
                   component="img"
-                  src="/images/module-2-chapter-4/item-sleep-schedule.jpg"
+                  src={asset('/images/module-2-chapter-4/item-sleep-schedule.jpg')}
                   alt="Bedside clock and calm bedroom setting for a consistent sleep schedule"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />

@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
@@ -16,24 +16,29 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
-const CODE_SX = { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: '0.9em', bgcolor: 'action.hover', px: 0.75, py: 0.15, borderRadius: 1 };
 
 // Built from Figma node 3392:17695 ("Mod-1-Ch-1 — Why Diet Matters"), NEST
-// Prototype page. No hero photo and no per-item photos exist in the real
-// Figma source (confirmed directly via use_figma -- zero Image instances
-// anywhere in Body Content), matching CLAUDE.md's note that most of this
-// chapter's imagery is Figma's own shared generic-filler hash rather than
-// real content -- so this page carries none, rather than inventing photos
-// or leaving "Photo needed" placeholders for slots that don't exist in the
-// source at all. Third page in Module 1 (after Module1Chapter2.jsx and
+// Prototype page. No per-item photos exist anywhere in the real Figma
+// source (confirmed directly via use_figma -- zero Image instances in Body
+// Content), matching CLAUDE.md's note that most of this chapter's imagery
+// is Figma's own shared generic-filler hash rather than real content -- so
+// the body content carries none, rather than inventing photos or leaving
+// "Photo needed" placeholders for slots that don't exist in the source at
+// all. The hero photo (added 2026-09-24) is the one exception -- Figma
+// never had a hero Image slot for this chapter either, but a real photo
+// showed up in the local `Chapter Content/Images/Module 1/Chapter 1/`
+// drop-folder, same pattern as Module1Chapter5's hero (sourced locally,
+// independent of Figma's own image slots). Third page in Module 1 (after
+// Module1Chapter2.jsx and
 // Module1Chapter5.jsx), reusing Module1Chapter2.jsx's SIDEBAR_ITEM_DEFS as
 // the base with Chapter 1 now active/expanded and Chapters 2 and 5 demoted
 // to cross-linked previews.
 const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod1ch1',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 1',
     title: 'Why Diet Matters',
     active: true,
@@ -44,16 +49,16 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod1ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Food Groups',
     to: '/module-1-chapter-2',
     sections: [{ label: 'Food Groups', id: 'food-groups' }],
   },
-  { chapterId: 'mod1ch4', icon: DescriptionRoundedIcon, label: 'Chapter 3', title: 'The Nutrition Facts Label' },
+  { chapterId: 'mod1ch4', icon: ArticleTextIcon, label: 'Chapter 3', title: 'The Nutrition Facts Label' },
   {
     chapterId: 'mod1ch5',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: 'Common Food Myths vs. Facts',
     to: '/module-1-chapter-5',
@@ -139,13 +144,8 @@ export default function Module1Chapter1() {
               <ChapterHero
                 eyebrow="Chapter 1"
                 title="Why Diet Matters"
-                placeholderNote={
-                  <>
-                    Hero photo needed — drop a file named{' '}
-                    <Box component="code" sx={CODE_SX}>hero.jpg</Box> into{' '}
-                    <Box component="code" sx={CODE_SX}>public/images/module-1-chapter-1/</Box>
-                  </>
-                }
+                imageSrc={asset('/images/module-1-chapter-1/hero.jpg')}
+                imageAlt="Seniors cooking a meal together"
               />
 
               <Section id="why-diet-matters-in-the-short-term" title="Why Diet Matters in the Short Term" sx={{ pt: 0 }}>

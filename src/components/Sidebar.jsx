@@ -18,9 +18,13 @@ import ChapterMenuItem from './ChapterMenuItem';
 // that scroll via its own position: sticky (relative to THIS box's own
 // scrollport, unrelated to the page-level sticky header/back-link bars).
 // 308px is the real Figma "Sidebar" component width (node 3139:13139),
-// not an eyeballed round number — DashboardDrawer's equivalent "Dashboard
-// Nav Drawer" component is genuinely 320px in Figma, so the two aren't
-// meant to match despite both being "the app's left nav panel."
+// not an eyeballed round number — Figma's equivalent "Dashboard Nav Drawer"
+// component is genuinely 320px, so the two aren't meant to match despite
+// both being "the app's left nav panel" (the Dashboard Nav Drawer's own
+// on-screen nav has since moved into PageTopBar's NestNavSwitcher dropdown
+// instead of a standing side panel — see NestNavSwitcher.jsx — but its
+// Figma width is still the reference point this 308 is deliberately NOT
+// matching).
 export default function Sidebar({ moduleNumber, moduleTitle, items, width = 308 }) {
   const [openId, setOpenId] = useState(() => items.find((i) => i.active && i.sections)?.chapterId ?? null);
 

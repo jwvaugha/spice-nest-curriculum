@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import AttachmentRoundedIcon from '@mui/icons-material/AttachmentRounded';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
@@ -20,6 +20,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3287:33831 ("Mod-4-Ch-3 — Grocery Shopping With
 // Limited Resources"). First page in Module 4, so the Sidebar's Chapter
@@ -38,10 +39,10 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 // already has in Figma (built earlier this session) -- Show Eyebrow is off
 // there, so no eyebrow prop here either.
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod4ch1', icon: DescriptionRoundedIcon, label: 'Chapter 1', title: 'Navigating the Grocery Store' },
+  { chapterId: 'mod4ch1', icon: ArticleTextIcon, label: 'Chapter 1', title: 'Navigating the Grocery Store' },
   {
     chapterId: 'mod4ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Seasonal and Ethnic Markets',
     to: '/module-4-chapter-2',
@@ -57,7 +58,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod4ch3',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Grocery Shopping With Limited Resources',
     active: true,
@@ -71,7 +72,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod4ch4',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: 'Budgeting',
     to: '/module-4-chapter-4',
@@ -148,7 +149,7 @@ export default function Module4Chapter3() {
               <ChapterHero
                 eyebrow="Chapter 3"
                 title="Grocery Shopping With Limited Resources"
-                imageSrc="/images/module-4-chapter-3/hero.jpg"
+                imageSrc={asset('/images/module-4-chapter-3/hero.jpg')}
                 imageAlt="Older adult carrying groceries"
               />
 
@@ -156,7 +157,7 @@ export default function Module4Chapter3() {
                 <ProgramUnit
                   title="SNAP (Supplemental Nutrition Assistance Program)"
                   links={['SNAP', 'IDHS']}
-                  imageSrc="/images/module-4-chapter-3/item-snap.jpg"
+                  imageSrc={asset('/images/module-4-chapter-3/item-snap.jpg')}
                   imageAlt="SNAP program welcome materials"
                 >
                   The largest food assistance program in the U.S. It helps people and families with low incomes pay
@@ -166,7 +167,7 @@ export default function Module4Chapter3() {
                 <ProgramUnit
                   title="Double Up Food Bucks (known as Link Match in Illinois)"
                   links={['Double Up Food Bucks', 'Link Match']}
-                  imageSrc="/images/module-4-chapter-3/item-link-match.jpg"
+                  imageSrc={asset('/images/module-4-chapter-3/item-link-match.jpg')}
                   imageAlt="Illinois Link Match farmers market sign"
                 >
                   Helps SNAP users buy more fresh produce. At participating farmers markets and grocery stores, your
@@ -175,7 +176,7 @@ export default function Module4Chapter3() {
                 <ProgramUnit
                   title="WIC (Women, Infants, and Children)"
                   links={['WIC']}
-                  imageSrc="/images/module-4-chapter-3/item-wic.jpg"
+                  imageSrc={asset('/images/module-4-chapter-3/item-wic.jpg')}
                   imageAlt="WIC program materials"
                 >
                   Provides healthy foods and nutrition support for pregnant women, new mothers, infants, and young
@@ -184,7 +185,7 @@ export default function Module4Chapter3() {
                 <ProgramUnit
                   title="Commodity Supplemental Food Program (CSFP)"
                   links={['CSFP']}
-                  imageSrc="/images/module-4-chapter-3/item-csfp.jpg"
+                  imageSrc={asset('/images/module-4-chapter-3/item-csfp.jpg')}
                   imageAlt="CSFP senior food box program materials"
                 >
                   Also called the "senior food box program." Provides free monthly boxes of healthy foods to adults
@@ -211,7 +212,7 @@ export default function Module4Chapter3() {
                 </Typography>
                 <Box
                   component="img"
-                  src="/images/module-4-chapter-3/item-food-banks.jpg"
+                  src={asset('/images/module-4-chapter-3/item-food-banks.jpg')}
                   alt="Regional food bank"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />
@@ -225,7 +226,7 @@ export default function Module4Chapter3() {
                 <ProgramLinks labels={['C-U Public Health District Food Resources']} />
                 <Box
                   component="img"
-                  src="/images/module-4-chapter-3/item-food-pantries.jpg"
+                  src={asset('/images/module-4-chapter-3/item-food-pantries.jpg')}
                   alt="Local food pantry shelves"
                   sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
                 />

@@ -1,7 +1,9 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import GlobalHeader from './components/GlobalHeader';
+import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import Calendar from './pages/Calendar';
 import Module1Chapter1 from './pages/Module1Chapter1';
 import Module1Chapter2 from './pages/Module1Chapter2';
 import Module1Chapter5 from './pages/Module1Chapter5';
@@ -29,8 +31,9 @@ export default function App() {
       <GlobalHeader />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/calendar" element={<Calendar />} />
         <Route path="/module-1-chapter-1" element={<Module1Chapter1 />} />
         <Route path="/module-1-chapter-2" element={<Module1Chapter2 />} />
         <Route path="/module-1-chapter-5" element={<Module1Chapter5 />} />

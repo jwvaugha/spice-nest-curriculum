@@ -18,8 +18,14 @@ const LABEL_WIDTH = 160;
 // Examples) where rows carry no shared attribute name.
 export default function ComparisonTable({ columnAHeader, columnBHeader, showRowLabel = false, rows }) {
   return (
-    <Box sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1, overflow: 'hidden' }}>
-      <Stack direction="row" sx={{ bgcolor: (theme) => alpha(theme.palette.divider, 0.15) }}>
+    // overflowX: 'auto' is a narrow-viewport safety net -- the label column
+    // plus two flex:1 data columns can only shrink so far before real
+    // content (e.g. a full sentence per cell) gets uncomfortably cramped;
+    // this lets the table scroll horizontally within its own box instead of
+    // squeezing the page or wrapping every word, without changing anything
+    // about how it looks at a normal content-column width.
+    <Box sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1, overflow: 'hidden', overflowX: 'auto' }}>
+      <Stack direction="row" sx={{ bgcolor: (theme) => alpha(theme.palette.divider, 0.15), minWidth: 480 }}>
         {showRowLabel && <Box sx={{ width: LABEL_WIDTH, flexShrink: 0, px: 2, py: 1.5 }} />}
         <Box sx={{ flex: 1, minWidth: 0, px: 2, py: 1.5 }}>
           <Typography variant="h6">{columnAHeader}</Typography>
@@ -32,7 +38,7 @@ export default function ComparisonTable({ columnAHeader, columnBHeader, showRowL
         <Stack
           key={i}
           direction="row"
-          sx={i < rows.length - 1 ? { borderBottom: '1px solid', borderColor: 'divider' } : undefined}
+          sx={{ minWidth: 480, ...(i < rows.length - 1 ? { borderBottom: '1px solid', borderColor: 'divider' } : null) }}
         >
           {showRowLabel && (
             <Box sx={{ width: LABEL_WIDTH, flexShrink: 0, px: 2, py: 1.5 }}>

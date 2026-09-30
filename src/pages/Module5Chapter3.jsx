@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
@@ -18,22 +18,25 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
-const CODE_SX = { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: '0.9em', bgcolor: 'action.hover', px: 0.75, py: 0.15, borderRadius: 1 };
 
 // Built from Figma node 3431:19489 ("Mod-5-Ch-3 — Substitutions and
 // Experimentation"), NEST Prototype page. Two real ComparisonTable uses
 // (Cooking Methods, Food Swap) -- both row-paired, no row label, matching
 // this session's own audit of these exact tables against their source Word
 // doc. Only one Image exists anywhere in this chapter's real Figma content
-// (in "Try Plant-Based Swaps") and it has no real imageHash (still a
-// placeholder in Figma itself, no local drop-folder for this chapter
-// either) -- left as a placeholder, not fabricated.
+// (in "Try Plant-Based Swaps") -- originally left as a placeholder (no real
+// imageHash, no local drop-folder), both since resolved 2026-09-24: Figma
+// got a real photo for that slot, and a matching local hero + item photo
+// (Cooking-solo-hero.jpeg, plant-based-cauliflower.jpeg) landed in
+// `Chapter Content/Images/Module 5/Chapter 3/` around the same time --
+// sourced locally per the standing local-over-Figma-reexport preference.
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod5ch1', icon: DescriptionRoundedIcon, label: 'Chapter 1', title: 'Measuring and portion size techniques' },
+  { chapterId: 'mod5ch1', icon: ArticleTextIcon, label: 'Chapter 1', title: 'Measuring and portion size techniques' },
   {
     chapterId: 'mod5ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Enhancing flavor through spices and herbs',
     to: '/module-5-chapter-2',
@@ -48,7 +51,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod5ch3',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 3',
     title: 'Substitutions and experimentation',
     active: true,
@@ -63,7 +66,7 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod5ch4', icon: DescriptionRoundedIcon, label: 'Chapter 4', title: 'Adapting recipes for cuisine, condition, and taste' },
+  { chapterId: 'mod5ch4', icon: ArticleTextIcon, label: 'Chapter 4', title: 'Adapting recipes for cuisine, condition, and taste' },
   { chapterId: 'mod5-interactive1', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Changing the recipe...' },
   { chapterId: 'mod5-interactive2', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Spices and Herbs Explorer' },
   { chapterId: 'mod5-interactive3', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game Level 3' },
@@ -102,13 +105,8 @@ export default function Module5Chapter3() {
                 eyebrow="Chapter 3"
                 title="Substitutions and Experimentation"
                 intro="Trying new foods or cooking methods can help you use what you already have, save money, and enjoy new flavors."
-                placeholderNote={
-                  <>
-                    Hero photo needed — drop a file named{' '}
-                    <Box component="code" sx={CODE_SX}>hero.jpg</Box> into{' '}
-                    <Box component="code" sx={CODE_SX}>public/images/module-5-chapter-3/</Box>
-                  </>
-                }
+                imageSrc={asset('/images/module-5-chapter-3/hero.jpg')}
+                imageAlt="Cooking a meal solo in the kitchen"
               />
 
               <Section id="why-try-new-things" title="Why Try New Things?" sx={{ pt: 0 }}>
@@ -207,23 +205,11 @@ export default function Module5Chapter3() {
                 />
                 <Typography>Choose foods that fit your taste, culture, and health needs.</Typography>
                 <Box
-                  sx={{
-                    width: '100%',
-                    aspectRatio: '16/10',
-                    borderRadius: 1.5,
-                    border: '1px dashed',
-                    borderColor: 'divider',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    color: 'text.secondary',
-                    fontSize: 12,
-                    px: 1.5,
-                  }}
-                >
-                  Photo needed — <Box component="code" sx={CODE_SX}>item-plant-based-swaps.jpg</Box>
-                </Box>
+                  component="img"
+                  src={asset('/images/module-5-chapter-3/item-plant-based-swaps.jpg')}
+                  alt="Cauliflower and other plant-based ingredients"
+                  sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
+                />
               </Section>
 
               <SectionDivider />

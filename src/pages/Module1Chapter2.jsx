@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import SectionDivider from '../components/SectionDivider';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ArticleTextIcon from '../components/ArticleTextIcon';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
@@ -16,6 +16,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3457:29392 ("Mod-1-Ch-2 — Food Groups"). One flat
 // numbered list (no distinct titled sub-sections) — per the established
@@ -27,7 +28,7 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod1ch1',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 1',
     title: 'Why Diet Matters',
     to: '/module-1-chapter-1',
@@ -38,16 +39,16 @@ const SIDEBAR_ITEM_DEFS = [
   },
   {
     chapterId: 'mod1ch2',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 2',
     title: 'Food Groups',
     active: true,
     sections: [{ label: 'Food Groups', id: 'food-groups' }],
   },
-  { chapterId: 'mod1ch4', icon: DescriptionRoundedIcon, label: 'Chapter 3', title: 'The Nutrition Facts Label' },
+  { chapterId: 'mod1ch4', icon: ArticleTextIcon, label: 'Chapter 3', title: 'The Nutrition Facts Label' },
   {
     chapterId: 'mod1ch5',
-    icon: DescriptionRoundedIcon,
+    icon: ArticleTextIcon,
     label: 'Chapter 4',
     title: 'Common Food Myths vs. Facts',
     to: '/module-1-chapter-5',
@@ -60,42 +61,42 @@ const SIDEBAR_ITEM_DEFS = [
 const FOOD_GROUPS = [
   {
     title: 'Protein Foods',
-    imageSrc: '/images/module-1-chapter-2/item-protein-foods.jpg',
+    imageSrc: asset('/images/module-1-chapter-2/item-protein-foods.jpg'),
     imageAlt: 'Raw chicken breast, eggs, and a bowl of lentils',
     body: 'Animal and plant-based protein foods include meat, poultry, eggs, seafood, beans, peas, lentils, legumes, nuts, seeds, and soy.',
     tip: '3 oz cooked meat, poultry, or seafood, 1 egg, half cup beans, peas, or lentils, 1 oz nuts or seeds, 2 tablespoon nut or seed butter, 3 oz soy.',
   },
   {
     title: 'Dairy',
-    imageSrc: '/images/module-1-chapter-2/item-dairy.jpg',
+    imageSrc: asset('/images/module-1-chapter-2/item-dairy.jpg'),
     imageAlt: 'Stacked blocks of cheese',
     body: 'Dairy includes whole, reduced-fat, low-fat, or nonfat dairy products, including fluid, dry, or evaporated milk, yogurt, cheese. Lactose-free or reduced options and fortified dairy alternatives are also included.',
     tip: '1 cup milk, ¾ cup yogurt, 1 oz cheese.',
   },
   {
     title: 'Vegetables',
-    imageSrc: '/images/module-1-chapter-2/item-vegetables.jpg',
+    imageSrc: asset('/images/module-1-chapter-2/item-vegetables.jpg'),
     imageAlt: 'Assorted fresh vegetables, including sweet potato and peppers',
     body: 'Vegetables include all types such as dark green, red/orange, starchy, beans, peas, lentils, legumes, and other vegetables which may be fresh, frozen, or canned, cooked or raw.',
     tip: '1 cup raw or cooked; 2 cups leafy greens.',
   },
   {
     title: 'Fruits',
-    imageSrc: '/images/module-1-chapter-2/item-fruits.jpg',
+    imageSrc: asset('/images/module-1-chapter-2/item-fruits.jpg'),
     imageAlt: 'Fresh fruit stand with watermelon and assorted fruits',
     body: 'Fruits include all types such as fresh, frozen, canned, juiced, dried.',
     tip: '1 cup raw, half cup dried.',
   },
   {
     title: 'Whole Grains',
-    imageSrc: '/images/module-1-chapter-2/item-whole-grains.jpg',
+    imageSrc: asset('/images/module-1-chapter-2/item-whole-grains.jpg'),
     imageAlt: 'Loaves of whole grain bread with wheat stalks',
     body: 'Whole grain includes whole grain foods and products made with whole grains such as breads and cereals.',
     tip: 'Half cup cooked oats, brown rice, barley, quinoa or buckwheat. 1 slice bread, 1 tortilla.',
   },
   {
     title: 'Healthy Fats',
-    imageSrc: '/images/module-1-chapter-2/item-healthy-fats.jpg',
+    imageSrc: asset('/images/module-1-chapter-2/item-healthy-fats.jpg'),
     imageAlt: 'Bottle of olive oil',
     body: 'Healthy fats are naturally present in many whole foods, small amounts may also be used in cooking or added to meals.',
     tip: '1 teaspoon olive oil or butter.',
@@ -137,7 +138,7 @@ export default function Module1Chapter2() {
                 eyebrow="Chapter 2"
                 title="Food Groups"
                 intro="Food groups help organize foods by the main nutrients they provide. This section is a quick general guide to what each food group includes."
-                imageSrc="/images/module-1-chapter-2/hero.jpg"
+                imageSrc={asset('/images/module-1-chapter-2/hero.jpg')}
                 imageAlt="Assorted colorful fruits and vegetables"
               />
 
