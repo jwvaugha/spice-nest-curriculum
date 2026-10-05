@@ -75,7 +75,7 @@ export const MODULES = [
       { chapterId: 'mod5ch1', label: 'Chapter 1', title: 'Measuring and Portion Size Techniques', to: null },
       { chapterId: 'mod5ch2', label: 'Chapter 2', title: 'Enhancing Flavor Through Spices and Herbs', to: '/module-5-chapter-2' },
       { chapterId: 'mod5ch3', label: 'Chapter 3', title: 'Substitutions and Experimentation', to: '/module-5-chapter-3' },
-      { chapterId: 'mod5ch4', label: 'Chapter 4', title: 'Adapting Recipes for Cuisine, Condition, and Taste', to: null },
+      { chapterId: 'mod5ch4', label: 'Chapter 4', title: 'Adapting Recipes for Cuisine, Condition, and Taste', to: '/module-5-chapter-4' },
     ],
   },
   {

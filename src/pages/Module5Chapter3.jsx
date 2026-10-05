@@ -66,7 +66,19 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'References', id: 'references' },
     ],
   },
-  { chapterId: 'mod5ch4', icon: ArticleTextIcon, label: 'Chapter 4', title: 'Adapting recipes for cuisine, condition, and taste' },
+  {
+    chapterId: 'mod5ch4',
+    icon: ArticleTextIcon,
+    label: 'Chapter 4',
+    title: 'Adapting recipes for cuisine, condition, and taste',
+    to: '/module-5-chapter-4',
+    sections: [
+      { label: 'Match Your Culture and Traditions', id: 'match-your-culture-and-traditions' },
+      { label: 'Cook for Specific Health Needs', id: 'cook-for-specific-health-needs' },
+      { label: 'Adjust for Personal Taste', id: 'adjust-for-personal-taste' },
+      { label: 'Key Messages', id: 'key-messages' },
+    ],
+  },
   { chapterId: 'mod5-interactive1', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Changing the recipe...' },
   { chapterId: 'mod5-interactive2', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Spices and Herbs Explorer' },
   { chapterId: 'mod5-interactive3', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game Level 3' },
@@ -285,7 +297,7 @@ export default function Module5Chapter3() {
             </Box>
           </Box>
 
-          <ChapterFooter to="/module-6-chapter-2" chapterId="mod5ch3" label="Continue to Next Module" reachedEnd={reachedEnd} />
+          <ChapterFooter to="/module-5-chapter-4" chapterId="mod5ch3" reachedEnd={reachedEnd} />
         </Box>
       </Box>
     </>
