@@ -4,9 +4,29 @@ import Typography from '@mui/material/Typography';
 import TipExample from './TipExample';
 import BulletedList from './BulletedList';
 import { TEXT_MAX_WIDTH, LIST_ITEM_PB, LIST_ITEM_CONTENT_PT, LIST_ITEM_CONTENT_GAP } from '../layoutConstants';
+import { useRevealOnScroll, revealSx } from '../hooks/useRevealOnScroll';
 
 const BADGE_SIZE = 32;
 const BADGE_GAP = 20; // List Item's own real itemSpacing (badge -> content)
+
+// Fade-in-on-scroll Rule 2: a list item only gets its OWN individual reveal
+// (escalating out of its parent Section's whole-block batch) when it
+// carries a photo -- that's the single "is this a substantial visual
+// block worth pausing on" signal, not an item-count threshold. A plain-text
+// item (no imageSrc/placeholderNote) renders with no ref/opacity of its own
+// at all and just inherits whatever its ancestor Section's fade already
+// resolved to -- nesting an unconditional per-item opacity under an
+// already-fully-visible Section ancestor would be harmless (CSS opacity
+// composes down the tree), but skipping it entirely for text-only items is
+// simpler and avoids firing an observer per item for content that was
+// never meant to animate individually.
+//
+// Delay is a light stagger (70ms per position, capped at 5 items' worth)
+// so a run of several photo items that happen to enter the viewport
+// together cascades in rather than popping in all at once -- capped so a
+// very long list's later items don't feel like they're waiting on a queue.
+const STAGGER_STEP_MS = 70;
+const STAGGER_MAX_STEPS = 5;
 
 // A list item's photo is exactly as wide as its own description
 // paragraph — a sibling inside the SAME flex:1 text column, not a
@@ -45,9 +65,17 @@ const BADGE_GAP = 20; // List Item's own real itemSpacing (badge -> content)
 // see layoutConstants.js). This is exactly what "component owns its own
 // slot spacing" means: this file is the only place either number lives.
 export default function NumberedListItem({ number, title, children, bullets, extra, imageSrc, imageAlt, placeholderNote, tip, tipLabel = 'Serving Size Examples' }) {
+  const hasImage = Boolean(imageSrc || placeholderNote);
+  // Always called (rules of hooks) -- the hook itself no-ops harmlessly if
+  // `ref` never gets attached to a DOM node (the plain-text, no-escalation
+  // branch below).
+  const [ref, visible] = useRevealOnScroll();
+  const revealProps = hasImage
+    ? { ref, sx: { maxWidth: TEXT_MAX_WIDTH, mx: 'auto', ...revealSx(visible, Math.min(number - 1, STAGGER_MAX_STEPS) * STAGGER_STEP_MS) } }
+    : { sx: { maxWidth: TEXT_MAX_WIDTH, mx: 'auto' } };
   return (
     <Box sx={{ pb: LIST_ITEM_PB }}>
-      <Box sx={{ maxWidth: TEXT_MAX_WIDTH, mx: 'auto' }}>
+      <Box {...revealProps}>
         <Stack direction="row" spacing={`${BADGE_GAP}px`} sx={{ alignItems: 'flex-start' }}>
           <Box
             sx={{
@@ -103,7 +131,36 @@ export default function NumberedListItem({ number, title, children, bullets, ext
                 {placeholderNote}
               </Box>
             ) : null}
-            {tip && <TipExample label={tipLabel}>{tip}</TipExample>}
+            {/* A tip directly after a full-width photo wants noticeably
+                more clearance than TipExample's own default (which is
+                tuned for following a line of text) -- per direct user
+                feedback, a large photo reads as its own visual block, and
+                the badge immediately below it at the default spacing felt
+                cramped against it.
+                Passing extra spacing via TipExample's own `sx` prop does
+                NOT work here, confirmed live: this `Stack`'s `spacing`
+                prop applies margin-top to its direct children via a
+                `:not(style) ~ :not(style)` sibling-combinator rule, whose
+                specificity beats a plain per-instance `sx`-generated
+                class, so TipExample's own override was silently discarded
+                (computed margin-top stayed 24px regardless of what was
+                passed). Wrapping the tip in an extra Box instead sidesteps
+                the fight entirely: the Box (not TipExample) is now this
+                Stack's direct child and absorbs its 24px as before,
+                while TipExample becomes a GRANDCHILD -- no longer a target
+                of that rule at all -- so its own default 24px margin
+                applies cleanly on top, composing to a real 48px total.
+                Only wrapped when there's a preceding image/placeholder; a
+                tip following text/bullets stays a direct child and keeps
+                the normal 24px default. */}
+            {tip &&
+              (imageSrc || placeholderNote ? (
+                <Box>
+                  <TipExample label={tipLabel}>{tip}</TipExample>
+                </Box>
+              ) : (
+                <TipExample label={tipLabel}>{tip}</TipExample>
+              ))}
           </Stack>
         </Stack>
       </Box>

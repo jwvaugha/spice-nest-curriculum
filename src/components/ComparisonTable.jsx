@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
+import { useRevealOnScroll, revealSx } from '../hooks/useRevealOnScroll';
 
 const LABEL_WIDTH = 160;
 
@@ -17,6 +18,10 @@ const LABEL_WIDTH = 160;
 // own `label`. Leave it off for a plain paired list (e.g. Cooking Method /
 // Examples) where rows carry no shared attribute name.
 export default function ComparisonTable({ columnAHeader, columnBHeader, showRowLabel = false, rows }) {
+  // Fade-in-on-scroll Rule 3: a real tabular block is a substantial visual
+  // element on its own, same escalation as MythFactCard -- see that file's
+  // comment.
+  const [ref, visible] = useRevealOnScroll();
   return (
     // overflowX: 'auto' is a narrow-viewport safety net -- the label column
     // plus two flex:1 data columns can only shrink so far before real
@@ -24,7 +29,10 @@ export default function ComparisonTable({ columnAHeader, columnBHeader, showRowL
     // this lets the table scroll horizontally within its own box instead of
     // squeezing the page or wrapping every word, without changing anything
     // about how it looks at a normal content-column width.
-    <Box sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1, overflow: 'hidden', overflowX: 'auto' }}>
+    <Box
+      ref={ref}
+      sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1, overflow: 'hidden', overflowX: 'auto', ...revealSx(visible) }}
+    >
       <Stack direction="row" sx={{ bgcolor: (theme) => alpha(theme.palette.divider, 0.15), minWidth: 480 }}>
         {showRowLabel && <Box sx={{ width: LABEL_WIDTH, flexShrink: 0, px: 2, py: 1.5 }} />}
         <Box sx={{ flex: 1, minWidth: 0, px: 2, py: 1.5 }}>

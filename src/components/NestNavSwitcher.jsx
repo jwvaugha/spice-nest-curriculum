@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -6,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import { keyframes } from '@mui/material/styles';
 import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AppsRoundedIcon from '@mui/icons-material/AppsRounded';
@@ -27,6 +29,31 @@ const NAV_ITEMS = [
   { icon: AppsRoundedIcon, label: 'Modules', to: '/dashboard' },
   { icon: CalendarTodayRoundedIcon, label: 'Session Calendar', to: '/calendar' },
 ];
+
+// Fixed content width for the trigger -- per direct user direction, it
+// should stay ONE width regardless of which page's label is currently
+// showing, not resize itself every time you navigate (a native <select>
+// doesn't resize per-option either). Measured directly against the real
+// rendered text (fontWeight 500, this component's own default body font,
+// at 1rem) rather than guessed: "Session Calendar" is the longest of the
+// 3 real labels at ~127px, so this is set generously above that to leave
+// real breathing room rather than sizing to the exact pixel. Only the
+// TEXT needs a fixed width here -- the icon and chevron are already fixed-
+// size on their own, so constraining just this one element is enough to
+// keep the whole trigger's overall width constant.
+const LABEL_TEXT_WIDTH = 150;
+
+// A brief fade+slide-up on the icon+label whenever the CURRENT page
+// changes (not on open/close of the menu) -- per direct user direction,
+// swapping instantly read as an abrupt jump cut once the trigger stopped
+// resizing itself to fit new text. Re-keying the content below with
+// `key={current.to}` on navigation makes React mount a fresh DOM node each
+// time, which restarts this CSS animation automatically -- no manual
+// visibility state/timers needed for what's otherwise a one-line effect.
+const fadeSlideIn = keyframes`
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
 
 function Row({ icon: Icon, label, to, trailing: Trailing, selected, onClick }) {
   const linkProps = to ? { component: Link, to } : {};
@@ -99,9 +126,23 @@ export default function NestNavSwitcher() {
         {/* Current-page icon + label -- the exact same icon/label pair as
             the matching Menu row below it, styled identically to that row's
             own ListItemText (fontWeight 500, default body font), not the
-            Vollkorn serif brand wordmark this used to be. */}
-        <current.icon fontSize="small" sx={{ color: 'text.secondary' }} />
-        <Typography sx={{ fontWeight: 500, color: 'text.primary' }}>{current.label}</Typography>
+            Vollkorn serif brand wordmark this used to be.
+            `key={current.to}` remounts this Box every time the current
+            page changes, restarting `fadeSlideIn` fresh each time (a plain
+            CSS animation doesn't replay on its own when the content inside
+            it just changes -- it needs a genuinely new element). Lives on
+            a wrapping Box rather than the Typography/icon individually so
+            both animate together as one unit, not staggered. */}
+        <Box key={current.to} sx={{ display: 'flex', alignItems: 'center', gap: 1, animation: `${fadeSlideIn} 0.2s ease` }}>
+          <current.icon fontSize="small" sx={{ color: 'text.secondary', flexShrink: 0 }} />
+          {/* Fixed width (not just this label's own natural width) -- per
+              direct user direction, the trigger should stay one width
+              regardless of which page's label is showing, not resize
+              itself on every navigation the way a shrink-to-fit label
+              would. See LABEL_TEXT_WIDTH's own comment for how this number
+              was chosen. */}
+          <Typography sx={{ fontWeight: 500, color: 'text.primary', width: LABEL_TEXT_WIDTH }}>{current.label}</Typography>
+        </Box>
         {/* The paired-opposing-chevron "unfold" glyph -- the standard
             selector/combobox affordance (a `<select>`'s own arrows, a
             sortable table header, Notion/Linear-style switchers). Static --

@@ -166,7 +166,13 @@ export default function NutritionLabelExplorer({ id, title, sx }) {
 
   return (
     <StickyAsideSection id={id} title={title} aside={aside} asideWidth={260} sx={sx}>
-      <Stack spacing={3}>
+      {/* Gap BETWEEN each nutrient's whole description block (title row +
+          subtitle + body + optional Daily Value box + optional
+          TipExample) -- per direct user feedback, bumped from 24px to 40px
+          (matching this app's own "List Slot" gap between List Items
+          elsewhere) so consecutive nutrients read as more clearly
+          separated blocks, not a single dense run of text. */}
+      <Stack spacing={5}>
         {NUTRITION_ITEMS.map((item) => {
           const notes = getConditionNotes(item.id, healthCondition);
           const isActive = activeNutrient === item.id;

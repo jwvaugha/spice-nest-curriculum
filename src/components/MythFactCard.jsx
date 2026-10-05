@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { PHOTO_MAX_WIDTH, TEXT_MAX_WIDTH } from '../layoutConstants';
+import { useRevealOnScroll, revealSx } from '../hooks/useRevealOnScroll';
 
 // Mirrors Figma's "Paragraph/Headline" pair (Style=Accent for Myth,
 // Style=Default for Fact) — text first, then a single large full-width
@@ -16,8 +17,14 @@ import { PHOTO_MAX_WIDTH, TEXT_MAX_WIDTH } from '../layoutConstants';
 const LABEL_SX = { color: 'text.secondary', display: 'block' };
 
 export default function MythFactCard({ myth, fact, detail, imageSrc, imageAlt }) {
+  // Fade-in-on-scroll Rule 3: a standalone photo block gets its own
+  // individual reveal unconditionally (every instance has a photo), the
+  // same escalation NumberedListItem applies conditionally -- see that
+  // file's comment for why nesting this under an already-visible Section
+  // ancestor is safe.
+  const [ref, visible] = useRevealOnScroll();
   return (
-    <Box>
+    <Box ref={ref} sx={revealSx(visible)}>
       <Box sx={{ maxWidth: TEXT_MAX_WIDTH, mx: 'auto' }}>
         <Typography variant="h6" sx={LABEL_SX}>Myth:</Typography>
         <Typography variant="h2" sx={{ color: 'primary.dark', mb: 0.5 }}>

@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useRevealOnScroll, revealSx } from '../hooks/useRevealOnScroll';
 
 // mb here is the ONLY source of the gap between the hero and whatever comes
 // next (every page's first Section overrides its own pt to 0 for exactly
@@ -8,8 +9,15 @@ import Typography from '@mui/material/Typography';
 // now matching SECTION_PT/PB's own 48px rhythm so the space after the hero
 // reads the same as the space between any two sections.
 export default function ChapterHero({ eyebrow, title, intro, imageSrc, imageAlt, placeholderNote }) {
+  // Same fade-in-on-scroll treatment as every Section below it (see
+  // useRevealOnScroll.js) -- deliberately NOT a special "no animation,
+  // above the fold" case: the hero is normally already intersecting when
+  // the observer attaches on mount, so it fires immediately and reveals
+  // right away, but it goes through the exact same mechanism as everything
+  // else rather than a separate always-visible code path.
+  const [ref, visible] = useRevealOnScroll();
   return (
-    <Box sx={{ mb: 6 }}>
+    <Box ref={ref} sx={{ mb: 6, ...revealSx(visible) }}>
       {/* h6 for the correct Roboto SemiBold + wide-tracking + all-caps type
           style (uppercase is baked into the theme's h6 variant), but
           overridden to text.secondary rather than h6's own (much stronger)

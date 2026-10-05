@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { HERO_WIDTH, SECTION_PT, SECTION_PB, SECTION_TITLE_GAP, SECTION_CONTENT_INDENT } from '../layoutConstants';
+import { useRevealOnScroll, revealSx } from '../hooks/useRevealOnScroll';
 
 // Distance from the scroll pane's own top edge before a sticky `aside`
 // catches and holds -- a little breathing room rather than jamming it
@@ -52,9 +53,16 @@ export const STICKY_TOP = 16;
 // stickiness would just be pinning something to a spot with nothing next to
 // it.
 export default function StickyAsideSection({ id, title, aside, asideWidth = 280, children, sx }) {
+  // Same whole-block reveal as `Section` (see that file's own comment) --
+  // this is the other top-level content-block type a chapter page uses, so
+  // it gets the identical treatment: one fade for the whole interactive
+  // (selector + sticky label + description list together), not a per-row
+  // animation on top of what NutritionLabelExplorer's own click-to-scroll
+  // highlight already does.
+  const [ref, visible] = useRevealOnScroll();
   return (
     <Box id={id} component="section" sx={{ pt: SECTION_PT, pb: SECTION_PB, ...sx }}>
-      <Box sx={{ maxWidth: HERO_WIDTH, mx: 'auto' }}>
+      <Box ref={ref} sx={{ maxWidth: HERO_WIDTH, mx: 'auto', ...revealSx(visible) }}>
         <Stack spacing={SECTION_TITLE_GAP}>
           {title && <Typography variant="h2">{title}</Typography>}
           {/* `alignItems` as a direct prop is a known MUI v9 no-op on

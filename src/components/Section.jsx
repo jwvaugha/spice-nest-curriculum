@@ -9,6 +9,7 @@ import {
   SECTION_CONTENT_INDENT,
   SECTION_CONTENT_GAP,
 } from '../layoutConstants';
+import { useRevealOnScroll, revealSx } from '../hooks/useRevealOnScroll';
 
 // Mirrors Figma's "Section (Slot)" component exactly — the whole point of a
 // Figma "slot" component is that it OWNS its internal gap/padding so every
@@ -32,9 +33,17 @@ import {
 // at a tighter rhythm than the general 32px between-any-content-child gap
 // (see REFERENCE_LIST_GAP) -- everything else keeps the default.
 export default function Section({ id, title, children, sx, contentGap = SECTION_CONTENT_GAP }) {
+  // Whole-section reveal (fade-in-on-scroll Rule 1): everything inside one
+  // Section -- heading, paragraphs, short lists, Reference/TipExample/
+  // DesignNote callouts -- fades in together as a single block the moment
+  // any part of it scrolls into view, rather than each piece animating on
+  // its own. The ref/opacity lives on this INNER box, not the outer
+  // `id`-bearing one, so a sidebar deep-link's `scrollIntoView` against the
+  // outer section element is unaffected by the inner fade state.
+  const [ref, visible] = useRevealOnScroll();
   return (
     <Box id={id} component="section" sx={{ pt: SECTION_PT, pb: SECTION_PB, ...sx }}>
-      <Box sx={{ maxWidth: TEXT_MAX_WIDTH, mx: 'auto' }}>
+      <Box ref={ref} sx={{ maxWidth: TEXT_MAX_WIDTH, mx: 'auto', ...revealSx(visible) }}>
         <Stack spacing={SECTION_TITLE_GAP}>
           {title && <Typography variant="h2">{title}</Typography>}
           <Box sx={{ pl: SECTION_CONTENT_INDENT }}>
