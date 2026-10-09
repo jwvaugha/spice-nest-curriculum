@@ -13,13 +13,14 @@ import BulletedList from '../components/BulletedList';
 import ComparisonTable from '../components/ComparisonTable';
 import SequenceTimeline from '../components/SequenceTimeline';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 // Built from Figma node 3429:18490 ("Mod-3-Ch-2 — Cook Once, Eat Twice").
@@ -86,7 +87,19 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'Simple habits to reduce waste', id: 'simple-habits-to-reduce-waste' },
     ],
   },
-  { chapterId: 'mod3ch4', icon: ArticleTextIcon, label: 'Chapter 4', title: 'Meal Planning Tools' },
+  {
+    chapterId: 'mod3ch4',
+    icon: ArticleTextIcon,
+    label: 'Chapter 4',
+    title: 'Tools and mobile apps for meal planning and tracking',
+    to: '/module-3-chapter-4',
+    sections: [
+      { label: 'Tools to help you meal plan', id: 'tools-to-help-you-meal-plan' },
+      { label: 'Common features of tracking apps', id: 'common-features-of-tracking-apps' },
+      { label: 'Benefits of nutrition tracking apps', id: 'benefits-of-nutrition-tracking-apps' },
+      { label: 'Things to consider', id: 'things-to-consider' },
+    ],
+  },
   { chapterId: 'mod3ch5', icon: ArticleTextIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
   { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection' },
 ];
@@ -332,41 +345,43 @@ export default function Module3Chapter2() {
 
               <SectionDivider />
 
-              <Section title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  Klein, L., &amp; Parks, K. (2020). Home Meal Preparation: A Powerful Medical Intervention. American
-                  journal of lifestyle medicine, 14(3), 282–285.
-                  https://doi-org.proxy2.library.illinois.edu/10.1177/1559827620907344
-                </Reference>
-                <Reference>
-                  Holmes, C., &amp; Misenhelter, C. (2024). Cooking for One or Two: Fact Sheet. K-State Research and
-                  Extension. Kansas State University Extension.
-                  https://bookstore.ksre.ksu.edu/item/cooking-for-one-or-two-fact-sheet_MF3659
-                </Reference>
-                <Reference>
-                  USDA. Meal Prep and Cooking Tips. Nutrition.gov. U.S. Department of Agriculture.
-                  https://www.nutrition.gov/topics/shopping-cooking-and-meal-planning/meal-prep-and-cooking-tips
-                </Reference>
-                <Reference>
-                  USDA. Utah State University Extension. Cook Once, Eat Twice Sample Meal Plan.
-                  https://extension.usu.edu/nutrition/files/Cook-Once-Eat-Twice.pdf
-                </Reference>
-                <Reference>
-                  USDA. Utah State University Extension. Food Waste Prevention Part 4: Using Leftovers.
-                  https://extension.usu.edu/nutrition/research/food-waste-part-4
-                </Reference>
-                <Reference>
-                  Academy of Nutrition and Dietetics. (2024). Cook Once, Eat Safely throughout the Week.
-                  https://www.eatright.org/food/home-food-safety/safe-cooking-and-prep/cook-once-eat-safely-throughout-the-week
-                </Reference>
-                <Reference>
-                  USDA. Leftovers and Food Safety. Food Safety and Inspection Service. U.S. Department of Agriculture.
-                  http://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety
-                </Reference>
-                <Reference>
-                  USDA. The Big Thaw - Safe Defrosting Methods.
-                  https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/big-thaw-safe-defrosting-methods
-                </Reference>
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    Academy of Nutrition and Dietetics. (2024). Cook Once, Eat Safely throughout the Week.
+                    https://www.eatright.org/food/home-food-safety/safe-cooking-and-prep/cook-once-eat-safely-throughout-the-week
+                  </Reference>
+                  <Reference>
+                    Holmes, C., &amp; Misenhelter, C. (2024). Cooking for One or Two: Fact Sheet. K-State Research and
+                    Extension. Kansas State University Extension.
+                    https://bookstore.ksre.ksu.edu/item/cooking-for-one-or-two-fact-sheet_MF3659
+                  </Reference>
+                  <Reference>
+                    Klein, L., &amp; Parks, K. (2020). Home Meal Preparation: A Powerful Medical Intervention. American
+                    journal of lifestyle medicine, 14(3), 282–285.
+                    https://doi-org.proxy2.library.illinois.edu/10.1177/1559827620907344
+                  </Reference>
+                  <Reference>
+                    USDA. Meal Prep and Cooking Tips. Nutrition.gov. U.S. Department of Agriculture.
+                    https://www.nutrition.gov/topics/shopping-cooking-and-meal-planning/meal-prep-and-cooking-tips
+                  </Reference>
+                  <Reference>
+                    USDA. Utah State University Extension. Cook Once, Eat Twice Sample Meal Plan.
+                    https://extension.usu.edu/nutrition/files/Cook-Once-Eat-Twice.pdf
+                  </Reference>
+                  <Reference>
+                    USDA. Utah State University Extension. Food Waste Prevention Part 4: Using Leftovers.
+                    https://extension.usu.edu/nutrition/research/food-waste-part-4
+                  </Reference>
+                  <Reference>
+                    USDA. Leftovers and Food Safety. Food Safety and Inspection Service. U.S. Department of Agriculture.
+                    http://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety
+                  </Reference>
+                  <Reference>
+                    USDA. The Big Thaw - Safe Defrosting Methods.
+                    https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/big-thaw-safe-defrosting-methods
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

@@ -10,13 +10,14 @@ import NumberedList from '../components/NumberedList';
 import NumberedListItem from '../components/NumberedListItem';
 import BulletedList from '../components/BulletedList';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 // Built from Figma node 3239:15306 ("Mod-3-Ch-3 — Avoiding Food Waste").
@@ -75,7 +76,19 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'Simple habits to reduce waste', id: 'simple-habits-to-reduce-waste' },
     ],
   },
-  { chapterId: 'mod3ch4', icon: ArticleTextIcon, label: 'Chapter 4', title: 'Meal Planning Tools' },
+  {
+    chapterId: 'mod3ch4',
+    icon: ArticleTextIcon,
+    label: 'Chapter 4',
+    title: 'Tools and mobile apps for meal planning and tracking',
+    to: '/module-3-chapter-4',
+    sections: [
+      { label: 'Tools to help you meal plan', id: 'tools-to-help-you-meal-plan' },
+      { label: 'Common features of tracking apps', id: 'common-features-of-tracking-apps' },
+      { label: 'Benefits of nutrition tracking apps', id: 'benefits-of-nutrition-tracking-apps' },
+      { label: 'Things to consider', id: 'things-to-consider' },
+    ],
+  },
   { chapterId: 'mod3ch5', icon: ArticleTextIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
   { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection' },
 ];
@@ -257,26 +270,28 @@ export default function Module3Chapter3() {
 
               <SectionDivider />
 
-              <Section title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  Center for Food Safety and Applied Nutrition. (2019). How to Cut Food Waste and Maintain Food
-                  Safety. U.S. Food and Drug Administration.
-                  https://www.fda.gov/food/consumers/how-cut-food-waste-and-maintain-food-safety
-                </Reference>
-                <Reference>
-                  USDA. (2019, October 2). Food product dating | food safety and inspection service.
-                  Www.fsis.usda.gov.
-                  https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-product-dating
-                </Reference>
-                <Reference>
-                  What Gets Measured Gets Managed: How EPA is Helping to Reduce Food Waste | US EPA. (2021, March 8).
-                  US EPA. https://www.epa.gov/snep/what-gets-measured-gets-managed-how-epa-helping-reduce-food-waste
-                </Reference>
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    Center for Food Safety and Applied Nutrition. (2019). How to Cut Food Waste and Maintain Food
+                    Safety. U.S. Food and Drug Administration.
+                    https://www.fda.gov/food/consumers/how-cut-food-waste-and-maintain-food-safety
+                  </Reference>
+                  <Reference>
+                    USDA. (2019, October 2). Food product dating | food safety and inspection service.
+                    Www.fsis.usda.gov.
+                    https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-product-dating
+                  </Reference>
+                  <Reference>
+                    What Gets Measured Gets Managed: How EPA is Helping to Reduce Food Waste | US EPA. (2021, March 8).
+                    US EPA. https://www.epa.gov/snep/what-gets-measured-gets-managed-how-epa-helping-reduce-food-waste
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>
 
-          <ChapterFooter to="/module-4-chapter-2" chapterId="mod3ch3" label="Continue to Next Module" reachedEnd={reachedEnd} />
+          <ChapterFooter to="/module-3-chapter-4" chapterId="mod3ch3" reachedEnd={reachedEnd} />
         </Box>
       </Box>
     </>

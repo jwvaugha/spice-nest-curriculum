@@ -10,13 +10,14 @@ import NumberedList from '../components/NumberedList';
 import NumberedListItem from '../components/NumberedListItem';
 import BulletedList from '../components/BulletedList';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 // Built from Figma node 3427:18043 ("Mod-3-Ch-1 — Creating a Meal Plan &
@@ -74,7 +75,19 @@ const SIDEBAR_ITEM_DEFS = [
       { label: 'Simple habits to reduce waste', id: 'simple-habits-to-reduce-waste' },
     ],
   },
-  { chapterId: 'mod3ch4', icon: ArticleTextIcon, label: 'Chapter 4', title: 'Meal Planning Tools' },
+  {
+    chapterId: 'mod3ch4',
+    icon: ArticleTextIcon,
+    label: 'Chapter 4',
+    title: 'Tools and mobile apps for meal planning and tracking',
+    to: '/module-3-chapter-4',
+    sections: [
+      { label: 'Tools to help you meal plan', id: 'tools-to-help-you-meal-plan' },
+      { label: 'Common features of tracking apps', id: 'common-features-of-tracking-apps' },
+      { label: 'Benefits of nutrition tracking apps', id: 'benefits-of-nutrition-tracking-apps' },
+      { label: 'Things to consider', id: 'things-to-consider' },
+    ],
+  },
   { chapterId: 'mod3ch5', icon: ArticleTextIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
   { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection' },
 ];
@@ -269,19 +282,21 @@ export default function Module3Chapter1() {
 
               <SectionDivider />
 
-              <Section title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  Gordon, B. (2019, July 18). 3 strategies for successful meal planning. Academy of Nutrition and
-                  Dietetics. https://www.eatright.org/food/planning/smart-shopping/3-strategies-for-successful-meal-planning
-                </Reference>
-                <Reference>
-                  Harvard T.H. Chan School of Public Health. (n.d.). Meal prep guide. The Nutrition Source.
-                  https://nutritionsource.hsph.harvard.edu/meal-prep/
-                </Reference>
-                <Reference>
-                  University of Illinois Extension. (n.d.). Make a plan. Eat. Move. Save.
-                  https://eat-move-save.extension.illinois.edu/save/make-plan
-                </Reference>
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    Gordon, B. (2019, July 18). 3 strategies for successful meal planning. Academy of Nutrition and
+                    Dietetics. https://www.eatright.org/food/planning/smart-shopping/3-strategies-for-successful-meal-planning
+                  </Reference>
+                  <Reference>
+                    Harvard T.H. Chan School of Public Health. (n.d.). Meal prep guide. The Nutrition Source.
+                    https://nutritionsource.hsph.harvard.edu/meal-prep/
+                  </Reference>
+                  <Reference>
+                    University of Illinois Extension. (n.d.). Make a plan. Eat. Move. Save.
+                    https://eat-move-save.extension.illinois.edu/save/make-plan
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>
