@@ -10,13 +10,14 @@ import ChapterHero from '../components/ChapterHero';
 import Section from '../components/Section';
 import BulletedList from '../components/BulletedList';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 const ITEM_IMAGE_SX = {
@@ -295,16 +296,18 @@ export default function Module6Chapter4() {
 
               <SectionDivider />
 
-              <Section title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>NIH National Institute on Aging (2023). Taking Care of Yourself: Tips for Caregivers. https://www.nia.nih.gov/health/caregiving/taking-care-yourself-tips-caregivers</Reference>
-                <Reference>Family Caregiver Alliance. Caring for Yourself. https://www.caregiver.org/caregiver-resources/caring-for-yourself/</Reference>
-                <Reference>Family Caregiver Alliance. Taking Care of YOU: Self-Care for Family Caregivers. https://www.caregiver.org/resource/taking-care-you-self-care-family-caregivers/</Reference>
-                <Reference>ARCH National Respite Network and Resource Center. www.archrespite.org</Reference>
-                <Reference>
-                  Cardoso, C., Lumini, M. J., &amp; Martins, T. (2025). Effects of physical exercise in reducing
-                  caregivers burden: a systematic review. Frontiers in public health, 13, 1474913.
-                  https://doi.org/10.3389/fpubh.2025.1474913
-                </Reference>
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>ARCH National Respite Network and Resource Center. www.archrespite.org</Reference>
+                  <Reference>
+                    Cardoso, C., Lumini, M. J., &amp; Martins, T. (2025). Effects of physical exercise in reducing
+                    caregivers burden: a systematic review. Frontiers in public health, 13, 1474913.
+                    https://doi.org/10.3389/fpubh.2025.1474913
+                  </Reference>
+                  <Reference>Family Caregiver Alliance. Caring for Yourself. https://www.caregiver.org/caregiver-resources/caring-for-yourself/</Reference>
+                  <Reference>Family Caregiver Alliance. Taking Care of YOU: Self-Care for Family Caregivers. https://www.caregiver.org/resource/taking-care-you-self-care-family-caregivers/</Reference>
+                  <Reference>NIH National Institute on Aging (2023). Taking Care of Yourself: Tips for Caregivers. https://www.nia.nih.gov/health/caregiving/taking-care-yourself-tips-caregivers</Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

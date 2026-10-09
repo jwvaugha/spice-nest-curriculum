@@ -12,13 +12,14 @@ import NumberedListItem from '../components/NumberedListItem';
 import BulletedList from '../components/BulletedList';
 import Paragraph from '../components/Paragraph';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 // Built from Figma node 3253:18408 ("Mod-2-Ch-5 — Medication and Diet:
@@ -213,27 +214,29 @@ export default function Module2Chapter5() {
 
               <SectionDivider />
 
-              <Section id="references" title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  American Diabetes Association. (n.d.). Oral &amp; Other Injectable Diabetes Medications for Type 2
-                  Diabetes. https://diabetes.org/health-wellness/medication/oral-other-injectable-diabetes-medications
-                </Reference>
-                <Reference>
-                  Cleveland Clinic. (2022). Oral Diabetes Medications.
-                  https://my.clevelandclinic.org/health/articles/12070-oral-diabetes-medications
-                </Reference>
-                <Reference>
-                  Mayo Clinic. (2025). Diabetes treatment: Medications for type 2 diabetes.
-                  https://www.mayoclinic.org/diseases-conditions/type-2-diabetes/in-depth/diabetes-treatment/art-20051004
-                </Reference>
-                <Reference>
-                  American Heart Association. (n.d.). Diabetes Medications.
-                  https://www.heart.org/en/health-topics/diabetes/prevention--treatment-of-diabetes/diabetes-medications
-                </Reference>
-                <Reference>
-                  U.S. Food and Drug Administration (FDA). (n.d.). Diabetes Medicines.
-                  https://www.fda.gov/files/for%20consumers/published/Diabetes-Medicines.pdf
-                </Reference>
+              <Section id="references" sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    American Diabetes Association. (n.d.). Oral &amp; Other Injectable Diabetes Medications for Type 2
+                    Diabetes. https://diabetes.org/health-wellness/medication/oral-other-injectable-diabetes-medications
+                  </Reference>
+                  <Reference>
+                    American Heart Association. (n.d.). Diabetes Medications.
+                    https://www.heart.org/en/health-topics/diabetes/prevention--treatment-of-diabetes/diabetes-medications
+                  </Reference>
+                  <Reference>
+                    Cleveland Clinic. (2022). Oral Diabetes Medications.
+                    https://my.clevelandclinic.org/health/articles/12070-oral-diabetes-medications
+                  </Reference>
+                  <Reference>
+                    Mayo Clinic. (2025). Diabetes treatment: Medications for type 2 diabetes.
+                    https://www.mayoclinic.org/diseases-conditions/type-2-diabetes/in-depth/diabetes-treatment/art-20051004
+                  </Reference>
+                  <Reference>
+                    U.S. Food and Drug Administration (FDA). (n.d.). Diabetes Medicines.
+                    https://www.fda.gov/files/for%20consumers/published/Diabetes-Medicines.pdf
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

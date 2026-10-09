@@ -9,13 +9,14 @@ import ChapterHero from '../components/ChapterHero';
 import Section from '../components/Section';
 import BulletedList from '../components/BulletedList';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 
 // Built from Figma node 3709:22128 ("Mod-5-Ch-4 — Adapting Recipes for
 // Cuisine, Condition, and Taste", NEST Prototype page), itself built
@@ -206,23 +207,25 @@ export default function Module5Chapter4() {
 
               <SectionDivider />
 
-              <Section id="references" title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  Afaya, R. A., Seib, C., McGuire, A., &amp; Petsky, H. (2026). Effectiveness of Culturally Tailored
-                  Interventions on Self-Management in Type 2 Diabetes Mellitus: A Systematic Review and
-                  Meta-Analysis. Worldviews on evidence-based nursing, 23(4), e70141.
-                  https://doi.org/10.1111/wvn.70141
-                </Reference>
-                <Reference>
-                  American Diabetes Association Professional Practice Committee for Diabetes. (2026). 5. Facilitating
-                  positive health behaviors and well-being to improve health outcomes: Standards of Care in
-                  Diabetes—2026. Diabetes Care, 49(Supplement_1), S89–S131. https://doi.org/10.2337/dc26-S005
-                </Reference>
-                <Reference>
-                  U.S. Department of Agriculture, &amp; U.S. Department of Health and Human Services. (2020). Dietary
-                  guidelines for Americans, 2020–2025 (9th ed.).
-                  https://www.dietaryguidelines.gov/sites/default/files/2021-03/Dietary_Guidelines_for_Americans-2020-2025.pdf
-                </Reference>
+              <Section id="references" sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    Afaya, R. A., Seib, C., McGuire, A., &amp; Petsky, H. (2026). Effectiveness of Culturally Tailored
+                    Interventions on Self-Management in Type 2 Diabetes Mellitus: A Systematic Review and
+                    Meta-Analysis. Worldviews on evidence-based nursing, 23(4), e70141.
+                    https://doi.org/10.1111/wvn.70141
+                  </Reference>
+                  <Reference>
+                    American Diabetes Association Professional Practice Committee for Diabetes. (2026). 5. Facilitating
+                    positive health behaviors and well-being to improve health outcomes: Standards of Care in
+                    Diabetes—2026. Diabetes Care, 49(Supplement_1), S89–S131. https://doi.org/10.2337/dc26-S005
+                  </Reference>
+                  <Reference>
+                    U.S. Department of Agriculture, &amp; U.S. Department of Health and Human Services. (2020). Dietary
+                    guidelines for Americans, 2020–2025 (9th ed.).
+                    https://www.dietaryguidelines.gov/sites/default/files/2021-03/Dietary_Guidelines_for_Americans-2020-2025.pdf
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

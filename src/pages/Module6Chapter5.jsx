@@ -12,13 +12,14 @@ import NumberedList from '../components/NumberedList';
 import NumberedListItem from '../components/NumberedListItem';
 import BulletedList from '../components/BulletedList';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 const ITEM_IMAGE_SX = {
@@ -295,32 +296,34 @@ export default function Module6Chapter5() {
 
               <SectionDivider />
 
-              <Section title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  Meyer, K., Rath, L., Avent, E., Benton, D., Nash, P., &amp; Wilber, K. (2023). How do family
-                  caregivers of older adults cope with relationship strain? Aging &amp; Mental Health, 27(10),
-                  1990–1999. https://doi.org/10.1080/13607863.2023.2247353
-                </Reference>
-                <Reference>
-                  Riffin, C., Van Ness, P. H., Iannone, L., &amp; Fried, T. (2018). Patient and caregiver perspectives
-                  on managing multiple health conditions. Journal of the American Geriatrics Society, 66(10),
-                  1992–1997. https://doi.org/10.1111/jgs.15501
-                </Reference>
-                <Reference>
-                  Russell, A. M., Bonham, M., Lovett, R., Pack, A., Wolf, M. S., &amp; O'Conor, R. (2024).
-                  Characterizing caregiver roles and conflict in health management support to older people with
-                  multiple chronic conditions. Journal of Applied Gerontology, 43(4), 386–395.
-                  https://doi.org/10.1177/07334648231211456
-                </Reference>
-                <Reference>
-                  Administration for Community Living. (n.d.). Meal Planning Tips for Caregivers.
-                  https://acl.gov/sites/default/files/nutrition/Meal-Planning-Tips-for-Caregivers_508.pdf
-                </Reference>
-                <Reference>
-                  National Alliance on Mental Illness. (n.d.). Caring for the caregiver: What the data tells us about
-                  mental health and family caregiving.
-                  https://www.nami.org/blog/caring-for-the-caregiver-what-the-data-tells-us-about-mental-health-and-family-caregiving/
-                </Reference>
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    Administration for Community Living. (n.d.). Meal Planning Tips for Caregivers.
+                    https://acl.gov/sites/default/files/nutrition/Meal-Planning-Tips-for-Caregivers_508.pdf
+                  </Reference>
+                  <Reference>
+                    Meyer, K., Rath, L., Avent, E., Benton, D., Nash, P., &amp; Wilber, K. (2023). How do family
+                    caregivers of older adults cope with relationship strain? Aging &amp; Mental Health, 27(10),
+                    1990–1999. https://doi.org/10.1080/13607863.2023.2247353
+                  </Reference>
+                  <Reference>
+                    National Alliance on Mental Illness. (n.d.). Caring for the caregiver: What the data tells us about
+                    mental health and family caregiving.
+                    https://www.nami.org/blog/caring-for-the-caregiver-what-the-data-tells-us-about-mental-health-and-family-caregiving/
+                  </Reference>
+                  <Reference>
+                    Riffin, C., Van Ness, P. H., Iannone, L., &amp; Fried, T. (2018). Patient and caregiver perspectives
+                    on managing multiple health conditions. Journal of the American Geriatrics Society, 66(10),
+                    1992–1997. https://doi.org/10.1111/jgs.15501
+                  </Reference>
+                  <Reference>
+                    Russell, A. M., Bonham, M., Lovett, R., Pack, A., Wolf, M. S., &amp; O'Conor, R. (2024).
+                    Characterizing caregiver roles and conflict in health management support to older people with
+                    multiple chronic conditions. Journal of Applied Gerontology, 43(4), 386–395.
+                    https://doi.org/10.1177/07334648231211456
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

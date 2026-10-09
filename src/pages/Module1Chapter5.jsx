@@ -8,13 +8,14 @@ import ChapterHero from '../components/ChapterHero';
 import Section from '../components/Section';
 import MythFactCard from '../components/MythFactCard';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 const SIDEBAR_ITEM_DEFS = [
@@ -147,14 +148,16 @@ export default function Module1Chapter5() {
 
               <SectionDivider />
 
-              <Section title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>Harvard T.H. Chan School of Public Health. (n.d.). The Nutrition Source: Carbohydrates. https://www.hsph.harvard.edu/nutritionsource/carbohydrates/</Reference>
-                <Reference>World Health Organization. (2015). Guideline: Sugars intake for adults and children. https://www.ncbi.nlm.nih.gov/books/NBK285538/</Reference>
-                <Reference>Zeballos, E., &amp; Todd, J. E. (2020). The effects of skipping a meal on daily energy intake and diet quality. Public Health Nutrition, 23(18), 1–10.</Reference>
-                <Reference>St-Onge, M.-P., Ard, J., Baskin, M. L., et al. (2017). Meal Timing and Frequency: Implications for Cardiovascular Disease Prevention. Circulation, 135(9).</Reference>
-                <Reference>Fats in Foods. (2026). heart.org.</Reference>
-                <Reference>Mayo Clinic. (2021, December 7). 6 proven strategies for weight-loss success.</Reference>
-                <Reference>Datz, T. (2013, July 25). Skipping breakfast may increase coronary heart disease risk. Harvard Gazette.</Reference>
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>Datz, T. (2013, July 25). Skipping breakfast may increase coronary heart disease risk. Harvard Gazette.</Reference>
+                  <Reference>Fats in Foods. (2026). heart.org.</Reference>
+                  <Reference>Harvard T.H. Chan School of Public Health. (n.d.). The Nutrition Source: Carbohydrates. https://www.hsph.harvard.edu/nutritionsource/carbohydrates/</Reference>
+                  <Reference>Mayo Clinic. (2021, December 7). 6 proven strategies for weight-loss success.</Reference>
+                  <Reference>St-Onge, M.-P., Ard, J., Baskin, M. L., et al. (2017). Meal Timing and Frequency: Implications for Cardiovascular Disease Prevention. Circulation, 135(9).</Reference>
+                  <Reference>World Health Organization. (2015). Guideline: Sugars intake for adults and children. https://www.ncbi.nlm.nih.gov/books/NBK285538/</Reference>
+                  <Reference>Zeballos, E., &amp; Todd, J. E. (2020). The effects of skipping a meal on daily energy intake and diet quality. Public Health Nutrition, 23(18), 1–10.</Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

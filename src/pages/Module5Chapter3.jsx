@@ -11,13 +11,14 @@ import BulletedList from '../components/BulletedList';
 import Paragraph from '../components/Paragraph';
 import ComparisonTable from '../components/ComparisonTable';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 
@@ -256,43 +257,45 @@ export default function Module5Chapter3() {
 
               <SectionDivider />
 
-              <Section id="references" title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  Shirai, S. S., Seneviratne, O., Gordon, M. E., Chen, C. H., &amp; McGuinness, D. L. (2021).
-                  Identifying Ingredient Substitutions Using a Knowledge Graph of Food. Frontiers in artificial
-                  intelligence, 3, 621766. https://doi-org.proxy2.library.illinois.edu/10.3389/frai.2020.621766
-                </Reference>
-                <Reference>
-                  Kim, H., Venkataramanan, R., &amp; Sheth, A. (2024). A Survey on Food Ingredient Substitutions.
-                  arXiv. https://doi.org/10.48550/arXiv.2501.01958
-                </Reference>
-                <Reference>
-                  Alice Henneman (2020) University of Nebraska-Lincoln Extension. Basic Ingredient Substitutions.
-                  https://food.unl.edu/article/ingredient-substitutions/
-                </Reference>
-                <Reference>
-                  Julie Garden-Robinson (Reviewed 2023). Ingredient Substitution. NDSU Extension.
-                  https://www.ndsu.edu/agriculture/sites/default/files/2023-01/fn198.pdf
-                </Reference>
-                <Reference>
-                  Philippi Rosane, B., Okoren, L., Andersen, B. V., Byrne, D. V., &amp; Bügel, S. G. (2026). What Is
-                  the Role of Plant-Based Alternatives to Animal Foods in the Great Food Transformation: A Narrative
-                  Review. The Journal of nutrition, 156(2), 101275.
-                  https://doi-org.proxy2.library.illinois.edu/10.1016/j.tjnut.2025.101275
-                </Reference>
-                <Reference>
-                  New Mexico State University Extension. (2016). In a Pinch: Ingredient Substitution.
-                  https://pubs.nmsu.edu/_e/E131.pdf
-                </Reference>
-                <Reference>
-                  Lee, S., Choi, Y., Jeong, H. S., Lee, J., &amp; Sung, J. (2017). Effect of different cooking methods
-                  on the content of vitamins and true retention in selected vegetables. Food science and
-                  biotechnology, 27(2), 333–342. https://doi-org.proxy2.library.illinois.edu/10.1007/s10068-017-0281-1
-                </Reference>
-                <Reference>
-                  USDA. Methods for Healthy Cooking (2024). Food and Nutrition Administration.
-                  https://www.fna.usda.gov/tn/methods-healthy-cooking
-                </Reference>
+              <Section id="references" sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    Julie Garden-Robinson (Reviewed 2023). Ingredient Substitution. NDSU Extension.
+                    https://www.ndsu.edu/agriculture/sites/default/files/2023-01/fn198.pdf
+                  </Reference>
+                  <Reference>
+                    Alice Henneman (2020) University of Nebraska-Lincoln Extension. Basic Ingredient Substitutions.
+                    https://food.unl.edu/article/ingredient-substitutions/
+                  </Reference>
+                  <Reference>
+                    Kim, H., Venkataramanan, R., &amp; Sheth, A. (2024). A Survey on Food Ingredient Substitutions.
+                    arXiv. https://doi.org/10.48550/arXiv.2501.01958
+                  </Reference>
+                  <Reference>
+                    Lee, S., Choi, Y., Jeong, H. S., Lee, J., &amp; Sung, J. (2017). Effect of different cooking methods
+                    on the content of vitamins and true retention in selected vegetables. Food science and
+                    biotechnology, 27(2), 333–342. https://doi-org.proxy2.library.illinois.edu/10.1007/s10068-017-0281-1
+                  </Reference>
+                  <Reference>
+                    New Mexico State University Extension. (2016). In a Pinch: Ingredient Substitution.
+                    https://pubs.nmsu.edu/_e/E131.pdf
+                  </Reference>
+                  <Reference>
+                    Philippi Rosane, B., Okoren, L., Andersen, B. V., Byrne, D. V., &amp; Bügel, S. G. (2026). What Is
+                    the Role of Plant-Based Alternatives to Animal Foods in the Great Food Transformation: A Narrative
+                    Review. The Journal of nutrition, 156(2), 101275.
+                    https://doi-org.proxy2.library.illinois.edu/10.1016/j.tjnut.2025.101275
+                  </Reference>
+                  <Reference>
+                    Shirai, S. S., Seneviratne, O., Gordon, M. E., Chen, C. H., &amp; McGuinness, D. L. (2021).
+                    Identifying Ingredient Substitutions Using a Knowledge Graph of Food. Frontiers in artificial
+                    intelligence, 3, 621766. https://doi-org.proxy2.library.illinois.edu/10.3389/frai.2020.621766
+                  </Reference>
+                  <Reference>
+                    USDA. Methods for Healthy Cooking (2024). Food and Nutrition Administration.
+                    https://www.fna.usda.gov/tn/methods-healthy-cooking
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

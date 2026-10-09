@@ -43,10 +43,10 @@ function renderWithLinks(text) {
 }
 
 // Mirrors Figma's "Reference" component (id 3182:14767): a single card —
-// SPICE-Edu-Neutral-A/25 fill, 16px corner radius, 16px padding, Roboto
-// Regular 16px/150%/+0.15px tracking in Global/textPrimary — holding one
-// citation. Figma's own version is static text; this adds the one thing a
-// static design can't: any http(s) URL inside the citation renders as a
+// originally SPICE-Edu-Neutral-A/25 fill, 16px corner radius, 16px padding,
+// Roboto Regular 16px/150%/+0.15px tracking in Global/textPrimary — holding
+// one citation. Figma's own version is static text; this adds the one thing
+// a static design can't: any http(s) URL inside the citation renders as a
 // real, visually distinct, clickable link instead of plain unstyled text.
 // Line-height is Figma's 150% scaled by the same LINE_HEIGHT_SCALE every
 // other paragraph element uses (this is a plain Box, not a Typography
@@ -54,11 +54,17 @@ function renderWithLinks(text) {
 //
 // Standard element for every References section going forward — replaces
 // the old plain `<ul><li>` bullet-point rendering used before this existed.
+// `bgcolor` recolored from `action.selected` to `background.default` per
+// direct user direction (2026-10-05): every `<Reference>` now lives inside
+// `ReferenceList`'s own dark `action.selected` card, so the individual
+// citation cards needed to flip to the page's own lighter background to
+// read as "light cards on a dark wrapper" instead of two layers of the same
+// tint stacked on each other.
 export default function Reference({ children }) {
   return (
     <Box
       sx={{
-        bgcolor: 'action.selected',
+        bgcolor: 'background.default',
         borderRadius: 2,
         p: 2,
         fontSize: '0.75rem', // 12px, down from Figma's literal 16px per user direction — citation text reads fine smaller than body copy

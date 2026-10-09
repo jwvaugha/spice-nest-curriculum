@@ -9,13 +9,14 @@ import Section from '../components/Section';
 import NumberedList from '../components/NumberedList';
 import NumberedListItem from '../components/NumberedListItem';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 // Built from Figma node 3457:29392 ("Mod-1-Ch-2 — Food Groups"). One flat
@@ -168,12 +169,14 @@ export default function Module1Chapter2() {
 
               <SectionDivider />
 
-              <Section title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  U.S. Department of Agriculture &amp; U.S. Department of Health and Human Services. (2026). Daily
-                  serving sizes by calorie level (Dietary Guidelines for Americans, 2025-2030).
-                  https://cdn.realfood.gov/Daily%20Serving%20Sizes.pdf
-                </Reference>
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    U.S. Department of Agriculture &amp; U.S. Department of Health and Human Services. (2026). Daily
+                    serving sizes by calorie level (Dietary Guidelines for Americans, 2025-2030).
+                    https://cdn.realfood.gov/Daily%20Serving%20Sizes.pdf
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

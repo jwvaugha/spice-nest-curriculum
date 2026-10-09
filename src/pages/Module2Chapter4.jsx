@@ -10,13 +10,14 @@ import Section from '../components/Section';
 import BulletedList from '../components/BulletedList';
 import SequenceTimeline from '../components/SequenceTimeline';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 // Built from Figma node 3214:14890 ("Mod-2-Ch-4 — Alternative Approaches to
@@ -216,44 +217,46 @@ export default function Module2Chapter4() {
 
               <SectionDivider />
 
-              <Section id="references" title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  American Diabetes Association. (2025). Hydration: The Unsung Hero in Diabetes Health. Diabetes Food
-                  Hub. https://diabetesfoodhub.org/blog/hydration-unsung-hero-diabetes-health
-                </Reference>
-                <Reference>
-                  Centers for Disease Control and Prevention. (2024, May 15). Get active.
-                  https://www.cdc.gov/diabetes/living-with/physical-activity.html
-                </Reference>
-                <Reference>
-                  Colberg, S. R., Sigal, R. J., Yardley, J. E., Riddell, M. C., Dunstan, D. W., Dempsey, P. C., Horton,
-                  E. S., Castorino, K., &amp; Tate, D. F. (2016). Physical Activity/Exercise and Diabetes: A Position
-                  Statement of the American Diabetes Association. Diabetes care, 39(11), 2065–2079.
-                  https://doi.org/10.2337/dc16-1728
-                </Reference>
-                <Reference>
-                  Darraj A. (2023). The Link Between Sleeping and Type 2 Diabetes: A Systematic Review. Cureus,
-                  15(11), e48228. https://doi.org/10.7759/cureus.48228
-                </Reference>
-                <Reference>
-                  Henson, J., Covenant, A., Hall, A. P., Herring, L., Rowlands, A. V., Yates, T., &amp; Davies, M. J.
-                  (2024). Waking up to the importance of sleep in type 2 diabetes management: A narrative review.
-                  Diabetes Care, 47(3), 331–343. https://doi.org/10.2337/dci23-0037
-                </Reference>
-                <Reference>
-                  Kubota, S., Liu, Y., Iizuka, K., Kuwata, H., Seino, Y., &amp; Yabe, D. (2020). A Review of Recent
-                  Findings on Meal Sequence: An Attractive Dietary Approach to Prevention and Management of Type 2
-                  Diabetes. Nutrients, 12(9), 2502. https://doi.org/10.3390/nu12092502
-                </Reference>
-                <Reference>
-                  Shukla, A. P., Iliescu, R. G., Thomas, C. E., &amp; Aronne, L. J. (2015). Food Order Has a
-                  Significant Impact on Postprandial Glucose and Insulin Levels. Diabetes care, 38(7), e98–e99.
-                  https://doi.org/10.2337/dc15-0429
-                </Reference>
-                <Reference>
-                  Taylor, K., &amp; Tripathi, A. K. (2025, March 5). Adult dehydration. StatPearls.
-                  https://www.ncbi.nlm.nih.gov/books/NBK555956/
-                </Reference>
+              <Section id="references" sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    American Diabetes Association. (2025). Hydration: The Unsung Hero in Diabetes Health. Diabetes Food
+                    Hub. https://diabetesfoodhub.org/blog/hydration-unsung-hero-diabetes-health
+                  </Reference>
+                  <Reference>
+                    Centers for Disease Control and Prevention. (2024, May 15). Get active.
+                    https://www.cdc.gov/diabetes/living-with/physical-activity.html
+                  </Reference>
+                  <Reference>
+                    Colberg, S. R., Sigal, R. J., Yardley, J. E., Riddell, M. C., Dunstan, D. W., Dempsey, P. C., Horton,
+                    E. S., Castorino, K., &amp; Tate, D. F. (2016). Physical Activity/Exercise and Diabetes: A Position
+                    Statement of the American Diabetes Association. Diabetes care, 39(11), 2065–2079.
+                    https://doi.org/10.2337/dc16-1728
+                  </Reference>
+                  <Reference>
+                    Darraj A. (2023). The Link Between Sleeping and Type 2 Diabetes: A Systematic Review. Cureus,
+                    15(11), e48228. https://doi.org/10.7759/cureus.48228
+                  </Reference>
+                  <Reference>
+                    Henson, J., Covenant, A., Hall, A. P., Herring, L., Rowlands, A. V., Yates, T., &amp; Davies, M. J.
+                    (2024). Waking up to the importance of sleep in type 2 diabetes management: A narrative review.
+                    Diabetes Care, 47(3), 331–343. https://doi.org/10.2337/dci23-0037
+                  </Reference>
+                  <Reference>
+                    Kubota, S., Liu, Y., Iizuka, K., Kuwata, H., Seino, Y., &amp; Yabe, D. (2020). A Review of Recent
+                    Findings on Meal Sequence: An Attractive Dietary Approach to Prevention and Management of Type 2
+                    Diabetes. Nutrients, 12(9), 2502. https://doi.org/10.3390/nu12092502
+                  </Reference>
+                  <Reference>
+                    Shukla, A. P., Iliescu, R. G., Thomas, C. E., &amp; Aronne, L. J. (2015). Food Order Has a
+                    Significant Impact on Postprandial Glucose and Insulin Levels. Diabetes care, 38(7), e98–e99.
+                    https://doi.org/10.2337/dc15-0429
+                  </Reference>
+                  <Reference>
+                    Taylor, K., &amp; Tripathi, A. K. (2025, March 5). Adult dehydration. StatPearls.
+                    https://www.ncbi.nlm.nih.gov/books/NBK555956/
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

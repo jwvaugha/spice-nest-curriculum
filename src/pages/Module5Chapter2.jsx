@@ -13,13 +13,14 @@ import BulletedList from '../components/BulletedList';
 import TipExample from '../components/TipExample';
 import ComparisonTable from '../components/ComparisonTable';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 // Built from Figma node 3430:19106 ("Mod-5-Ch-2 — Enhancing Flavor Through
@@ -219,27 +220,29 @@ export default function Module5Chapter2() {
 
               <SectionDivider />
 
-              <Section id="references" title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  American Heart Association. (n.d.). Common herbs and spices and how to use them deliciously.
-                  https://www.heart.org/en/healthy-living/healthy-eating/cooking-skills/preparing/common-herbs-and-spices-how-to-use-them-deliciously
-                </Reference>
-                <Reference>
-                  American Heart Association. (2024, July 17). Shake it or skip it? Here’s expert advice on salt.
-                  https://www.heart.org/en/news/2024/07/17/shake-it-or-skip-it-heres-expert-advice-on-salt
-                </Reference>
-                <Reference>
-                  Forks Over Knives. (n.d.). Fresh-to-dried herb conversion guide (plus garlic and onion powder).
-                  https://www.forksoverknives.com/how-tos/fresh-to-dried-herb-conversion-guide-plus-garlic-onion-powder/
-                </Reference>
-                <Reference>
-                  Jiang T. A. (2019). Health Benefits of Culinary Herbs and Spices. Journal of AOAC International,
-                  102(2), 395–411. https://doi.org/10.5740/jaoacint.18-0418
-                </Reference>
-                <Reference>
-                  National CACFP Association. (2025, June 4). Cooking with herbs and spices.
-                  https://www.cacfp.org/2025/06/04/cooking-with-herbs-and-spices/
-                </Reference>
+              <Section id="references" sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    American Heart Association. (n.d.). Common herbs and spices and how to use them deliciously.
+                    https://www.heart.org/en/healthy-living/healthy-eating/cooking-skills/preparing/common-herbs-and-spices-how-to-use-them-deliciously
+                  </Reference>
+                  <Reference>
+                    American Heart Association. (2024, July 17). Shake it or skip it? Here’s expert advice on salt.
+                    https://www.heart.org/en/news/2024/07/17/shake-it-or-skip-it-heres-expert-advice-on-salt
+                  </Reference>
+                  <Reference>
+                    Forks Over Knives. (n.d.). Fresh-to-dried herb conversion guide (plus garlic and onion powder).
+                    https://www.forksoverknives.com/how-tos/fresh-to-dried-herb-conversion-guide-plus-garlic-onion-powder/
+                  </Reference>
+                  <Reference>
+                    Jiang T. A. (2019). Health Benefits of Culinary Herbs and Spices. Journal of AOAC International,
+                    102(2), 395–411. https://doi.org/10.5740/jaoacint.18-0418
+                  </Reference>
+                  <Reference>
+                    National CACFP Association. (2025, June 4). Cooking with herbs and spices.
+                    https://www.cacfp.org/2025/06/04/cooking-with-herbs-and-spices/
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

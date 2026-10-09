@@ -11,13 +11,14 @@ import NumberedList from '../components/NumberedList';
 import NumberedListItem from '../components/NumberedListItem';
 import BulletedList from '../components/BulletedList';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 // Every built chapter gets a real expand/collapse section list (not just the
@@ -229,12 +230,14 @@ export default function Module2Chapter2() {
 
               <SectionDivider />
 
-              <Section id="references" title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>American Diabetes Association. Food and Blood Glucose. https://diabetes.org/food-nutrition/food-blood-sugar</Reference>
-                <Reference>American Heart Association (2025). The Facts on Fats Infographic. https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/fats/the-facts-on-fats</Reference>
-                <Reference>Reynolds A, Mitri J. Dietary Advice For Individuals with Diabetes. (Updated 2024 Apr 28). Endotext [Internet]. https://www.ncbi.nlm.nih.gov/books/NBK279012/</Reference>
-                <Reference>Szczerba E, Barbaresko J, Schiemann T, Stahl-Pehe A, Schwingshackl L, Schlesinger S. Diet in the management of type 2 diabetes: umbrella review. BMJ Medicine. 2023;2:e000664.</Reference>
-                <Reference>Ahmad S, Demler OV, Sun Q, et al. Association of the Mediterranean Diet With Onset of Diabetes in the Women's Health Study. JAMA Network Open. 2020;3(11):e2025466.</Reference>
+              <Section id="references" sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>Ahmad S, Demler OV, Sun Q, et al. Association of the Mediterranean Diet With Onset of Diabetes in the Women's Health Study. JAMA Network Open. 2020;3(11):e2025466.</Reference>
+                  <Reference>American Diabetes Association. Food and Blood Glucose. https://diabetes.org/food-nutrition/food-blood-sugar</Reference>
+                  <Reference>American Heart Association (2025). The Facts on Fats Infographic. https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/fats/the-facts-on-fats</Reference>
+                  <Reference>Reynolds A, Mitri J. Dietary Advice For Individuals with Diabetes. (Updated 2024 Apr 28). Endotext [Internet]. https://www.ncbi.nlm.nih.gov/books/NBK279012/</Reference>
+                  <Reference>Szczerba E, Barbaresko J, Schiemann T, Stahl-Pehe A, Schwingshackl L, Schlesinger S. Diet in the management of type 2 diabetes: umbrella review. BMJ Medicine. 2023;2:e000664.</Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

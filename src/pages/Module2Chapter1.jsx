@@ -11,13 +11,14 @@ import NumberedList from '../components/NumberedList';
 import NumberedListItem from '../components/NumberedListItem';
 import BulletedList from '../components/BulletedList';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 // Built from Figma node 3414:17465 ("Mod-2-Ch-1 — Basics of Diabetes"),
@@ -298,21 +299,23 @@ export default function Module2Chapter1() {
 
               <SectionDivider />
 
-              <Section title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>Centers for Disease Control and Prevention. (2024). Diabetes Risk Factors. https://www.cdc.gov/diabetes/risk-factors/index.html</Reference>
-                <Reference>Centers for Disease Control and Prevention. (2024). Prediabetes – Your Chance to Prevent Type 2 Diabetes. https://www.cdc.gov/diabetes/prevention-type-2/prediabetes-prevent-type-2.html</Reference>
-                <Reference>Jin J. What Is Prediabetes? JAMA. 2023;330(24):2404. doi:10.1001/jama.2023.17846. https://jamanetwork-com.proxy2.library.illinois.edu/journals/jama/fullarticle/2812671</Reference>
-                <Reference>
-                  Forray, A. I., Coman, M. A., Simonescu-Colan, R., Mazga, A. I., Cherecheș, R. M., &amp; Borzan, C. M.
-                  (2023). The Global Burden of Type 2 Diabetes Attributable to Dietary Risks: Insights from the Global
-                  Burden of Disease Study 2019. Nutrients, 15(21), 4613. https://doi.org/10.3390/nu15214613
-                </Reference>
-                <Reference>American Diabetes Association. Food and Blood Glucose. https://diabetes.org/food-nutrition/food-blood-sugar</Reference>
-                <Reference>American Heart Association. Diabetes Risk Factors. (2024) https://www.heart.org/en/health-topics/diabetes/understand-your-risk-for-diabetes</Reference>
-                <Reference>American Diabetes Association. About Diabetes. Warning Signs and Symptoms. https://diabetes.org/about-diabetes/warning-signs-symptoms</Reference>
-                <Reference>Symptoms &amp; Causes of Diabetes. https://www.niddk.nih.gov/health-information/diabetes/overview/symptoms-causes</Reference>
-                <Reference>National Heart, Lung, and Blood Institute. (2022). What is diabetes? Fact sheet. https://www.nhlbi.nih.gov/resources/what-diabetes-fact-sheet</Reference>
-                <Reference>U.S. Food and Drug Administration. (n.d.). Diabetes fact sheet. https://www.fda.gov/media/151821/download</Reference>
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>American Diabetes Association. Food and Blood Glucose. https://diabetes.org/food-nutrition/food-blood-sugar</Reference>
+                  <Reference>American Diabetes Association. About Diabetes. Warning Signs and Symptoms. https://diabetes.org/about-diabetes/warning-signs-symptoms</Reference>
+                  <Reference>American Heart Association. Diabetes Risk Factors. (2024) https://www.heart.org/en/health-topics/diabetes/understand-your-risk-for-diabetes</Reference>
+                  <Reference>Centers for Disease Control and Prevention. (2024). Diabetes Risk Factors. https://www.cdc.gov/diabetes/risk-factors/index.html</Reference>
+                  <Reference>Centers for Disease Control and Prevention. (2024). Prediabetes – Your Chance to Prevent Type 2 Diabetes. https://www.cdc.gov/diabetes/prevention-type-2/prediabetes-prevent-type-2.html</Reference>
+                  <Reference>
+                    Forray, A. I., Coman, M. A., Simonescu-Colan, R., Mazga, A. I., Cherecheș, R. M., &amp; Borzan, C. M.
+                    (2023). The Global Burden of Type 2 Diabetes Attributable to Dietary Risks: Insights from the Global
+                    Burden of Disease Study 2019. Nutrients, 15(21), 4613. https://doi.org/10.3390/nu15214613
+                  </Reference>
+                  <Reference>Jin J. What Is Prediabetes? JAMA. 2023;330(24):2404. doi:10.1001/jama.2023.17846. https://jamanetwork-com.proxy2.library.illinois.edu/journals/jama/fullarticle/2812671</Reference>
+                  <Reference>National Heart, Lung, and Blood Institute. (2022). What is diabetes? Fact sheet. https://www.nhlbi.nih.gov/resources/what-diabetes-fact-sheet</Reference>
+                  <Reference>Symptoms &amp; Causes of Diabetes. https://www.niddk.nih.gov/health-information/diabetes/overview/symptoms-causes</Reference>
+                  <Reference>U.S. Food and Drug Administration. (n.d.). Diabetes fact sheet. https://www.fda.gov/media/151821/download</Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

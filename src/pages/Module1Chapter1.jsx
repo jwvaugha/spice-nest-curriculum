@@ -9,13 +9,14 @@ import Section from '../components/Section';
 import NumberedList from '../components/NumberedList';
 import NumberedListItem from '../components/NumberedListItem';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 
@@ -179,34 +180,36 @@ export default function Module1Chapter1() {
 
               <SectionDivider />
 
-              <Section title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  Roberts, S. B., Silver, R. E., Das, S. K., Fielding, R. A., Gilhooly, C. H., Jacques, P. F., Kelly, J. M.,
-                  Mason, J. B., McKeown, N. M., Reardon, M. A., Rowan, S., Saltzman, E., Shukitt-Hale, B., Smith, C. E.,
-                  Taylor, A. A., Wu, D., Zhang, F. F., Panetta, K., &amp; Booth, S. (2021). Healthy aging - Nutrition
-                  matters: Start early and screen often. Advances in Nutrition, 12(4), 1438–1448.
-                  https://doi.org/10.1093/advances/nmab032
-                </Reference>
-                <Reference>
-                  World Health Organization. (2026). Healthy diets. https://www.who.int/news-room/fact-sheets/detail/healthy-diet
-                </Reference>
-                <Reference>
-                  American Heart Association. (2024). Food for thought: How diet affects the brain over a lifetime.
-                  https://www.heart.org/en/news/2024/09/27/food-for-thought-how-diet-affects-the-brain-over-a-lifetime
-                </Reference>
-                <Reference>
-                  Vicki Contie. (2025). Midlife eating patterns tied to health decades later. National Institutes of
-                  Health (NIH) Research Matters.
-                  https://www.nih.gov/news-events/nih-research-matters/midlife-eating-patterns-tied-health-decades-later
-                </Reference>
-                <Reference>
-                  Wickramasinghe, K., Mathers, J. C., Wopereis, S., Marsman, D. S., &amp; Griffiths, J. C. (2020). From
-                  lifespan to healthspan: the role of nutrition in healthy ageing. Journal of Nutritional Science, 9,
-                  e33. https://doi.org/10.1017/jns.2020.26
-                </Reference>
-                <Reference>
-                  USDA (2026). Dietary Guidelines for Americans, 2025-2030. https://cdn.realfood.gov/DGA.pdf
-                </Reference>
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    American Heart Association. (2024). Food for thought: How diet affects the brain over a lifetime.
+                    https://www.heart.org/en/news/2024/09/27/food-for-thought-how-diet-affects-the-brain-over-a-lifetime
+                  </Reference>
+                  <Reference>
+                    Vicki Contie. (2025). Midlife eating patterns tied to health decades later. National Institutes of
+                    Health (NIH) Research Matters.
+                    https://www.nih.gov/news-events/nih-research-matters/midlife-eating-patterns-tied-health-decades-later
+                  </Reference>
+                  <Reference>
+                    Roberts, S. B., Silver, R. E., Das, S. K., Fielding, R. A., Gilhooly, C. H., Jacques, P. F., Kelly, J. M.,
+                    Mason, J. B., McKeown, N. M., Reardon, M. A., Rowan, S., Saltzman, E., Shukitt-Hale, B., Smith, C. E.,
+                    Taylor, A. A., Wu, D., Zhang, F. F., Panetta, K., &amp; Booth, S. (2021). Healthy aging - Nutrition
+                    matters: Start early and screen often. Advances in Nutrition, 12(4), 1438–1448.
+                    https://doi.org/10.1093/advances/nmab032
+                  </Reference>
+                  <Reference>
+                    USDA (2026). Dietary Guidelines for Americans, 2025-2030. https://cdn.realfood.gov/DGA.pdf
+                  </Reference>
+                  <Reference>
+                    Wickramasinghe, K., Mathers, J. C., Wopereis, S., Marsman, D. S., &amp; Griffiths, J. C. (2020). From
+                    lifespan to healthspan: the role of nutrition in healthy ageing. Journal of Nutritional Science, 9,
+                    e33. https://doi.org/10.1017/jns.2020.26
+                  </Reference>
+                  <Reference>
+                    World Health Organization. (2026). Healthy diets. https://www.who.int/news-room/fact-sheets/detail/healthy-diet
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

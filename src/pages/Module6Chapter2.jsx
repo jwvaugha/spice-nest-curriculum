@@ -14,13 +14,14 @@ import NumberedListItem from '../components/NumberedListItem';
 import BulletedList from '../components/BulletedList';
 import SequenceTimeline from '../components/SequenceTimeline';
 import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
-import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX, REFERENCE_LIST_GAP } from '../layoutConstants';
+import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 import { asset } from '../assetPath';
 
 
@@ -273,33 +274,35 @@ export default function Module6Chapter2() {
 
               <SectionDivider />
 
-              <Section id="references" title="References" contentGap={REFERENCE_LIST_GAP} sx={{ pb: 0 }}>
-                <Reference>
-                  Bahri A. A. (2025). Motivational Interviewing to Promote Healthy Lifestyle Behaviors: Evidence,
-                  Implementation, and Digital Applications. Journal of multidisciplinary healthcare, 18, 6629–6642.
-                  https://doi.org/10.2147/JMDH.S557957
-                </Reference>
-                <Reference>
-                  Bischof, G., Bischof, A., &amp; Rumpf, H. J. (2021). Motivational Interviewing: An Evidence-Based
-                  Approach for Use in Medical Practice. Deutsches Arzteblatt international, 118(7), 109–115.
-                  https://doi.org/10.3238/arztebl.m2021.0014
-                </Reference>
-                <Reference>
-                  Lundahl, B., Moleni, T., Burke, B. L., Butters, R., Tollefson, D., Butler, C., &amp; Rollnick, S.
-                  (2013). Motivational interviewing in medical care settings: a systematic review and meta-analysis of
-                  randomized controlled trials. Patient education and counseling, 93(2), 157–168.
-                  https://doi.org/10.1016/j.pec.2013.07.012
-                </Reference>
-                <Reference>
-                  Miller, W. R., &amp; Rollnick, S. (2009). Ten things that motivational interviewing is not.
-                  Behavioural and cognitive psychotherapy, 37(2), 129–140. https://doi.org/10.1017/S1352465809005128
-                </Reference>
-                <Reference>
-                  Pirlott, A. G., Kisbu-Sakarya, Y., Defrancesco, C. A., Elliot, D. L., &amp; Mackinnon, D. P. (2012).
-                  Mechanisms of motivational interviewing in health promotion: a Bayesian mediation analysis. The
-                  international journal of behavioral nutrition and physical activity, 9(1), 69.
-                  https://doi.org/10.1186/1479-5868-9-69
-                </Reference>
+              <Section id="references" sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>
+                    Bahri A. A. (2025). Motivational Interviewing to Promote Healthy Lifestyle Behaviors: Evidence,
+                    Implementation, and Digital Applications. Journal of multidisciplinary healthcare, 18, 6629–6642.
+                    https://doi.org/10.2147/JMDH.S557957
+                  </Reference>
+                  <Reference>
+                    Bischof, G., Bischof, A., &amp; Rumpf, H. J. (2021). Motivational Interviewing: An Evidence-Based
+                    Approach for Use in Medical Practice. Deutsches Arzteblatt international, 118(7), 109–115.
+                    https://doi.org/10.3238/arztebl.m2021.0014
+                  </Reference>
+                  <Reference>
+                    Lundahl, B., Moleni, T., Burke, B. L., Butters, R., Tollefson, D., Butler, C., &amp; Rollnick, S.
+                    (2013). Motivational interviewing in medical care settings: a systematic review and meta-analysis of
+                    randomized controlled trials. Patient education and counseling, 93(2), 157–168.
+                    https://doi.org/10.1016/j.pec.2013.07.012
+                  </Reference>
+                  <Reference>
+                    Miller, W. R., &amp; Rollnick, S. (2009). Ten things that motivational interviewing is not.
+                    Behavioural and cognitive psychotherapy, 37(2), 129–140. https://doi.org/10.1017/S1352465809005128
+                  </Reference>
+                  <Reference>
+                    Pirlott, A. G., Kisbu-Sakarya, Y., Defrancesco, C. A., Elliot, D. L., &amp; Mackinnon, D. P. (2012).
+                    Mechanisms of motivational interviewing in health promotion: a Bayesian mediation analysis. The
+                    international journal of behavioral nutrition and physical activity, 9(1), 69.
+                    https://doi.org/10.1186/1479-5868-9-69
+                  </Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>
