@@ -21,10 +21,14 @@ import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
+import FastForwardRoundedIcon from '@mui/icons-material/FastForwardRounded';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Link, useLocation } from 'react-router-dom';
 import LogoMark from './LogoMark';
 import { useSequentialMode } from '../hooks/useSequentialMode';
-import { useViewedChapters } from '../hooks/useViewedChapters';
+import { useViewedChapters, setProgressToModule, getProgressPreset } from '../hooks/useViewedChapters';
+import { MODULES } from '../moduleData';
 
 // Spans the full browser viewport width — this component is rendered
 // outside any max-width container in App.jsx, matching the request that the
@@ -49,7 +53,8 @@ export default function GlobalHeader() {
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [userMenuAnchor, setUserMenuAnchor] = useState(null);
   const { sequentialMode, toggleSequentialMode } = useSequentialMode();
-  const { resetViewed } = useViewedChapters();
+  const { resetViewed, isViewed } = useViewedChapters();
+  const progressPreset = getProgressPreset(isViewed);
 
   return (
     <AppBar position="sticky" elevation={0} sx={{ top: 0 }}>
@@ -261,6 +266,48 @@ export default function GlobalHeader() {
                 slotProps={{ secondary: { sx: { whiteSpace: 'normal', maxWidth: 220 } } }}
               />
             </MenuItem>
+            {/* Testing affordance: jump the session to the START of a given
+                module -- wipes all progress, then marks every built chapter
+                in the modules before it as read (setProgressToModule in
+                useViewedChapters.js), with every follow-on effect (Home's
+                card/groups, progress bars, sidebar dots, sequential locks)
+                coming for free since they all read that same state. A plain
+                Box, not a MenuItem: it holds its own row of buttons, and a
+                MenuItem wrapper would make the whole block one click target.
+                The highlighted button is whichever preset the current
+                progress EXACTLY matches (none, once the learner has read
+                anything beyond a jump point). */}
+            <Box sx={{ px: 2, py: 1 }}>
+              <Stack direction="row" spacing={0} sx={{ alignItems: 'flex-start' }}>
+                <ListItemIcon sx={{ pt: 0.5 }}>
+                  <FastForwardRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText
+                  sx={{ my: 0 }}
+                  primary="Jump to Module"
+                  secondary="Testing only — resets progress, then marks every earlier module complete"
+                  slotProps={{ secondary: { sx: { whiteSpace: 'normal', maxWidth: 220 } } }}
+                />
+              </Stack>
+              <ToggleButtonGroup
+                exclusive
+                size="small"
+                value={progressPreset}
+                onChange={(e, n) => {
+                  // Re-clicking the highlighted preset reports null --
+                  // treat it as re-applying that same preset.
+                  setProgressToModule(n ?? progressPreset);
+                  setUserMenuAnchor(null);
+                }}
+                sx={{ mt: 1, ml: 4.5 }}
+              >
+                {MODULES.map((m) => (
+                  <ToggleButton key={m.number} value={m.number} sx={{ px: 1.5, py: 0.5, fontWeight: 600 }} aria-label={`Jump to Module ${m.number}`}>
+                    {m.number}
+                  </ToggleButton>
+                ))}
+              </ToggleButtonGroup>
+            </Box>
           </Menu>
         </Stack>
       </Toolbar>

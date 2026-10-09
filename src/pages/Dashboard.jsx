@@ -5,25 +5,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import PageTopBar from '../components/PageTopBar';
 import ModuleProgressRow from '../components/ModuleProgressRow';
-import { MODULES } from '../moduleData';
+import { MODULES, getLockedModules } from '../moduleData';
 import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSequentialMode } from '../hooks/useSequentialMode';
 import { HEADER_HEIGHT, DASHBOARD_CONTENT_PT, DASHBOARD_SHELL_BACKGROUND } from '../layoutConstants';
-
-// A module counts as "complete" for unlock purposes once every chapter that
-// actually HAS a page (`c.to`) has been viewed -- not every chapter in the
-// array. Several modules have one or more `to: null` entries (content not
-// built yet), and requiring those too would mean the next module could
-// never unlock until every last page in the curriculum exists, which isn't
-// what "finish this module" should mean for a learner. A module with zero
-// built chapters at all (shouldn't happen given the current curriculum,
-// but defensively) counts as complete rather than permanently blocking
-// everything after it.
-function isModuleComplete(mod, isViewed) {
-  const built = mod.chapters.filter((c) => c.to);
-  if (built.length === 0) return true;
-  return built.every((c) => isViewed(c.chapterId));
-}
 
 export default function Dashboard() {
   // Radio-style, one module open at a time -- matches the Web Prototype's
@@ -59,30 +44,23 @@ export default function Dashboard() {
 
             <Stack spacing={1}>
             {(() => {
-              // Cascades module-by-module in curriculum order: a module is
-              // locked only if sequential mode is on AND every module
-              // before it isn't complete yet. Built as a plain loop (not
-              // .map) since each module's lock state depends on the
-              // running outcome of every module before it, not just its
-              // own data -- module 1 is never locked (nothing precedes
-              // it), module 2 is locked only if module 1 isn't done, etc.
-              let unlocked = true;
-              return MODULES.map((mod) => {
-                const locked = sequentialMode && !unlocked;
-                unlocked = unlocked && isModuleComplete(mod, isViewed);
-                return (
-                  <ModuleProgressRow
-                    key={mod.number}
-                    moduleNumber={mod.number}
-                    title={mod.title}
-                    thumbSrc={mod.thumbSrc}
-                    chapters={mod.chapters}
-                    expanded={openModule === mod.number}
-                    onToggle={() => setOpenModule((cur) => (cur === mod.number ? null : mod.number))}
-                    locked={locked}
-                  />
-                );
-              });
+              // Lock state comes from the shared cascade in moduleData.js
+              // (getLockedModules) -- the same rule Home's module stack
+              // uses, so the two pages can never disagree about which
+              // modules are locked.
+              const locked = getLockedModules(isViewed, sequentialMode);
+              return MODULES.map((mod) => (
+                <ModuleProgressRow
+                  key={mod.number}
+                  moduleNumber={mod.number}
+                  title={mod.title}
+                  thumbSrc={mod.thumbSrc}
+                  chapters={mod.chapters}
+                  expanded={openModule === mod.number}
+                  onToggle={() => setOpenModule((cur) => (cur === mod.number ? null : mod.number))}
+                  locked={locked.has(mod.number)}
+                />
+              ));
             })()}
             </Stack>
           </Box>

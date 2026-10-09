@@ -5,37 +5,16 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import { Link } from 'react-router-dom';
-import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
 import PageTopBar from '../components/PageTopBar';
 import ArticleTextIcon from '../components/ArticleTextIcon';
-import ModulePreviewCard from '../components/ModulePreviewCard';
-import { MODULES } from '../moduleData';
+import HomeModuleStack from '../components/HomeModuleStack';
+import Divider from '@mui/material/Divider';
+import { MODULES, getResumeTarget } from '../moduleData';
 import { useViewedChapters } from '../hooks/useViewedChapters';
+import { useSequentialMode } from '../hooks/useSequentialMode';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { HEADER_HEIGHT, DASHBOARD_CONTENT_PT, DASHBOARD_SHELL_BACKGROUND } from '../layoutConstants';
 import { asset } from '../assetPath';
-
-// Finds "the next thing to read" -- the first not-yet-viewed BUILT chapter
-// in curriculum order, paired with its own parent module (the "Up Next"
-// card needs both: the module for context/thumbnail, the chapter for the
-// actual link). Falls back to the very first built chapter if everything
-// built so far has already been read. This is the "or which one is next"
-// fallback the request explicitly allowed as an alternative to true
-// timestamp-based "most recently visited" tracking, which the existing
-// useViewedChapters storage (a flat viewed/not-viewed map, no "when") can't
-// support without a schema change.
-function getNextUp(isViewed) {
-  for (const mod of MODULES) {
-    const chapter = mod.chapters.find((c) => c.to && !isViewed(c.chapterId));
-    if (chapter) return { module: mod, chapter };
-  }
-  for (const mod of MODULES) {
-    const chapter = mod.chapters.find((c) => c.to);
-    if (chapter) return { module: mod, chapter };
-  }
-  return null;
-}
 
 // The app's actual front door (route "/"): a splash screen, not the Modules
 // list -- that's now reached via the drawer's own "Modules" row instead.
@@ -71,15 +50,15 @@ const STACK_BREAKPOINT_PX = 420;
 const TITLE_MIN_WIDTH = 150;
 
 export default function Home() {
-  const { isViewed } = useViewedChapters();
-  const nextUp = getNextUp(isViewed);
-  const hasProgress = MODULES.some((mod) => mod.chapters.some((c) => c.to && isViewed(c.chapterId)));
-  // Only modules AFTER the current one -- per direct user direction, Home
-  // is "just the current one and previews of the modules to come", never
-  // earlier modules (those already have their own real progress row on the
-  // Modules tab; repeating them here would be exactly the "extraneous
-  // information" the preview list is meant to avoid).
-  const upcomingModules = nextUp ? MODULES.filter((mod) => mod.number > nextUp.module.number) : [];
+  const { isViewed, lastVisited } = useViewedChapters();
+  const { sequentialMode } = useSequentialMode();
+  // Resumes from the most recently visited chapter -- see getResumeTarget
+  // in moduleData.js (shared with HomeModuleStack's "This Module").
+  const nextUp = getResumeTarget(isViewed, lastVisited, sequentialMode);
+  // "Dive Back In" as soon as the learner has opened any chapter, not only
+  // once one's been fully read -- resuming a half-read chapter is exactly
+  // what the card is for.
+  const hasProgress = !!lastVisited || MODULES.some((mod) => mod.chapters.some((c) => c.to && isViewed(c.chapterId)));
 
   // Two independent measurements (title block, "Up Next" chapter card) via
   // ResizeObserver, not one combined block -- resizing the card narrow now
@@ -385,7 +364,7 @@ export default function Home() {
             {/* Same big module-card-style CTA (thumbnail + module title +
             // "Up Next" chapter row) for BOTH a new learner and a returning
             // one -- only the overhanging badge's label and destination
-            // change. `getNextUp` already resolves to "the very first built
+            // change. `getResumeTarget` already resolves to "the very first built
             // chapter in curriculum order" when nothing has been viewed yet
             // (its own first loop finds the first chapter matching
             // `!isViewed`, which is trivially every chapter when the viewed
@@ -679,47 +658,12 @@ export default function Home() {
               </Box>
             </Box>
 
-            {upcomingModules.length > 0 && (
-              // "Coming Up" preview list -- modules strictly AFTER the
-              // current one, never earlier ones (see `upcomingModules`'s
-              // own comment above). Deliberately thin: no progress bar, no
-              // chapter count, no expand affordance -- that's what
-              // ModuleProgressRow is for, and it already lives on the
-              // Modules tab. This is meant to read as "here's what's
-              // ahead", not a second copy of the real modules list.
-              //
-              // One Tooltip wraps the WHOLE bordered section, not each
-              // card individually -- per direct user direction, repeating
-              // the identical "why is this dimmed" explanation on every
-              // single preview card was noise; it only needs to be said
-              // once for the section as a whole. The border + subtle hover
-              // background is what makes the section itself read as one
-              // hoverable unit (matching the "Up Next" card's own bordered
-              // language above it), rather than a bare list of dimmed rows
-              // with no visual container.
-              <Tooltip title="These modules unlock as you complete the ones before them" arrow placement="top">
-                <Box
-                  sx={{
-                    mt: 4,
-                    p: 2,
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    borderRadius: 2,
-                    transition: 'background-color 0.15s ease',
-                    '&:hover': { bgcolor: 'action.hover' },
-                  }}
-                >
-                  <Typography variant="overline" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
-                    Coming Up
-                  </Typography>
-                  <Stack spacing={0.5}>
-                    {upcomingModules.map((mod) => (
-                      <ModulePreviewCard key={mod.number} moduleNumber={mod.number} title={mod.title} thumbSrc={mod.thumbSrc} />
-                    ))}
-                  </Stack>
-                </Box>
-              </Tooltip>
-            )}
+            {/* Divider, then the full module stack (Up Next, then
+                Completed) -- replaced the old dimmed "Coming Up" teaser per
+                direct user direction. See HomeModuleStack.jsx for the
+                grouping and the sequential-mode locked-group behavior. */}
+            <Divider sx={{ my: 5 }} />
+            <HomeModuleStack />
           </>
           ) : (
             <Button

@@ -1,6 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
+import { MODULES } from '../moduleData';
 
 const STORAGE_KEY = 'nest-viewed-chapters';
+// The single most recently OPENED chapter (not necessarily read) -- drives
+// Home's "Dive Back In" card, which per direct user direction should resume
+// wherever the learner last was (e.g. after popping back to the main menu
+// for a second), not the earliest unread gap in the whole curriculum.
+const LAST_VISITED_KEY = 'nest-last-visited-chapter';
+
+function readLastVisited() {
+  try {
+    return localStorage.getItem(LAST_VISITED_KEY);
+  } catch (e) {
+    return null;
+  }
+}
 
 function readViewed() {
   try {
@@ -29,6 +43,19 @@ export function markChapterViewed(chapterId) {
   window.dispatchEvent(new CustomEvent(EVENT_NAME));
 }
 
+// Records `chapterId` as the most recently opened chapter. Called once per
+// chapter-page mount (see useReachedEnd.js, which every chapter page already
+// runs). Only dispatches when the value actually changes.
+export function recordChapterVisit(chapterId) {
+  if (!chapterId || readLastVisited() === chapterId) return;
+  try {
+    localStorage.setItem(LAST_VISITED_KEY, chapterId);
+  } catch (e) {
+    /* localStorage unavailable — fail silently */
+  }
+  window.dispatchEvent(new CustomEvent(EVENT_NAME));
+}
+
 // Wipes every "viewed" flag back to a fresh-learner state -- added as a
 // testing affordance (GlobalHeader's "Jane Doe" menu) so it's easy to flip
 // between "initial state" and "in-progress" without manually clearing
@@ -39,17 +66,57 @@ export function markChapterViewed(chapterId) {
 export function resetViewedChapters() {
   try {
     localStorage.removeItem(STORAGE_KEY);
+    // A real "fresh learner" reset clears where they last were, too.
+    localStorage.removeItem(LAST_VISITED_KEY);
   } catch (e) {
     /* localStorage unavailable — fail silently */
   }
   window.dispatchEvent(new CustomEvent(EVENT_NAME));
 }
 
+// Admin/testing affordance (GlobalHeader's user menu, "Jump to Module"):
+// puts the session at the START of `moduleNumber` -- every prior chapter
+// progress is wiped (including last-visited), then every built chapter in
+// modules 1..moduleNumber-1 is marked read. Writes the same storage every
+// consumer already reads, so all follow-on UI (Home's card and module
+// groups, progress bars, sidebar dots, sequential locks) updates for free.
+export function setProgressToModule(moduleNumber) {
+  const viewed = {};
+  for (const mod of MODULES) {
+    if (mod.number >= moduleNumber) continue;
+    for (const c of mod.chapters) if (c.to) viewed[c.chapterId] = true;
+  }
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(viewed));
+    localStorage.removeItem(LAST_VISITED_KEY);
+  } catch (e) {
+    /* localStorage unavailable — fail silently */
+  }
+  window.dispatchEvent(new CustomEvent(EVENT_NAME));
+}
+
+// Which "Jump to Module" preset the current progress exactly matches (or
+// null): every built chapter before module N read, none from N onward.
+export function getProgressPreset(isViewed) {
+  for (const mod of MODULES) {
+    const n = mod.number;
+    const matches = MODULES.every((m) =>
+      m.chapters.filter((c) => c.to).every((c) => isViewed(c.chapterId) === m.number < n),
+    );
+    if (matches) return n;
+  }
+  return null;
+}
+
 export function useViewedChapters() {
   const [viewed, setViewed] = useState(readViewed);
+  const [lastVisited, setLastVisited] = useState(readLastVisited);
 
   useEffect(() => {
-    const onChange = () => setViewed(readViewed());
+    const onChange = () => {
+      setViewed(readViewed());
+      setLastVisited(readLastVisited());
+    };
     window.addEventListener(EVENT_NAME, onChange);
     window.addEventListener('storage', onChange);
     return () => {
@@ -60,5 +127,5 @@ export function useViewedChapters() {
 
   const isViewed = useCallback((chapterId) => !!viewed[chapterId], [viewed]);
 
-  return { isViewed, markViewed: markChapterViewed, resetViewed: resetViewedChapters };
+  return { isViewed, lastVisited, markViewed: markChapterViewed, resetViewed: resetViewedChapters };
 }

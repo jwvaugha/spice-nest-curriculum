@@ -10,9 +10,11 @@ import { asset } from './assetPath';
 // supplementary and deliberately excluded from `chapters` — matching the
 // original Module 2 progress list's own exclusion of those rows, just
 // applied consistently to every module now that more than one module has
-// real content. `to: null` means the page doesn't exist yet — it can never
-// be marked viewed, so it permanently caps that module's progress below
-// 100% until the content exists, which is the honest state.
+// real content. `to: null` means the page doesn't exist yet — it's listed
+// (disabled) in a module's chapter list, but per direct user direction
+// (2026-10-05) it does NOT count toward progress or completion: progress
+// bars, "N/M Chapters Complete", checkmarks, Home's Completed group and
+// sequential unlocking all count built chapters only (isModuleComplete).
 //
 // Module 2 and 6 originally also had standalone "Video" rows counted here
 // too (both content units a learner needed to get through, same as a
@@ -52,7 +54,7 @@ export const MODULES = [
       { chapterId: 'mod3ch1', label: 'Chapter 1', title: 'Creating a Meal Plan & Grocery List', to: '/module-3-chapter-1' },
       { chapterId: 'mod3ch2', label: 'Chapter 2', title: 'Cook Once, Eat Twice', to: '/module-3-chapter-2' },
       { chapterId: 'mod3ch3', label: 'Chapter 3', title: 'Avoiding Food Waste', to: '/module-3-chapter-3' },
-      { chapterId: 'mod3ch4', label: 'Chapter 4', title: 'Meal Planning Tools', to: null },
+      { chapterId: 'mod3ch4', label: 'Chapter 4', title: 'Tools and Mobile Apps for Meal Planning and Tracking', to: '/module-3-chapter-4' },
       { chapterId: 'mod3ch5', label: 'Chapter 5', title: 'Meal Planning Organizer', to: null },
     ],
   },
@@ -89,3 +91,59 @@ export const MODULES = [
     ],
   },
 ];
+
+// A module counts as "complete" for unlock purposes once every chapter that
+// actually HAS a page (`c.to`) has been viewed -- not every chapter in the
+// array. Several modules have one or more `to: null` entries (content not
+// built yet), and requiring those too would mean the next module could
+// never unlock until every last page in the curriculum exists, which isn't
+// what "finish this module" should mean for a learner. A module with zero
+// built chapters at all (shouldn't happen given the current curriculum,
+// but defensively) counts as complete rather than permanently blocking
+// everything after it. Shared by Dashboard (Modules tab) and Home's module
+// stack so both pages always agree on what's complete and what's locked.
+export function isModuleComplete(mod, isViewed) {
+  const built = mod.chapters.filter((c) => c.to);
+  if (built.length === 0) return true;
+  return built.every((c) => isViewed(c.chapterId));
+}
+
+// Sequential-unlock cascade, in curriculum order: a module is locked only if
+// sequential mode is on AND some module before it isn't complete yet.
+// Returns a Set of locked module numbers.
+export function getLockedModules(isViewed, sequentialMode) {
+  const locked = new Set();
+  let unlocked = true;
+  for (const mod of MODULES) {
+    if (sequentialMode && !unlocked) locked.add(mod.number);
+    unlocked = unlocked && isModuleComplete(mod, isViewed);
+  }
+  return locked;
+}
+
+// Where Home's "Dive Back In" card should send the learner, as
+// { module, chapter } -- shared with Home's module stack so its
+// "This Module" section always matches the card. Per direct user direction
+// it resumes from the most recently VISITED chapter, not the earliest gap:
+//   1. Last-visited chapter, if it isn't read yet -> resume it.
+//   2. Otherwise the next unread built chapter AFTER it in curriculum
+//      order, wrapping around to earlier gaps once nothing later is left.
+//   3. No visit history -> the first unread built chapter overall.
+//   4. Everything read -> the very first built chapter.
+// Chapters in a locked module (sequential mode) are never candidates, and a
+// last-visited chapter inside one is ignored (possible if it was opened
+// while sequential unlocking was off).
+export function getResumeTarget(isViewed, lastVisited, sequentialMode) {
+  const locked = getLockedModules(isViewed, sequentialMode);
+  const built = MODULES.flatMap((module) =>
+    module.chapters.filter((c) => c.to).map((chapter) => ({ module, chapter })),
+  );
+  const available = built.filter((e) => !locked.has(e.module.number));
+  const lastIdx = available.findIndex((e) => e.chapter.chapterId === lastVisited);
+
+  if (lastIdx !== -1 && !isViewed(lastVisited)) return available[lastIdx];
+
+  const start = lastIdx === -1 ? 0 : lastIdx + 1;
+  const ordered = [...available.slice(start), ...available.slice(0, start)];
+  return ordered.find((e) => !isViewed(e.chapter.chapterId)) || built[0] || null;
+}

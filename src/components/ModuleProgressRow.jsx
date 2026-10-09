@@ -53,8 +53,15 @@ export const CHAPTER_LIST_INDENT = 15; // 120px: aligns each chapter row's
 // below, never the toggle button, which stays fully functional regardless.
 export default function ModuleProgressRow({ moduleNumber, title, thumbSrc, chapters, expanded, onToggle, locked = false }) {
   const { isViewed } = useViewedChapters();
-  const chaptersTotal = chapters.length;
-  const chaptersComplete = chapters.filter((c) => isViewed(c.chapterId)).length;
+  // Counts only BUILT chapters (`to` set), per direct user direction -- the
+  // same basis isModuleComplete (moduleData.js) uses for Home's "Completed"
+  // group and the sequential-unlock cascade, so a module whose only unread
+  // chapters don't have pages yet reads "04/4" + checkmark, matching where
+  // it's grouped and what it unlocks. Unbuilt chapters still appear
+  // (disabled) in the expanded chapter list below.
+  const builtChapters = chapters.filter((c) => c.to);
+  const chaptersTotal = builtChapters.length;
+  const chaptersComplete = builtChapters.filter((c) => isViewed(c.chapterId)).length;
   const pct = chaptersTotal ? Math.round((chaptersComplete / chaptersTotal) * 100) : 0;
   const complete = chaptersTotal > 0 && chaptersComplete === chaptersTotal;
   const firstBuilt = !locked && chapters.find((c) => c.to);
@@ -163,7 +170,10 @@ export default function ModuleProgressRow({ moduleNumber, title, thumbSrc, chapt
               className="module-title"
               sx={{
                 color: 'text.primary',
-                mb: 1.25,
+                // No bottom margin when locked: the progress block below is
+                // hidden, so number+title are the whole text column and
+                // center vertically against the thumbnail on their own.
+                mb: locked ? 0 : 1.25,
                 textDecorationLine: 'underline',
                 textDecorationColor: 'transparent',
                 textDecorationThickness: '1px',
@@ -173,16 +183,23 @@ export default function ModuleProgressRow({ moduleNumber, title, thumbSrc, chapt
             >
               {title}
             </Typography>
-            <LinearProgress
-              variant="determinate"
-              value={pct}
-              sx={{ width: 155, height: 4, borderRadius: 2, bgcolor: 'divider', mb: 0.75 }}
-            />
-            <Typography variant="caption" color="text.secondary">
-              {locked
-                ? 'Locked — complete the previous module first'
-                : `${String(chaptersComplete).padStart(2, '0')}/${chaptersTotal} Chapters Complete`}
-            </Typography>
+            {/* Hidden entirely when locked, per direct user direction -- an
+                always-empty bar plus "Locked" text was redundant next to the
+                thumbnail's own lock glyph. ButtonBase is already a centered
+                inline-flex row, so the remaining number+title center
+                vertically within the card with no extra layout code. */}
+            {!locked && (
+              <>
+                <LinearProgress
+                  variant="determinate"
+                  value={pct}
+                  sx={{ width: 155, height: 4, borderRadius: 2, bgcolor: 'divider', mb: 0.75 }}
+                />
+                <Typography variant="caption" color="text.secondary">
+                  {`${String(chaptersComplete).padStart(2, '0')}/${chaptersTotal} Chapters Complete`}
+                </Typography>
+              </>
+            )}
           </Box>
         </ButtonBase>
 
