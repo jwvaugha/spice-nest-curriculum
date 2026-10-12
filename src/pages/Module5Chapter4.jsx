@@ -17,41 +17,22 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // Built from Figma node 3709:22128 ("Mod-5-Ch-4 — Adapting Recipes for
 // Cuisine, Condition, and Taste", NEST Prototype page), itself built
 // 2026-10-01 from the Word doc (no Deliverable reference frame exists for
 // this chapter). Three flowing Sections (paragraph + BulletedList, no
-// numbered items), each closing with one representative standalone photo --
-// no repo images folder exists yet for this chapter, so all 4 photo slots
-// (hero + 3 section photos) are "Photo needed" placeholders, matching the
-// Figma source exactly rather than fabricating any. The source doc's own
-// repeated "Tips:" sub-label before each bullet list was dropped as
-// boilerplate scaffolding (same word verbatim 3x, not unique content) --
-// only the real bullet content survived, matching the standing
-// don't-replicate-boilerplate convention.
-function PlaceholderPhoto({ note }) {
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        aspectRatio: '16/10',
-        borderRadius: 1.5,
-        border: '1px dashed',
-        borderColor: 'divider',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        color: 'text.secondary',
-        fontSize: 12,
-        px: 1.5,
-      }}
-    >
-      {note}
-    </Box>
-  );
-}
+// numbered items), each closing with one representative standalone photo.
+// Real photos synced 2026-10-12 from `Chapter Content/Images/Module 5/
+// Chapter 4 - Adapting Recipes for Cuisine, Condition, and Taste/` (hero
+// landed 2026-10-05, the 3 section photos on 2026-10-12) -- matched against
+// Figma's own already-synced image fills for the same 4 slots rather than
+// guessing from filenames alone. The source doc's own repeated "Tips:"
+// sub-label before each bullet list was dropped as boilerplate scaffolding
+// (same word verbatim 3x, not unique content) -- only the real bullet
+// content survived, matching the standing don't-replicate-boilerplate
+// convention.
 
 const SIDEBAR_ITEM_DEFS = [
   {
@@ -150,7 +131,8 @@ export default function Module5Chapter4() {
                 eyebrow="Chapter 4"
                 title="Adapting Recipes for Cuisine, Condition, and Taste"
                 intro="Recipes don't always fit every person or family. You may need to change a recipe based on your family's culture, health needs, available ingredients, or just what you like to eat. Small tweaks can make your meals healthier, tastier, and more familiar."
-                placeholderNote="Photo needed — hero.jpg"
+                imageSrc={asset('/images/module-5-chapter-4/hero.jpg')}
+                imageAlt="A family preparing a meal together at home"
               />
 
               <Section id="match-your-culture-and-traditions" title="Match Your Culture and Traditions" sx={{ pt: 0 }}>
@@ -165,7 +147,12 @@ export default function Module5Chapter4() {
                     'Keep using cooking methods your family likes, such as baking, steaming, or stir-frying. For example, you can add more vegetables to your usual stir-fry instead of making a completely new meal.',
                   ]}
                 />
-                <PlaceholderPhoto note="Photo needed — a family cooking a cultural dish together" />
+                <Box
+                  component="img"
+                  src={asset('/images/module-5-chapter-4/item-match-your-culture.jpg')}
+                  alt="Preparing dosa, a traditional South Asian dish, on a griddle"
+                  sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
+                />
               </Section>
 
               <SectionDivider />
@@ -183,7 +170,12 @@ export default function Module5Chapter4() {
                     'Use less sugar in sauces, drinks, and desserts. Try fruit or spices to add natural sweetness and flavor.',
                   ]}
                 />
-                <PlaceholderPhoto note="Photo needed — a plate with non-starchy vegetables and whole grains" />
+                <Box
+                  component="img"
+                  src={asset('/images/module-5-chapter-4/item-health-needs.jpg')}
+                  alt="Roasted cabbage wedges, a non-starchy vegetable, seasoned with herbs"
+                  sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
+                />
               </Section>
 
               <SectionDivider />
@@ -201,7 +193,12 @@ export default function Module5Chapter4() {
                     'Make one small change at a time. This can help you find the right flavor without changing the whole recipe.',
                   ]}
                 />
-                <PlaceholderPhoto note="Photo needed — fresh herbs, spices, and citrus" />
+                <Box
+                  component="img"
+                  src={asset('/images/module-5-chapter-4/item-personal-taste.jpg')}
+                  alt="Squeezing fresh lime juice over a plated meal to adjust flavor"
+                  sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
+                />
               </Section>
 
               <SectionDivider />

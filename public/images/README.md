@@ -28,6 +28,16 @@ All 6 module thumbnails are real photos. No action needed.
 - `hero.jpg`, `item-refined-carbohydrates.jpg`, `item-saturated-fat.jpg`, `item-sugary-drinks.jpg`, `item-fried-foods.jpg`, `item-processed-foods.jpg`, `item-lean-protein.jpg`, `item-healthy-fats.jpg` — real photos, already wired.
 - **Missing:** `item-vegetables.jpg`, `item-fruits.jpg`, `item-whole-grains.jpg` — these three list items ("Vegetables", "Fruits", "Whole Grains" under "Foods to Focus On") currently show a dashed placeholder box with the exact filename they're waiting on. Drop in files with those exact names and tell Claude — same as above, the placeholder `<div>` gets swapped for a real `<img>` tag pointing at the file.
 
+### `module-1-chapter-4/` (Chapter 3, The Nutrition Facts Label) — hero in place (2026-10-12)
+- `hero.jpg` — from `Chapter Content/Images/Module 1/Chapter 3 - Nutrition Facts Label/nutrition-facts-label-hero.jpeg`, downscaled to 1600px. The page's only photo slot.
+
+### `module-4-chapter-1/` — 3 photos in place (2026-10-12)
+- `hero.jpg`, `warehouse-supermarket.jpg`, `specialized-grocery-store.jpg` — real photos, wired. Pulled from the Figma Mod-4-Ch-1 frame's image fills (no repo drop-folder exists for this chapter), matched by SHA-1 to each `imageHash`, downscaled to 1600px.
+
+### `module-5-chapter-1/` — 3 photos in place (2026-10-12)
+- `hero.jpg`, `item-dry-measuring-cups.jpg`, `item-wet-measuring-cups.jpg` — real photos, wired. Synced from the Figma Mod-5-Ch-1 frame's image fills, matched to the drop-folder originals (`portion-sizes-hero.jpeg`, `dry-measuring.jpeg`, `wet-measuring.jpeg`) by hash and dimensions, downscaled to 1600px.
+- The 4 hand-approach items show two-panel "Illustration needed" placeholders (hand | precise measure) pending composite illustrations. The cooked-vs-uncooked figures are generated SVGs in `src/viz/generated/`, not photos.
+
 ## Naming a brand-new slot (e.g. if a new list item gets added later)
 
 Use `item-<short-slug-of-the-title>.jpg` for a numbered list item, or `hero.jpg` for the one hero photo at the top of a chapter. Any common web image format works (jpg, png, webp) — just keep the extension consistent with whatever you tell Claude to expect.

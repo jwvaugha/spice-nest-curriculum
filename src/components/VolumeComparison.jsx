@@ -38,7 +38,22 @@ const SVGS = import.meta.glob('../viz/generated/volume-*.svg', { query: '?raw', 
 const svgFor = (id, which) => SVGS[`../viz/generated/volume-${id}-${which}.svg`];
 
 const SVG_FILL_SX = { flex: 1, minWidth: 0, '& svg': { display: 'block', maxWidth: '100%', height: 'auto', mx: 'auto' } };
-const FADE = 'opacity 350ms ease-out';
+// One shared, slow curve for every reveal/reset change in a card (figure,
+// reveal card, Reset button, answer chips) so they all move together.
+const DURATION = 800;
+const EASE = 'cubic-bezier(0.45, 0, 0.25, 1)';
+const ease = (...props) => props.map((p) => `${p} ${DURATION}ms ${EASE}`).join(', ');
+const NO_MOTION = { '@media (prefers-reduced-motion: reduce)': { transition: 'none' } };
+
+// Fade an element in/out while keeping it mounted, so it never pops. Hidden
+// ends as `visibility: hidden` (unfocusable, unclickable) only after the
+// fade finishes; showing flips visibility at once so it can take focus.
+const fadeSx = (on, ...extraProps) => ({
+  opacity: on ? 1 : 0,
+  visibility: on ? 'visible' : 'hidden',
+  transition: on ? ease('opacity', ...extraProps) : `${ease('opacity', ...extraProps)}, visibility 0s linear ${DURATION}ms`,
+  ...NO_MOTION,
+});
 
 // "a [b] c" -> ['a ', {answer: 'b'}, ' c']
 function parseCaption(caption) {
@@ -53,8 +68,6 @@ function parseCaption(caption) {
 // it) inside a constant 2px side margin, so the line never reflows; reveal
 // fades the pane and un-blurs the text (instant for reduced-motion
 // users). The answer is hidden from screen readers until revealed.
-const PANE_FADE = 'opacity 450ms ease-out';
-
 function Answer({ text, hidden }) {
   return (
     <>
@@ -80,8 +93,8 @@ function Answer({ text, hidden }) {
             // backdrop-filter only samples inside the pane, so glyph edges
             // near its border stay half-legible -- blur the text itself too.
             filter: hidden ? 'blur(4px)' : 'none',
-            transition: 'filter 450ms ease-out',
-            '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
+            transition: ease('filter'),
+            ...NO_MOTION,
           }}
         >
           {text}
@@ -106,8 +119,8 @@ function Answer({ text, hidden }) {
             },
             opacity: hidden ? 1 : 0,
             pointerEvents: 'none',
-            transition: PANE_FADE,
-            '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
+            transition: ease('opacity'),
+            ...NO_MOTION,
           })}
         />
       </Box>
@@ -125,8 +138,8 @@ export default function VolumeComparison({ id, reveal = false, revealLabel = 'Ta
   // escalation as MythFactCard/ComparisonTable.
   const [ref, visible] = useRevealOnScroll();
   const [shown, setShown] = useState(!reveal);
-  // Keep keyboard focus somewhere sensible: the reveal button unmounts on
-  // click (focus -> Reset), and Reset hides itself (focus -> reveal button).
+  // Keep keyboard focus somewhere sensible: the reveal card fades out on
+  // click (focus -> Reset), and Reset fades out on reset (focus -> reveal card).
   const revealBtnRef = useRef(null);
   const resetBtnRef = useRef(null);
   const interacted = useRef(false);
@@ -147,12 +160,28 @@ export default function VolumeComparison({ id, reveal = false, revealLabel = 'Ta
       <Box sx={SVG_FILL_SX} dangerouslySetInnerHTML={{ __html: svgFor(id, 'before') }} />
       <ArrowForwardRoundedIcon aria-hidden sx={{ color: 'text.disabled', alignSelf: 'center', flexShrink: 0 }} />
       <Box sx={{ ...SVG_FILL_SX, position: 'relative' }}>
-        <Box aria-hidden={!shown} sx={{ opacity: shown ? 1 : 0, transition: FADE }} dangerouslySetInnerHTML={{ __html: svgFor(id, 'after') }} />
-        {!shown && (
+        {/* Cooked figure: fades in while un-blurring and settling from 97%
+            scale; the reveal card crossfades out over the same curve. */}
+        <Box
+          aria-hidden={!shown}
+          sx={{
+            ...fadeSx(shown, 'filter', 'transform'),
+            filter: shown ? 'none' : 'blur(6px)',
+            transform: shown ? 'none' : 'scale(0.97)',
+          }}
+          dangerouslySetInnerHTML={{ __html: svgFor(id, 'after') }}
+        />
+        {reveal && (
           <ButtonBase
             ref={revealBtnRef}
             onClick={() => toggle(true)}
+            // MUI's ripple expands across the whole (large) card, which read as
+            // too dramatic; a gentle tint on press, plus a visible keyboard
+            // focus ring (the ripple also served as focus feedback), instead.
+            disableRipple
             aria-label={`${revealLabel}: ${spec.title}`}
+            aria-hidden={shown || undefined}
+            tabIndex={shown ? -1 : 0}
             sx={{
               position: 'absolute',
               inset: 0,
@@ -164,8 +193,13 @@ export default function VolumeComparison({ id, reveal = false, revealLabel = 'Ta
               gap: 1,
               px: 2,
               color: 'primary.dark',
-              transition: 'background-color 150ms',
+              pointerEvents: shown ? 'none' : 'auto',
               '&:hover': { bgcolor: 'action.selected' },
+              '&:active': { bgcolor: (theme) => alpha(theme.palette.primary.main, 0.12) },
+              '&.Mui-focusVisible': { outline: '2px solid', outlineColor: 'primary.main', outlineOffset: 2 },
+              ...fadeSx(!shown),
+              // keep the quick hover tint alongside the slow fade
+              transition: `${fadeSx(!shown).transition}, background-color 150ms`,
             }}
           >
             <TouchAppRoundedIcon />
@@ -225,7 +259,8 @@ export default function VolumeComparison({ id, reveal = false, revealLabel = 'Ta
           startIcon={<ReplayRoundedIcon />}
           onClick={() => toggle(false)}
           aria-label={`Reset: ${spec.title}`}
-          sx={{ visibility: shown ? 'visible' : 'hidden' }}
+          tabIndex={shown ? 0 : -1}
+          sx={fadeSx(shown)}
         >
           Reset
         </Button>

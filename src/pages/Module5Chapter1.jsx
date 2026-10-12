@@ -21,11 +21,14 @@ import { useViewedChapters } from '../hooks/useViewedChapters';
 import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
+import { asset } from '../assetPath';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
 
 // Built from Figma node 3759:23626 ("Mod-5-Ch-1 — Measuring and Portion Size
 // Techniques", NEST Prototype page), itself built 2026-10-12 from the Word
-// doc (CTS M5C1). Two deliberate departures from that frame:
+// doc (CTS M5C1). Photos (hero, dry cups, wet cup) synced 2026-10-12 from the
+// Figma frame's image fills, matched to the repo drop-folder originals by
+// hash/dimensions. Two deliberate departures from that frame:
 // - "Cooked vs. Uncooked Volume": Figma shows a static 4-row Comparison
 //   Table; here each conversion is a click-to-reveal before/after figure
 //   (VolumeComparison, generated SVGs -- see src/viz/volumeComparisons.js),
@@ -191,7 +194,8 @@ export default function Module5Chapter1() {
                 eyebrow="Chapter 1"
                 title="Measuring and Portion Size Techniques"
                 intro="Before cooking, it is important to learn how to measure food correctly. Measuring helps with following recipes and can support healthy eating habits and balanced meals."
-                placeholderNote="Photo needed — hero.jpg"
+                imageSrc={asset('/images/module-5-chapter-1/hero.jpg')}
+                imageAlt="A hand holding a small portion of macadamia nuts over a plate of nuts"
               />
 
               <Section id="what-are-portion-sizes" title="What are Portion Sizes?" sx={{ pt: 0 }}>
@@ -220,7 +224,8 @@ export default function Module5Chapter1() {
                     number={1}
                     title="Dry Measuring Cups"
                     imageFirst
-                    placeholderNote="Photo needed — a set of dry measuring cups, ingredient being leveled with a knife"
+                    imageSrc={asset('/images/module-5-chapter-1/item-dry-measuring-cups.jpg')}
+                    imageAlt="A set of dry measuring cups from ¼ cup to 1 cup"
                     bullets={[
                       <>
                         <strong>Spoon and Level:</strong> Lightly spoon the ingredient into the cup until it is
@@ -239,7 +244,8 @@ export default function Module5Chapter1() {
                     number={2}
                     title="Wet/Liquid Measuring Cups"
                     imageFirst
-                    placeholderNote="Photo needed — a clear liquid measuring cup on a counter, read at eye level"
+                    imageSrc={asset('/images/module-5-chapter-1/item-wet-measuring-cups.jpg')}
+                    imageAlt="Water pouring from a glass liquid measuring cup with printed measurement lines"
                     bullets={[
                       <>
                         <strong>Eye-Level Reading:</strong> Place the measuring cup on a flat, level surface before

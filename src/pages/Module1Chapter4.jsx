@@ -12,6 +12,7 @@ import { useSettledWidth } from '../hooks/useSettledWidth';
 import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
+import { asset } from '../assetPath';
 
 // chapterId 'mod1ch4' (labeled "Chapter 3" -- same internal-id-vs-display-
 // number split already established for mod2ch4/"Chapter 3" etc., see
@@ -98,7 +99,8 @@ export default function Module1Chapter4() {
                 eyebrow="Chapter 3"
                 title="The Nutrition Facts Label"
                 intro="Every packaged food carries a Nutrition Facts label — a quick, standardized snapshot of what's actually inside. Learning to read it well is one of the simplest ways to make informed choices at the grocery store. Here, we'll break down what each part of the label means and why it matters."
-                placeholderNote="Photo needed — hero.jpg"
+                imageSrc={asset('/images/module-1-chapter-4/hero.jpg')}
+                imageAlt="A finger pointing to the calories line on a printed Nutrition Facts label in a binder"
               />
 
               {/* Not wrapped in `Section` -- this interactive needs the
