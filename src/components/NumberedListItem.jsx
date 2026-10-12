@@ -64,7 +64,7 @@ const STAGGER_MAX_STEPS = 5;
 // (the two compose to the real ~64px total, not one number counted twice;
 // see layoutConstants.js). This is exactly what "component owns its own
 // slot spacing" means: this file is the only place either number lives.
-export default function NumberedListItem({ number, title, children, bullets, extra, imageSrc, imageAlt, placeholderNote, tip, tipLabel = 'Serving Size Examples' }) {
+export default function NumberedListItem({ number, title, children, bullets, extra, imageSrc, imageAlt, placeholderNote, imageFirst = false, tip, tipLabel = 'Serving Size Examples' }) {
   const hasImage = Boolean(imageSrc || placeholderNote);
   // Always called (rules of hooks) -- the hook itself no-ops harmlessly if
   // `ref` never gets attached to a DOM node (the plain-text, no-escalation
@@ -73,6 +73,35 @@ export default function NumberedListItem({ number, title, children, bullets, ext
   const revealProps = hasImage
     ? { ref, sx: { maxWidth: TEXT_MAX_WIDTH, mx: 'auto', ...revealSx(visible, Math.min(number - 1, STAGGER_MAX_STEPS) * STAGGER_STEP_MS) } }
     : { sx: { maxWidth: TEXT_MAX_WIDTH, mx: 'auto' } };
+  // `imageFirst`: render the photo right under the title instead of after
+  // the text (Mod-5-Ch-1's measuring-cup items, matching the Figma frame).
+  const media = imageSrc ? (
+    <Box
+      component="img"
+      src={imageSrc}
+      alt={imageAlt}
+      sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
+    />
+  ) : placeholderNote ? (
+    <Box
+      sx={{
+        width: '100%',
+        aspectRatio: '16/10',
+        borderRadius: 1.5,
+        border: '1px dashed',
+        borderColor: 'divider',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        color: 'text.secondary',
+        fontSize: 12,
+        px: 1.5,
+      }}
+    >
+      {placeholderNote}
+    </Box>
+  ) : null;
   return (
     <Box sx={{ pb: LIST_ITEM_PB }}>
       <Box {...revealProps}>
@@ -97,6 +126,7 @@ export default function NumberedListItem({ number, title, children, bullets, ext
           </Box>
           <Stack spacing={LIST_ITEM_CONTENT_GAP} sx={{ flex: 1, minWidth: 0, pt: LIST_ITEM_CONTENT_PT }}>
             <Typography variant="h6">{title}</Typography>
+            {imageFirst && media}
             {children && (
               <Typography variant="body2" color="text.secondary">
                 {children}
@@ -104,33 +134,7 @@ export default function NumberedListItem({ number, title, children, bullets, ext
             )}
             {bullets && <BulletedList items={bullets} />}
             {extra}
-            {imageSrc ? (
-              <Box
-                component="img"
-                src={imageSrc}
-                alt={imageAlt}
-                sx={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', borderRadius: 1.5, bgcolor: '#ece4d9' }}
-              />
-            ) : placeholderNote ? (
-              <Box
-                sx={{
-                  width: '100%',
-                  aspectRatio: '16/10',
-                  borderRadius: 1.5,
-                  border: '1px dashed',
-                  borderColor: 'divider',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                  color: 'text.secondary',
-                  fontSize: 12,
-                  px: 1.5,
-                }}
-              >
-                {placeholderNote}
-              </Box>
-            ) : null}
+            {!imageFirst && media}
             {/* A tip directly after a full-width photo wants noticeably
                 more clearance than TipExample's own default (which is
                 tuned for following a line of text) -- per direct user

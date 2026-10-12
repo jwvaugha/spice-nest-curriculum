@@ -11,6 +11,8 @@ import Section from '../components/Section';
 import BulletedList from '../components/BulletedList';
 import TwoColumnList from '../components/TwoColumnList';
 import Paragraph from '../components/Paragraph';
+import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
@@ -248,17 +250,27 @@ export default function Module4Chapter4() {
 
               <SectionDivider />
 
-              <Section id="key-takeaways" title="Key Takeaways" sx={{ pb: 0 }}>
+              <Section id="key-takeaways" title="Key Takeaways">
                 <Typography>
                   Smart shopping is all about building simple habits. These tips will help you stretch your money and
                   keep your kitchen full of healthy food. Finally, always bring a shopping list so you don&apos;t buy
                   things you don&apos;t need!
                 </Typography>
               </Section>
+
+              <SectionDivider />
+
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>Academy of Nutrition and Dietetics. (n.d.). Eat right on a budget. https://www.eatright.org/food/planning/smart-shopping/eat-right-on-a-budget</Reference>
+                  <Reference>Environmental Working Group. (n.d.). EWG&apos;s shopper&apos;s guide to pesticides in produce. https://www.ewg.org/foodnews/</Reference>
+                  <Reference>FoodSafety.gov. (n.d.). Cold food storage charts. https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts</Reference>
+                </ReferenceList>
+              </Section>
             </Box>
           </Box>
 
-          <ChapterFooter to="/module-5-chapter-2" chapterId="mod4ch4" label="Continue to Next Module" reachedEnd={reachedEnd} />
+          <ChapterFooter to="/module-5-chapter-1" chapterId="mod4ch4" label="Continue to Next Module" reachedEnd={reachedEnd} />
         </Box>
       </Box>
     </>

@@ -3,8 +3,11 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
+import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { REFERENCE_LIST_GAP } from '../layoutConstants';
 
 const PREVIEW_COUNT = 3;
@@ -100,6 +103,23 @@ export default function ReferenceList({ title, children }) {
           />
         )}
       </Box>
+
+      {/* Redundant bottom toggle (per direct user request, 2026-10-12) --
+          same state as the header chevron, but sits where the reader's eye
+          already is when they reach the faded 3rd card. "See more" / "See
+          less" is the standard paired wording for this pattern. */}
+      {collapsible && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+          <Button
+            size="small"
+            onClick={() => setExpanded((v) => !v)}
+            aria-expanded={expanded}
+            startIcon={expanded ? <RemoveRoundedIcon /> : <AddRoundedIcon />}
+          >
+            {expanded ? 'See less' : 'See more'}
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 }

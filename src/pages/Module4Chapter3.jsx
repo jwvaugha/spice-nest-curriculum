@@ -13,6 +13,8 @@ import Section from '../components/Section';
 import BulletedList from '../components/BulletedList';
 import SequenceTimeline from '../components/SequenceTimeline';
 import TipExample from '../components/TipExample';
+import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
@@ -268,7 +270,7 @@ export default function Module4Chapter3() {
 
               <SectionDivider />
 
-              <Section id="key-messages" title="Key Messages" sx={{ pb: 0 }}>
+              <Section id="key-messages" title="Key Messages">
                 <BulletedList
                   items={[
                     'Food assistance programs could help when money for groceries is limited.',
@@ -279,6 +281,16 @@ export default function Module4Chapter3() {
                     'Planning your meals, buying easy-to-prepare foods, and shopping online can save you time when you are busy caring for someone.',
                   ]}
                 />
+              </Section>
+
+              <SectionDivider />
+
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>Find free food and groceries. Feeding America. https://www.feedingamerica.org/need-help-find-food</Reference>
+                  <Reference>Food. Illinois Department of Human Services. https://www.dhs.state.il.us/page.aspx?item=29721</Reference>
+                  <Reference>Community Resources in Illinois. My Pantry Express. https://mypantryexpress.org/resources/</Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

@@ -12,6 +12,8 @@ import NumberedList from '../components/NumberedList';
 import NumberedListItem from '../components/NumberedListItem';
 import BulletedList from '../components/BulletedList';
 import TipExample from '../components/TipExample';
+import Reference from '../components/Reference';
+import ReferenceList from '../components/ReferenceList';
 import ChapterFooter from '../components/ChapterFooter';
 import DashboardBackLink from '../components/DashboardBackLink';
 import { useViewedChapters } from '../hooks/useViewedChapters';
@@ -270,7 +272,7 @@ export default function Module4Chapter2() {
 
               <SectionDivider />
 
-              <Section id="key-messages" title="Key Messages" sx={{ pb: 0 }}>
+              <Section id="key-messages" title="Key Messages">
                 <BulletedList
                   items={[
                     'Seasonal markets often offer fresh fruits and vegetables that are in season.',
@@ -279,6 +281,18 @@ export default function Module4Chapter2() {
                     'Shopping at different types of markets can help families find nutritious foods that fit their culture, preferences, and budget.',
                   ]}
                 />
+              </Section>
+
+              <SectionDivider />
+
+              <Section sx={{ pb: 0 }}>
+                <ReferenceList title="References">
+                  <Reference>Joassart-Marcelli, P., Rossiter, J. S., &amp; Bosco, F. J. (2017). Ethnic markets and community food security in an urban “food desert”. Environment and Planning A: Economy and Space, 49(7), 1642-1663. https://doi.org/10.1177/0308518X17700394</Reference>
+                  <Reference>Singleton, C. R., Kessee, N., Chatman, C., &amp; Spreen, C. (2020). Racial/Ethnic Differences in the Shopping Behaviors and Fruit and Vegetable Consumption of Farmers&apos; Market Incentive Program Users in Illinois. Ethnicity &amp; disease, 30(1), 109–118. https://doi.org/10.18865/ed.30.1.109</Reference>
+                  <Reference>USDA. Seasonal Produce Guide. SNAP-Ed Connection. U.S. Department of Agriculture. https://snaped.fns.usda.gov/resources/nutrition-education-materials/seasonal-produce-guide</Reference>
+                  <Reference>Vargas, A. M., de Moura, A. P., Deliza, R., &amp; Cunha, L. M. (2021). The Role of Local Seasonal Foods in Enhancing Sustainable Food Consumption: A Systematic Literature Review. Foods (Basel, Switzerland), 10(9), 2206. https://doi.org/10.3390/foods10092206</Reference>
+                  <Reference>Xie, R. (2025). Beyond supermarkets: ethnic stores, food environments, and the limits of the Food Access Research Atlas. Frontiers in public health, 13, 1655436. https://doi.org/10.3389/fpubh.2025.1655436</Reference>
+                </ReferenceList>
               </Section>
             </Box>
           </Box>

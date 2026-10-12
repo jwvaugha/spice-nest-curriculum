@@ -34,7 +34,19 @@ import { asset } from '../assetPath';
 // (not attached to a specific list item -- Figma has it as its own
 // Content Slot child after the NumberedList, not nested in item 3).
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod5ch1', icon: ArticleTextIcon, label: 'Chapter 1', title: 'Measuring and portion size techniques' },
+  {
+    chapterId: 'mod5ch1',
+    icon: ArticleTextIcon,
+    label: 'Chapter 1',
+    title: 'Measuring and portion size techniques',
+    to: '/module-5-chapter-1',
+    sections: [
+      'What are Portion Sizes?',
+      'Measuring Tools: Dry vs. Wet Measuring Cups',
+      'Physical Changes in Ingredients: Cooked vs. Uncooked Volume',
+      'Your Portable Measuring Tool: The Hand-Approach',
+    ],
+  },
   {
     chapterId: 'mod5ch2',
     icon: ArticleTextIcon,

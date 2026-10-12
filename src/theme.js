@@ -49,6 +49,15 @@ export const spiceTokens = {
 // to — that preserves the relative difference MUI's default type scale
 // already has between them (body2 reads slightly tighter than body1)
 // instead of flattening it. "Slightly" looser: +6%.
+// Shared "emphasized label" text treatment: Medium (500) weight in the
+// primary text color. It's the same bolding the sidebar uses for the ACTIVE
+// chapter title (ChapterMenuItem). Used for a table's dominant first column,
+// the "antecedent" each row hangs off (Cooking Method -> Examples), and for
+// ComparisonTable row labels. Those previously used H6, which is wrong in a
+// table cell: H6 is an uppercase, widely tracked title style for labeling a
+// content slot, not a cell value.
+export const EMPHASIS_TEXT_SX = { fontWeight: 500, color: 'text.primary' };
+
 export const LINE_HEIGHT_SCALE = 1.2
 ;
 

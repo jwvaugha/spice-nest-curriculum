@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
 import { useRevealOnScroll, revealSx } from '../hooks/useRevealOnScroll';
+import { EMPHASIS_TEXT_SX } from '../theme';
 
 const LABEL_WIDTH = 160;
 
@@ -17,7 +18,13 @@ const LABEL_WIDTH = 160;
 // When to Add / Cooking Tip -- Herbs & Spices) -- each row then needs its
 // own `label`. Leave it off for a plain paired list (e.g. Cooking Method /
 // Examples) where rows carry no shared attribute name.
-export default function ComparisonTable({ columnAHeader, columnBHeader, showRowLabel = false, rows }) {
+//
+// `emphasizeColumnA` is for tables whose first column is the dominant
+// "antecedent" each row hangs off (Cooking Method -> Examples, Storage Type ->
+// Examples, Instead of -> Try). It gives that column EMPHASIS_TEXT_SX, the
+// active-sidebar-title bolding. Row labels always get the same treatment
+// (they used to be H6, which is a slot-title style, not a cell style).
+export default function ComparisonTable({ columnAHeader, columnBHeader, showRowLabel = false, emphasizeColumnA = false, rows }) {
   // Fade-in-on-scroll Rule 3: a real tabular block is a substantial visual
   // element on its own, same escalation as MythFactCard -- see that file's
   // comment.
@@ -50,11 +57,11 @@ export default function ComparisonTable({ columnAHeader, columnBHeader, showRowL
         >
           {showRowLabel && (
             <Box sx={{ width: LABEL_WIDTH, flexShrink: 0, px: 2, py: 1.5 }}>
-              <Typography variant="h6">{row.label}</Typography>
+              <Typography variant="body1" sx={EMPHASIS_TEXT_SX}>{row.label}</Typography>
             </Box>
           )}
           <Box sx={{ flex: 1, minWidth: 0, px: 2, py: 1.5 }}>
-            <Typography variant="body1">{row.a}</Typography>
+            <Typography variant="body1" sx={emphasizeColumnA ? EMPHASIS_TEXT_SX : undefined}>{row.a}</Typography>
           </Box>
           <Box sx={{ flex: 1, minWidth: 0, px: 2, py: 1.5 }}>
             <Typography variant="body1">{row.b}</Typography>

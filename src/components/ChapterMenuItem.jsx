@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import { Link } from 'react-router-dom';
+import { EMPHASIS_TEXT_SX } from '../theme';
 
 // Mirrors the Figma "Chapter Menu Item" variant set (Selected x Expand).
 //
@@ -130,7 +131,7 @@ export default function ChapterMenuItem({
               </Typography>
             }
             secondary={
-              <Typography variant="subtitle2" color="text.primary" sx={{ fontWeight: active ? 500 : 400 }}>
+              <Typography variant="subtitle2" color="text.primary" sx={active ? EMPHASIS_TEXT_SX : { fontWeight: 400 }}>
                 {title}
               </Typography>
             }

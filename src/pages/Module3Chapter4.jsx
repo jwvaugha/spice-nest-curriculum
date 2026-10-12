@@ -154,7 +154,7 @@ export default function Module3Chapter4() {
                   available in your NEST dashboard.
                 </Typography>
                 <Typography>Here's a visual example of what you could write in a notebook:</Typography>
-                <DataTable columns={PLANNER_COLUMNS} rows={PLANNER_ROWS} />
+                <DataTable columns={PLANNER_COLUMNS} rows={PLANNER_ROWS} emphasizeFirstColumn />
                 <Typography>
                   Mobile applications that use a phone, tablet, or computer could also help you with meal planning.
                   You can plan the meal and record the nutritional information in advance, or you could plan the

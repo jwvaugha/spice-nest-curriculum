@@ -19,6 +19,7 @@ import Module3Chapter4 from './pages/Module3Chapter4';
 import Module4Chapter2 from './pages/Module4Chapter2';
 import Module4Chapter3 from './pages/Module4Chapter3';
 import Module4Chapter4 from './pages/Module4Chapter4';
+import Module5Chapter1 from './pages/Module5Chapter1';
 import Module5Chapter2 from './pages/Module5Chapter2';
 import Module5Chapter3 from './pages/Module5Chapter3';
 import Module5Chapter4 from './pages/Module5Chapter4';
@@ -52,6 +53,7 @@ export default function App() {
         <Route path="/module-4-chapter-2" element={<Module4Chapter2 />} />
         <Route path="/module-4-chapter-3" element={<Module4Chapter3 />} />
         <Route path="/module-4-chapter-4" element={<Module4Chapter4 />} />
+        <Route path="/module-5-chapter-1" element={<Module5Chapter1 />} />
         <Route path="/module-5-chapter-2" element={<Module5Chapter2 />} />
         <Route path="/module-5-chapter-3" element={<Module5Chapter3 />} />
         <Route path="/module-5-chapter-4" element={<Module5Chapter4 />} />

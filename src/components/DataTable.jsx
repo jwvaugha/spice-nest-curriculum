@@ -6,6 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { alpha } from '@mui/material/styles';
 import { useRevealOnScroll, revealSx } from '../hooks/useRevealOnScroll';
+import { EMPHASIS_TEXT_SX } from '../theme';
 
 // A general N-column data grid -- for tabular content wider than
 // ComparisonTable's fixed 2-data-column (+ optional row label) model, e.g.
@@ -22,7 +23,9 @@ import { useRevealOnScroll, revealSx } from '../hooks/useRevealOnScroll';
 // Same fade-in-on-scroll treatment as ComparisonTable: every instance is
 // inherently a substantial visual block, so it gets its own reveal rather
 // than batching with its Section.
-export default function DataTable({ columns, rows }) {
+// `emphasizeFirstColumn`: same antecedent treatment as ComparisonTable's
+// `emphasizeColumnA`, for a first column every row is keyed by (e.g. Day).
+export default function DataTable({ columns, rows, emphasizeFirstColumn = false }) {
   const [ref, visible] = useRevealOnScroll();
   return (
     <TableContainer
@@ -43,7 +46,9 @@ export default function DataTable({ columns, rows }) {
           {rows.map((row, i) => (
             <TableRow key={i}>
               {row.map((cell, j) => (
-                <TableCell key={j}>{cell}</TableCell>
+                <TableCell key={j} sx={emphasizeFirstColumn && j === 0 ? EMPHASIS_TEXT_SX : undefined}>
+                  {cell}
+                </TableCell>
               ))}
             </TableRow>
           ))}

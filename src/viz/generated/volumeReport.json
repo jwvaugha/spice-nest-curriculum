@@ -1,0 +1,67 @@
+{
+  "rice": {
+    "stated": "1 cup → 3 cups",
+    "statedRatio": 3,
+    "before": {
+      "count": 6921,
+      "pieceMm": "7.0 x 2.0",
+      "drawnVisible": 1056,
+      "fillCups": 1.002234011486644
+    },
+    "after": {
+      "count": 6921,
+      "pieceMm": "10.1 x 2.9",
+      "drawnVisible": 1029,
+      "fillCups": 3.0035988759140007
+    },
+    "pieceVolumeRatio": 3,
+    "fillRatio": 2.997
+  },
+  "pasta": {
+    "stated": "1 cup → 2 cups",
+    "statedRatio": 2,
+    "before": {
+      "count": 38,
+      "pieceMm": "40.0 x 9.0",
+      "drawnVisible": 36,
+      "fillCups": 1.0031166825172098
+    },
+    "after": {
+      "count": 38,
+      "pieceMm": "50.4 x 11.3",
+      "drawnVisible": 37,
+      "fillCups": 2.0099330823291717
+    },
+    "pieceVolumeRatio": 2,
+    "fillRatio": 2.004
+  },
+  "meat": {
+    "stated": "4 oz → 3 oz",
+    "statedRatio": 0.75,
+    "before": {
+      "volumeCm3": 108,
+      "thicknessMm": 14.3,
+      "footprintMm": "110 x 75"
+    },
+    "after": {
+      "volumeCm3": 81,
+      "thicknessMm": 13,
+      "footprintMm": "100 x 68"
+    },
+    "volumeRatio": 0.75
+  },
+  "greens": {
+    "stated": "1 cup → ½ cup",
+    "statedRatio": 0.5,
+    "before": {
+      "count": 28,
+      "leafLengthMm": 50,
+      "pileTopCups": 0.9939833170442083
+    },
+    "after": {
+      "count": 28,
+      "leafLengthMm": 50,
+      "pileTopCups": 0.49943410155881723
+    }
+  }
+}

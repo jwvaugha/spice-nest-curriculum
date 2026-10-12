@@ -295,6 +295,7 @@ export default function Module3Chapter2() {
                 <ComparisonTable
                   columnAHeader="Storage Type"
                   columnBHeader="Examples"
+                  emphasizeColumnA
                   rows={[
                     { a: 'Freezer friendly', b: 'Chopped onions, fresh meat, ginger paste, etc.' },
                     { a: 'Pantry (shelf-stable)', b: 'Uncooked rice, dry beans, dry legumes, unopened tomato paste, nuts, etc.' },
