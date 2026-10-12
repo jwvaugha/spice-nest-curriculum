@@ -34,7 +34,23 @@ import { asset } from '../assetPath';
 // uses four Paragraph label+body pairs (Section Label pattern, same as
 // Cook Once Eat Twice's "Day 1"/"Day 2").
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod4ch1', icon: ArticleTextIcon, label: 'Chapter 1', title: 'Navigating the Grocery Store' },
+  {
+    chapterId: 'mod4ch1',
+    icon: ArticleTextIcon,
+    label: 'Chapter 1',
+    title: 'Navigating the Grocery Store',
+    to: '/module-4-chapter-1',
+    sections: [
+      'Typical Grocery Store Layout',
+      'Warehouse Supermarkets and Departments',
+      'Specialized Grocery Stores',
+      'Shopping Online',
+      'Grocery Store Tips',
+      'General Nutrition Tips',
+      'Review: How to Quickly Read Nutrition Labels',
+      'Nutrition Considerations for Common Health Conditions',
+    ],
+  },
   {
     chapterId: 'mod4ch2',
     icon: ArticleTextIcon,

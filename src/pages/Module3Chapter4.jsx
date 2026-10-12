@@ -262,7 +262,7 @@ export default function Module3Chapter4() {
             </Box>
           </Box>
 
-          <ChapterFooter to="/module-4-chapter-2" chapterId="mod3ch4" label="Continue to Next Module" reachedEnd={reachedEnd} />
+          <ChapterFooter to="/module-4-chapter-1" chapterId="mod3ch4" label="Continue to Next Module" reachedEnd={reachedEnd} />
         </Box>
       </Box>
     </>

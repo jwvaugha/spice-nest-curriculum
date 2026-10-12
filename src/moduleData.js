@@ -63,7 +63,7 @@ export const MODULES = [
     title: 'Grocery Skills',
     thumbSrc: asset('/images/dashboard/module-4.jpg'),
     chapters: [
-      { chapterId: 'mod4ch1', label: 'Chapter 1', title: 'Navigating the Grocery Store', to: null },
+      { chapterId: 'mod4ch1', label: 'Chapter 1', title: 'Navigating the Grocery Store', to: '/module-4-chapter-1' },
       { chapterId: 'mod4ch2', label: 'Chapter 2', title: 'Seasonal and Ethnic Markets', to: '/module-4-chapter-2' },
       { chapterId: 'mod4ch3', label: 'Chapter 3', title: 'Grocery Shopping With Limited Resources', to: '/module-4-chapter-3' },
       { chapterId: 'mod4ch4', label: 'Chapter 4', title: 'Budgeting', to: '/module-4-chapter-4' },

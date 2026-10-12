@@ -17,6 +17,9 @@ const INK = '#1a1a1a';
 
 function Row({ id, activeId, onClick, sx, children }) {
   const isActive = id === activeId;
+  // No `onClick` = a static label (e.g. AnnotatedNutritionLabel): no pointer
+  // cursor or hover tint suggesting the rows do something.
+  if (!onClick) return <Box sx={{ border: '1.5px solid transparent', ...sx }}>{children}</Box>;
   return (
     <Box
       onClick={() => onClick(id)}
@@ -36,6 +39,44 @@ function Row({ id, activeId, onClick, sx, children }) {
   );
 }
 
+// A numbered callout outline around one region of the label, for
+// AnnotatedNutritionLabel. Uses `outline` (not border) so wrapping a region
+// never shifts the label's own layout. Renders children untouched when
+// `number` is absent, so the interactive explorer is unaffected.
+export function LabelAnnotation({ number, children }) {
+  if (!number) return children;
+  return (
+    <Box sx={{ position: 'relative', borderRadius: 1, outline: '2px solid', outlineColor: 'primary.main', outlineOffset: 2 }}>
+      {children}
+      <AnnotationBadge number={number} sx={{ position: 'absolute', top: -11, right: -11, zIndex: 1 }} />
+    </Box>
+  );
+}
+
+export function AnnotationBadge({ number, sx }) {
+  return (
+    <Box
+      aria-hidden
+      sx={{
+        width: 20,
+        height: 20,
+        borderRadius: '50%',
+        bgcolor: 'primary.main',
+        color: 'primary.contrastText',
+        fontSize: 11,
+        fontWeight: 700,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        ...sx,
+      }}
+    >
+      {number}
+    </Box>
+  );
+}
+
 // `maxHeight` (passed by NutritionLabelExplorer, computed against the real
 // page chrome + sticky offset, see that file's own comment) caps this card
 // on shorter windows instead of letting it grow to whatever its full 14-
@@ -49,7 +90,9 @@ function Row({ id, activeId, onClick, sx, children }) {
 // scroll underneath -- this also matches a real label's own printed
 // structure, where that block is always the fixed reference point at the
 // top regardless of which row you're currently reading further down.
-export default function NutritionLabelCard({ items, activeNutrient, onNutrientClick, maxHeight }) {
+// `annotations` (optional, AnnotatedNutritionLabel only): callout numbers for
+// the `servings` block, `calories` row and `nutrients` list.
+export default function NutritionLabelCard({ items, activeNutrient, onNutrientClick, maxHeight, annotations = {} }) {
   const [servings, servingSize, calories, ...nutrients] = items;
   const boldIds = new Set(['total-fat', 'total-carbs']);
   const indentIds = new Set(['saturated-fat', 'trans-fat', 'dietary-fiber', 'total-sugars']);
@@ -75,30 +118,34 @@ export default function NutritionLabelCard({ items, activeNutrient, onNutrientCl
       <Box sx={{ flexShrink: 0, px: 2, pt: 2 }}>
         <Box sx={{ borderBottom: `8px solid ${INK}`, pb: 1, mb: 1 }}>
           <Typography sx={{ fontSize: 26, fontWeight: 800, lineHeight: 1.1, color: INK }}>Nutrition Facts</Typography>
-          <Row id={servings.id} activeId={activeNutrient} onClick={onNutrientClick} sx={{ px: 0.5, py: 0.25, mt: 0.5 }}>
-            <Typography sx={{ fontSize: 13, color: INK }}>{servings.amount}</Typography>
-          </Row>
-          {/* On a real FDA label, "Serving size" is the visually dominant
-              line in this block -- noticeably larger/bolder than "servings
-              per container" above it, not just bold at the same small
-              size. Bumped to match that hierarchy (18px vs. the 13px
-              servings line) rather than treating the two lines as equally
-              weighted. */}
-          <Row id={servingSize.id} activeId={activeNutrient} onClick={onNutrientClick} sx={{ px: 0.5, py: 0.25, display: 'flex', justifyContent: 'space-between' }}>
-            <Typography sx={{ fontSize: 18, fontWeight: 800, color: INK }}>Serving size</Typography>
-            <Typography sx={{ fontSize: 18, fontWeight: 800, color: INK }}>{servingSize.amount}</Typography>
-          </Row>
+          <LabelAnnotation number={annotations.servings}>
+            <Row id={servings.id} activeId={activeNutrient} onClick={onNutrientClick} sx={{ px: 0.5, py: 0.25, mt: 0.5 }}>
+              <Typography sx={{ fontSize: 13, color: INK }}>{servings.amount}</Typography>
+            </Row>
+            {/* On a real FDA label, "Serving size" is the visually dominant
+                line in this block -- noticeably larger/bolder than "servings
+                per container" above it, not just bold at the same small
+                size. Bumped to match that hierarchy (18px vs. the 13px
+                servings line) rather than treating the two lines as equally
+                weighted. */}
+            <Row id={servingSize.id} activeId={activeNutrient} onClick={onNutrientClick} sx={{ px: 0.5, py: 0.25, display: 'flex', justifyContent: 'space-between' }}>
+              <Typography sx={{ fontSize: 18, fontWeight: 800, color: INK }}>Serving size</Typography>
+              <Typography sx={{ fontSize: 18, fontWeight: 800, color: INK }}>{servingSize.amount}</Typography>
+            </Row>
+          </LabelAnnotation>
         </Box>
 
-        <Row
-          id={calories.id}
-          activeId={activeNutrient}
-          onClick={onNutrientClick}
-          sx={{ borderBottom: `4px solid ${INK}`, pb: 1, mb: 1, px: 0.5, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
-        >
-          <Typography sx={{ fontSize: 17, fontWeight: 800, color: INK }}>Calories</Typography>
-          <Typography sx={{ fontSize: 24, fontWeight: 800, color: INK }}>{calories.amount}</Typography>
-        </Row>
+        <LabelAnnotation number={annotations.calories}>
+          <Row
+            id={calories.id}
+            activeId={activeNutrient}
+            onClick={onNutrientClick}
+            sx={{ borderBottom: `4px solid ${INK}`, pb: 1, mb: 1, px: 0.5, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
+          >
+            <Typography sx={{ fontSize: 17, fontWeight: 800, color: INK }}>Calories</Typography>
+            <Typography sx={{ fontSize: 24, fontWeight: 800, color: INK }}>{calories.amount}</Typography>
+          </Row>
+        </LabelAnnotation>
 
         <Typography sx={{ fontSize: 11, fontWeight: 700, textAlign: 'right', borderBottom: `1px solid ${INK}`, pb: 0.5, color: INK }}>
           % Daily Value*
@@ -110,29 +157,33 @@ export default function NutritionLabelCard({ items, activeNutrient, onNutrientCl
           previously the last thing in this scrollable area) -- the reader
           should always see "here's what the numbers mean" without having
           to scroll all the way down to find it. */}
-      <Box sx={{ flex: 1, minHeight: 0, overflowY: 'auto', px: 2, pb: 1 }}>
-        <Box sx={{ pt: 0.5 }}>
-          {nutrients.map((n, i) => (
-            <Row
-              key={n.id}
-              id={n.id}
-              activeId={activeNutrient}
-              onClick={onNutrientClick}
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                px: 0.5,
-                py: 0.5,
-                borderBottom: i === nutrients.length - 1 ? `4px solid ${INK}` : '1px solid #ddd',
-              }}
-            >
-              <Typography sx={{ fontSize: 12.5, fontWeight: boldIds.has(n.id) ? 700 : 400, ml: indentIds.has(n.id) ? 1.5 : 0, color: INK }}>
-                {n.name} {n.amount}
-              </Typography>
-              {n.dailyValue && <Typography sx={{ fontSize: 12.5, fontWeight: 700, color: INK }}>{n.dailyValue}</Typography>}
-            </Row>
-          ))}
-        </Box>
+      {/* Extra top padding when annotated, so the callout badge isn't
+          clipped by this scroll container. */}
+      <Box sx={{ flex: 1, minHeight: 0, overflowY: 'auto', px: 2, pb: 1, pt: annotations.nutrients ? 1.5 : 0 }}>
+        <LabelAnnotation number={annotations.nutrients}>
+          <Box sx={{ pt: 0.5 }}>
+            {nutrients.map((n, i) => (
+              <Row
+                key={n.id}
+                id={n.id}
+                activeId={activeNutrient}
+                onClick={onNutrientClick}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  px: 0.5,
+                  py: 0.5,
+                  borderBottom: i === nutrients.length - 1 ? `4px solid ${INK}` : '1px solid #ddd',
+                }}
+              >
+                <Typography sx={{ fontSize: 12.5, fontWeight: boldIds.has(n.id) ? 700 : 400, ml: indentIds.has(n.id) ? 1.5 : 0, color: INK }}>
+                  {n.name} {n.amount}
+                </Typography>
+                {n.dailyValue && <Typography sx={{ fontSize: 12.5, fontWeight: 700, color: INK }}>{n.dailyValue}</Typography>}
+              </Row>
+            ))}
+          </Box>
+        </LabelAnnotation>
       </Box>
 
       {/* Fixed footer -- always visible, same tier as the header above.

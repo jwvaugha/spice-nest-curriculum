@@ -41,7 +41,23 @@ import { asset } from '../assetPath';
 // already has in Figma (built earlier this session) -- Show Eyebrow is off
 // there, so no eyebrow prop here either.
 const SIDEBAR_ITEM_DEFS = [
-  { chapterId: 'mod4ch1', icon: ArticleTextIcon, label: 'Chapter 1', title: 'Navigating the Grocery Store' },
+  {
+    chapterId: 'mod4ch1',
+    icon: ArticleTextIcon,
+    label: 'Chapter 1',
+    title: 'Navigating the Grocery Store',
+    to: '/module-4-chapter-1',
+    sections: [
+      'Typical Grocery Store Layout',
+      'Warehouse Supermarkets and Departments',
+      'Specialized Grocery Stores',
+      'Shopping Online',
+      'Grocery Store Tips',
+      'General Nutrition Tips',
+      'Review: How to Quickly Read Nutrition Labels',
+      'Nutrition Considerations for Common Health Conditions',
+    ],
+  },
   {
     chapterId: 'mod4ch2',
     icon: ArticleTextIcon,
