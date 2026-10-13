@@ -306,6 +306,6 @@
       </g>
     </g>
   </g>
-  <text class="hand-thumb-st6" transform="translate(459.5 347.7)"><tspan x="0" y="0">≈</tspan></text>
+  <text x="422.1" y="356.1" text-anchor="middle" font-family="Roboto, sans-serif" font-size="30" font-weight="400" fill="#a69889">≈</text>
   <path class="hand-thumb-st1" d="M275,213.1h16c13.3,0,24,10.7,24,24v56c0,13.3-10.7,24-24,24h-16c-13.3,0-24-10.7-24-24v-56c0-13.3,10.7-24,24-24Z"/>
 </svg>

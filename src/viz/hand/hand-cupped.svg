@@ -562,6 +562,6 @@
       </g>
     </g>
   </g>
-  <text class="hand-cupped-st7" transform="translate(459.5 347.7)"><tspan x="0" y="0">≈</tspan></text>
+  <text x="427.1" y="344.7" text-anchor="middle" font-family="Roboto, sans-serif" font-size="30" font-weight="400" fill="#a69889">≈</text>
   <path class="hand-cupped-st1" d="M128,170.1h182c19.9,0,36,16.1,36,36v212c0,19.9-16.1,36-36,36h-182c-19.9,0-36-16.1-36-36v-212c0-19.9,16.1-36,36-36Z"/>
 </svg>

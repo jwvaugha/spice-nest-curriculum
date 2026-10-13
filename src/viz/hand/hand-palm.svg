@@ -191,6 +191,6 @@
       </g>
     </g>
   </g>
-  <text class="hand-palm-st5" transform="translate(459.5 347.7)"><tspan x="0" y="0">≈</tspan></text>
+  <text x="487.9" y="318" text-anchor="middle" font-family="Roboto, sans-serif" font-size="30" font-weight="400" fill="#a69889">≈</text>
   <path class="hand-palm-st1" d="M118,226.1h130c9.9,0,18,8.1,18,18v168c0,9.9-8.1,18-18,18H118c-9.9,0-18-8.1-18-18v-168c0-9.9,8.1-18,18-18Z"/>
 </svg>

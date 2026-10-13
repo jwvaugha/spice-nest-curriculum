@@ -24,6 +24,14 @@ const FILES = { fist: 'hand-fist.svg', palm: 'hand-palm.svg', cupped: 'hand-cupp
 // in a file moves up or down.
 const VISIBLE_Y = { fist: [-102, 169], palm: [76, 488.5], cupped: [168.5, 503.5], thumb: [211.5, 503.5] };
 const MARGIN = 12;
+// The ≈ sits at the midpoint of the empty gap between the hand (with its dashed
+// callout) and the tool, and vertically halfway between their centres. Measured
+// from the render with the ≈ removed (scan of visible ink -- faint drop shadows
+// and near-white bits ignored -- split at the widest empty
+// column run); re-measure if a hand or tool moves. [x, y] of the glyph's ink centre.
+const APPROX = { fist: [186.9, 19.0], palm: [487.8, 308.5], cupped: [427.0, 335.2], thumb: [422.0, 346.6] };
+// Roboto 400 30px '≈' ink centre relative to its text-anchor="middle" baseline anchor
+const GLYPH = { dx: -0.1, dy: -9.5 };
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
 fs.mkdirSync(OUT, { recursive: true });
@@ -41,6 +49,12 @@ for (const { id, alt } of HAND_COMPARISONS) {
     .replace(/((?:xlink:)?href)="#([^"]+)"/g, (m, a, x) => (ids.has(x) ? `${a}="#${fix(x)}"` : m))
     .replace(/\sclass="([^"]+)"/g, (m, c) => ` class="${c.split(/\s+/).map((k) => pre + k).join(' ')}"`)
     .replace(/<style>([\s\S]*?)<\/style>/g, (m, css) => `<style>${css.replace(/\.(st\d+)/g, `.${pre}$1`).replace(/font-family:\s*[^;]+;/g, 'font-family: Roboto, sans-serif;')}</style>`);
+  // the ≈: one consistent element, centred in the gap (Illustrator left-anchors it)
+  const [ax, ay] = APPROX[id];
+  const approx = `<text x="${+(ax - GLYPH.dx).toFixed(1)}" y="${+(ay - GLYPH.dy).toFixed(1)}" text-anchor="middle" font-family="Roboto, sans-serif" font-size="30" font-weight="400" fill="#a69889">≈</text>`;
+  const n = (s.match(/<text\b[^>]*>(?:<tspan[^>]*>)?≈(?:<\/tspan>)?<\/text>/g) || []).length;
+  if (n !== 1) throw new Error(`${FILES[id]}: expected one ≈ text, found ${n}`);
+  s = s.replace(/<text\b[^>]*>(?:<tspan[^>]*>)?≈(?:<\/tspan>)?<\/text>/, approx);
   // root element: accessible name, natural size from the viewBox
   s = s.replace(/<svg\b([^>]*)>/, (m, a) => {
     const vb = a.match(/viewBox="([^"]+)"/)[1].split(/[\s,]+/).map(Number);
