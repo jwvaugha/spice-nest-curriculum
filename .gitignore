@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Adobe Stock reference art for the hand figures: licensed source files, never commit
+scripts/hand-viz/references v2/
+scripts/hand-viz/refstyle/cache/

@@ -61,7 +61,7 @@ const SIDEBAR_ITEM_DEFS = [
     sections: [{ label: 'Common Food Myths vs. Facts', id: 'common-food-myths-vs-facts' }],
   },
   { chapterId: 'mod1-interactive', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game' },
-  { chapterId: 'mod1-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 1 Reflection' },
+  { chapterId: 'mod1-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 1 Reflection', to: '/module-1-reflection' },
 ];
 
 export default function Module1Chapter4() {

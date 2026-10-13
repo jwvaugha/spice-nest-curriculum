@@ -27,6 +27,8 @@ import Module5Chapter4 from './pages/Module5Chapter4';
 import Module6Chapter2 from './pages/Module6Chapter2';
 import Module6Chapter4 from './pages/Module6Chapter4';
 import Module6Chapter5 from './pages/Module6Chapter5';
+import ModuleReflection from './pages/ModuleReflection';
+import { reflectionPath } from './reflectionData';
 
 export default function App() {
   return (
@@ -62,6 +64,10 @@ export default function App() {
         <Route path="/module-6-chapter-2" element={<Module6Chapter2 />} />
         <Route path="/module-6-chapter-4" element={<Module6Chapter4 />} />
         <Route path="/module-6-chapter-5" element={<Module6Chapter5 />} />
+        {[1, 2, 3, 4, 5, 6].map((n) => (
+          // `key` remounts the page (and its notebook) when moving between modules.
+          <Route key={n} path={reflectionPath(n)} element={<ModuleReflection key={n} moduleNumber={n} />} />
+        ))}
       </Routes>
     </Box>
   );

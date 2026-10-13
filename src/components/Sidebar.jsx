@@ -25,8 +25,23 @@ import ChapterMenuItem from './ChapterMenuItem';
 // instead of a standing side panel — see NestNavSwitcher.jsx — but its
 // Figma width is still the reference point this 308 is deliberately NOT
 // matching).
+// Per direct user direction: unbuilt/disabled rows (interactive games, the
+// one remaining unbuilt chapter, printable/infographic/text resources with
+// no real page) are hidden entirely rather than shown dimmed -- EXCEPT
+// Reflection rows, which stay visible even if a future module's reflection
+// isn't built yet (every one currently built has a real `to`, but the rule
+// is written to hold regardless). `active` has to be included even though
+// it implies a built chapter: the current page's own sidebar entry never
+// sets `to` by convention (see ChapterMenuItem's own comment — it doesn't
+// need a link to itself), so filtering on `to` alone would hide the very
+// chapter the reader is on.
+function isVisible(item) {
+  return Boolean(item.to) || item.active || item.label === 'Reflection';
+}
+
 export default function Sidebar({ moduleNumber, moduleTitle, items, width = 308 }) {
-  const [openId, setOpenId] = useState(() => items.find((i) => i.active && i.sections)?.chapterId ?? null);
+  const visibleItems = items.filter(isVisible);
+  const [openId, setOpenId] = useState(() => visibleItems.find((i) => i.active && i.sections)?.chapterId ?? null);
 
   return (
     <Box
@@ -51,7 +66,7 @@ export default function Sidebar({ moduleNumber, moduleTitle, items, width = 308 
         </Typography>
       </Box>
       <List disablePadding>
-        {items.map((item) => (
+        {visibleItems.map((item) => (
           <ChapterMenuItem
             key={item.chapterId}
             {...item}

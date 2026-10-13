@@ -91,7 +91,7 @@ const SIDEBAR_ITEM_DEFS = [
     ],
   },
   { chapterId: 'mod3ch5', icon: ArticleTextIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
-  { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection' },
+  { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection', to: '/module-3-reflection' },
 ];
 
 const PLANNER_COLUMNS = ['Day', 'Breakfast', 'Lunch', 'Dinner', 'Groceries', 'Notes'];
@@ -262,7 +262,7 @@ export default function Module3Chapter4() {
             </Box>
           </Box>
 
-          <ChapterFooter to="/module-4-chapter-1" chapterId="mod3ch4" label="Continue to Next Module" reachedEnd={reachedEnd} />
+          <ChapterFooter to="/module-3-reflection" chapterId="mod3ch4" label="Continue to Module Reflection" reachedEnd={reachedEnd} />
         </Box>
       </Box>
     </>

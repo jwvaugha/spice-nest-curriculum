@@ -94,7 +94,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   { chapterId: 'mod6-infographic', icon: AttachmentRoundedIcon, label: 'Text / Infographic', title: 'Caregiver pocket guide' },
   { chapterId: 'mod6-interactive', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'AI Generated Dynamic Roleplay' },
-  { chapterId: 'mod6-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 6 Reflection' },
+  { chapterId: 'mod6-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 6 Reflection', to: '/module-6-reflection' },
 ];
 
 export default function Module6Chapter4() {

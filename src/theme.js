@@ -124,6 +124,16 @@ const theme = createTheme({
     borderRadius: 8,
   },
   components: {
+    // Text selection in the palette's peach (SPICE-Edu-Orange/200) with
+    // dark text, instead of the browser's default blue, app-wide.
+    MuiCssBaseline: {
+      styleOverrides: {
+        '::selection': {
+          backgroundColor: spiceTokens.orange[200],
+          color: spiceTokens.neutralA[1200],
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {

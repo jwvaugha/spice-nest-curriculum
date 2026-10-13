@@ -1,10 +1,6 @@
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import SectionDivider from '../components/SectionDivider';
-import ArticleTextIcon from '../components/ArticleTextIcon';
-import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
-import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Sidebar from '../components/Sidebar';
 import ChapterHero from '../components/ChapterHero';
 import Section from '../components/Section';
@@ -12,6 +8,7 @@ import Paragraph from '../components/Paragraph';
 import NumberedList from '../components/NumberedList';
 import NumberedListItem from '../components/NumberedListItem';
 import TipExample from '../components/TipExample';
+import HandComparison from '../components/HandComparison';
 import VolumeComparison from '../components/VolumeComparison';
 import Reference from '../components/Reference';
 import ReferenceList from '../components/ReferenceList';
@@ -23,6 +20,7 @@ import { useReachedEnd } from '../hooks/useReachedEnd';
 import { useScrollToHash } from '../hooks/useScrollToHash';
 import { asset } from '../assetPath';
 import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getContentPaddingX } from '../layoutConstants';
+import { SIDEBAR_ITEM_DEFS } from '../sidebars/module5';
 
 // Built from Figma node 3759:23626 ("Mod-5-Ch-1 — Measuring and Portion Size
 // Techniques", NEST Prototype page), itself built 2026-10-12 from the Word
@@ -34,131 +32,32 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 //   (VolumeComparison, generated SVGs -- see src/viz/volumeComparisons.js),
 //   each in its own card with a Reset button; the doc's conversion sentence
 //   is always shown, with its cooked amounts shimmering until revealed.
-// - Hand-approach items: each gets a two-panel placeholder (hand illustration
-//   | precise measuring tool) -- the planned final image is a composite of
-//   those two illustrations, per the user. No art exists yet.
+// - Hand-approach items: each gets a composite figure (HandComparison): the
+//   hand beside its measuring tool, to scale, same hand frame in all four.
+//   The art is the user's hand-tuned Illustrator files (see HandComparison).
 // The doc's "≒" sign in the hand titles is kept verbatim (flagged to the user
 // as unusual vs. "≈"); its emoji were dropped from the titles.
-function PlaceholderBox({ note, aspectRatio = '16/10' }) {
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        aspectRatio,
-        borderRadius: 1.5,
-        border: '1px dashed',
-        borderColor: 'divider',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        color: 'text.secondary',
-        fontSize: 12,
-        px: 1.5,
-      }}
-    >
-      {note}
-    </Box>
-  );
-}
-
-// Placeholder for the planned composite image: the hand estimate beside the
-// precise measuring-tool equivalent it stands in for.
-function HandComparisonPlaceholder({ hand, measure }) {
-  return (
-    <Stack direction="row" spacing={2} sx={{ alignItems: 'stretch' }}>
-      <Box sx={{ flex: 1, minWidth: 0 }}>
-        <PlaceholderBox note={`Illustration needed — ${hand}`} aspectRatio="1/1" />
-      </Box>
-      <Box sx={{ flex: 1, minWidth: 0 }}>
-        <PlaceholderBox note={`Illustration needed — ${measure}`} aspectRatio="1/1" />
-      </Box>
-    </Stack>
-  );
-}
-
-const SIDEBAR_ITEM_DEFS = [
-  {
-    chapterId: 'mod5ch1',
-    icon: ArticleTextIcon,
-    label: 'Chapter 1',
-    title: 'Measuring and portion size techniques',
-    active: true,
-    sections: [
-      { label: 'What are Portion Sizes?', id: 'what-are-portion-sizes' },
-      { label: 'Measuring Tools: Dry vs. Wet Measuring Cups', id: 'measuring-tools' },
-      { label: 'Physical Changes in Ingredients: Cooked vs. Uncooked Volume', id: 'cooked-vs-uncooked-volume' },
-      { label: 'Your Portable Measuring Tool: The Hand-Approach', id: 'hand-approach' },
-    ],
-  },
-  {
-    chapterId: 'mod5ch2',
-    icon: ArticleTextIcon,
-    label: 'Chapter 2',
-    title: 'Enhancing flavor through spices and herbs',
-    to: '/module-5-chapter-2',
-    sections: [
-      'Herbs vs. Spices: What’s the Difference?',
-      'What are the Health Benefits?',
-      'Tips for Using Herbs and Spices in Cooking',
-      'Example of Tasty Pairings',
-      'Key Messages',
-    ],
-  },
-  {
-    chapterId: 'mod5ch3',
-    icon: ArticleTextIcon,
-    label: 'Chapter 3',
-    title: 'Substitutions and experimentation',
-    to: '/module-5-chapter-3',
-    sections: [
-      'Why Try New Things?',
-      'Experimenting with Cooking Methods',
-      'Try a Food Swap',
-      'Tips for Making Smart Substitutions',
-      'Try Plant-Based Swaps',
-      'It Is Okay to Experiment',
-      'Key Messages',
-    ],
-  },
-  {
-    chapterId: 'mod5ch4',
-    icon: ArticleTextIcon,
-    label: 'Chapter 4',
-    title: 'Adapting recipes for cuisine, condition, and taste',
-    to: '/module-5-chapter-4',
-    sections: ['Match Your Culture and Traditions', 'Cook for Specific Health Needs', 'Adjust for Personal Taste', 'Key Messages'],
-  },
-  { chapterId: 'mod5-interactive1', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Changing the recipe...' },
-  { chapterId: 'mod5-interactive2', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Spices and Herbs Explorer' },
-  { chapterId: 'mod5-interactive3', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game Level 3' },
-  { chapterId: 'mod5-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 5 Reflection' },
-];
 
 const HANDS = [
   {
     title: 'Fist ≒ 1 Cup',
     body: 'A closed fist is a good guide for a portion of starchy carbohydrate foods (like taro, potato, kumara, rice, pasta and bread) or legumes (such as chickpeas, lentils and beans).',
-    hand: 'closed fist',
-    measure: '1-cup measuring cup',
+    id: 'fist',
   },
   {
     title: 'Palm ≒ 3 oz',
     body: 'The palm of your hand is a useful measure for a portion of red meat or poultry. The thickness of the meat should roughly match the thickness of your palm.',
-    hand: 'open palm',
-    measure: '3 oz portion on a kitchen scale',
+    id: 'palm',
   },
   {
     title: 'Cupped Hand ≒ 1/2 Cup',
     body: 'A single cupped hand is used for a portion of non-starchy vegetables, such as carrots, broccoli, beetroot, cauliflower, or eggplant.',
-    hand: 'cupped hand',
-    measure: '½-cup measuring cup',
+    id: 'cupped',
   },
   {
     title: 'Thumb ≒ 1 Tablespoon (Tbsp)',
     body: 'Your thumb represents roughly one tablespoon, which is used for fats like oils, nuts, seeds, nut butters, and cheese.',
-    hand: 'thumb',
-    measure: '1-tablespoon measuring spoon',
+    id: 'thumb',
   },
 ];
 
@@ -320,7 +219,7 @@ export default function Module5Chapter1() {
                       key={h.title}
                       number={i + 1}
                       title={h.title}
-                      extra={<HandComparisonPlaceholder hand={h.hand} measure={h.measure} />}
+                      extra={<HandComparison id={h.id} />}
                     >
                       {h.body}
                     </NumberedListItem>

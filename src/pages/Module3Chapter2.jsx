@@ -101,7 +101,7 @@ const SIDEBAR_ITEM_DEFS = [
     ],
   },
   { chapterId: 'mod3ch5', icon: ArticleTextIcon, label: 'Chapter 5', title: 'Meal Planning Organizer' },
-  { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection' },
+  { chapterId: 'mod3-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 3 Reflection', to: '/module-3-reflection' },
 ];
 
 export default function Module3Chapter2() {

@@ -11,7 +11,12 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "viz:volume": "node scripts/volume-viz/simulate.mjs && node scripts/volume-viz/render.mjs",
-    "viz:volume:render": "node scripts/volume-viz/render.mjs"
+    "viz:volume:render": "node scripts/volume-viz/render.mjs",
+    "viz:hands": "node scripts/hand-viz/pose.mjs && node scripts/hand-viz/render.mjs",
+    "viz:hands:render": "node scripts/hand-viz/render.mjs",
+    "viz:hands:blend": "node scripts/hand-viz/pose.mjs --write-blend",
+    "viz:hands:refstyle": "node scripts/hand-viz/refstyle/build.mjs",
+    "viz:hands:import": "node scripts/hand-viz/refstyle/import.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -29,6 +34,7 @@
     "@vitejs/plugin-react": "^6.1.1",
     "gh-pages": "^6.3.0",
     "oxlint": "^1.81.0",
+    "paper": "^0.12.18",
     "vite": "^8.3.0"
   }
 }

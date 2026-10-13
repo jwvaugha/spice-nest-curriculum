@@ -55,7 +55,7 @@ const SIDEBAR_ITEM_DEFS = [
     sections: [{ label: 'Common Food Myths vs. Facts', id: 'common-food-myths-vs-facts' }],
   },
   { chapterId: 'mod1-interactive', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Plate Builder Game' },
-  { chapterId: 'mod1-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 1 Reflection' },
+  { chapterId: 'mod1-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 1 Reflection', to: '/module-1-reflection' },
 ];
 
 const MYTHS = [
@@ -162,7 +162,7 @@ export default function Module1Chapter5() {
             </Box>
           </Box>
 
-          <ChapterFooter to="/module-2-chapter-1" chapterId="mod1ch5" label="Continue to Next Module" reachedEnd={reachedEnd} />
+          <ChapterFooter to="/module-1-reflection" chapterId="mod1ch5" label="Continue to Module Reflection" reachedEnd={reachedEnd} />
         </Box>
       </Box>
     </>

@@ -98,7 +98,7 @@ const SIDEBAR_ITEM_DEFS = [
   },
   { chapterId: 'mod4-printable', icon: AttachmentRoundedIcon, label: 'Printable Resource', title: 'Shelf Life and Storage' },
   { chapterId: 'mod4-interactive', icon: ExtensionRoundedIcon, label: 'Interactive', title: 'Frozen Food Comparison Game' },
-  { chapterId: 'mod4-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 4 Reflection' },
+  { chapterId: 'mod4-reflection', icon: NoteAltRoundedIcon, label: 'Reflection', title: 'Module 4 Reflection', to: '/module-4-reflection' },
 ];
 
 export default function Module4Chapter4() {
@@ -286,7 +286,7 @@ export default function Module4Chapter4() {
             </Box>
           </Box>
 
-          <ChapterFooter to="/module-5-chapter-1" chapterId="mod4ch4" label="Continue to Next Module" reachedEnd={reachedEnd} />
+          <ChapterFooter to="/module-4-reflection" chapterId="mod4ch4" label="Continue to Module Reflection" reachedEnd={reachedEnd} />
         </Box>
       </Box>
     </>

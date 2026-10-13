@@ -1,0 +1,45 @@
+{
+  "fist": {
+    "hand": {
+      "boxMm": "85 x 96 x 91"
+    },
+    "tool": {
+      "volumeMl": 236.6,
+      "innerDiameterMm": 83,
+      "depthMm": 43.7
+    }
+  },
+  "palm": {
+    "hand": {
+      "boxMm": "117 x 182 x 57",
+      "palmMm": "92 x 95",
+      "palmThicknessMm": 45
+    },
+    "tool": {
+      "volumeMl": 81,
+      "footprintMm": "68 x 100",
+      "thicknessMm": 13
+    }
+  },
+  "cupped": {
+    "hand": {
+      "boxMm": "104 x 119 x 104"
+    },
+    "tool": {
+      "volumeMl": 118.3,
+      "innerDiameterMm": 70,
+      "depthMm": 30.7
+    }
+  },
+  "thumb": {
+    "hand": {
+      "boxMm": "95 x 112 x 74",
+      "thumbLengthMm": 58
+    },
+    "tool": {
+      "volumeMl": 14.79,
+      "rimDiameterMm": 44,
+      "depthMm": 16.4
+    }
+  }
+}
