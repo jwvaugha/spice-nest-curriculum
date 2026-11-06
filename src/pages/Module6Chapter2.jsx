@@ -81,7 +81,7 @@ export default function Module6Chapter2() {
               }}
             >
               <ChapterHero
-                eyebrow="Chapter 2"
+                eyebrow="Chapter 1"
                 title="Motivational Interviewing Strategies"
                 imageSrc={asset('/images/module-6-chapter-2/hero.jpg')}
                 imageAlt="A supportive conversation between a caregiver and older adult"

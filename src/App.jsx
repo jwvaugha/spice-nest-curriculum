@@ -28,6 +28,7 @@ import Module6Chapter2 from './pages/Module6Chapter2';
 import Module6Chapter4 from './pages/Module6Chapter4';
 import Module6Chapter5 from './pages/Module6Chapter5';
 import ModuleReflection from './pages/ModuleReflection';
+import PlateBuilderLab from './pages/PlateBuilderLab';
 import { reflectionPath } from './reflectionData';
 
 export default function App() {
@@ -64,6 +65,8 @@ export default function App() {
         <Route path="/module-6-chapter-2" element={<Module6Chapter2 />} />
         <Route path="/module-6-chapter-4" element={<Module6Chapter4 />} />
         <Route path="/module-6-chapter-5" element={<Module6Chapter5 />} />
+        {/* Isolated test page: deliberately not linked from anywhere (see PlateBuilderLab.jsx). */}
+        <Route path="/lab/plate-builder" element={<PlateBuilderLab />} />
         {[1, 2, 3, 4, 5, 6].map((n) => (
           // `key` remounts the page (and its notebook) when moving between modules.
           <Route key={n} path={reflectionPath(n)} element={<ModuleReflection key={n} moduleNumber={n} />} />

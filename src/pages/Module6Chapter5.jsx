@@ -48,7 +48,7 @@ const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod6ch2',
     icon: ArticleTextIcon,
-    label: 'Chapter 2',
+    label: 'Chapter 1',
     title: 'Motivational interviewing strategies',
     to: '/module-6-chapter-2',
     sections: [
@@ -63,7 +63,7 @@ const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod6ch4',
     icon: ArticleTextIcon,
-    label: 'Chapter 3',
+    label: 'Chapter 2',
     title: 'Self Care as a Caregiver',
     to: '/module-6-chapter-4',
     sections: [
@@ -81,7 +81,7 @@ const SIDEBAR_ITEM_DEFS = [
   {
     chapterId: 'mod6ch5',
     icon: ArticleTextIcon,
-    label: 'Chapter 4',
+    label: 'Chapter 3',
     title: 'Managing multiple caregiving relationships',
     active: true,
     sections: [
@@ -127,7 +127,7 @@ export default function Module6Chapter5() {
               }}
             >
               <ChapterHero
-                eyebrow="Chapter 4"
+                eyebrow="Chapter 3"
                 title="Managing Multiple Caregiving Relationships"
                 imageSrc={asset('/images/module-6-chapter-5/hero.jpg')}
                 imageAlt="A multi-generational family gathered around a table together"

@@ -85,9 +85,9 @@ export const MODULES = [
     title: 'Communication & Quality of Life Balance',
     thumbSrc: asset('/images/dashboard/module-6.jpg'),
     chapters: [
-      { chapterId: 'mod6ch2', label: 'Chapter 2', title: 'Motivational Interviewing Strategies', to: '/module-6-chapter-2' },
-      { chapterId: 'mod6ch4', label: 'Chapter 3', title: 'Self Care as a Caregiver', to: '/module-6-chapter-4' },
-      { chapterId: 'mod6ch5', label: 'Chapter 4', title: 'Managing Multiple Caregiving Relationships', to: '/module-6-chapter-5' },
+      { chapterId: 'mod6ch2', label: 'Chapter 1', title: 'Motivational Interviewing Strategies', to: '/module-6-chapter-2' },
+      { chapterId: 'mod6ch4', label: 'Chapter 2', title: 'Self Care as a Caregiver', to: '/module-6-chapter-4' },
+      { chapterId: 'mod6ch5', label: 'Chapter 3', title: 'Managing Multiple Caregiving Relationships', to: '/module-6-chapter-5' },
     ],
   },
 ];
