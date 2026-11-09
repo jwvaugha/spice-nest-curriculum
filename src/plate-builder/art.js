@@ -23,8 +23,12 @@ import statusMet from '../assets/plate-builder/status-met.svg';
 import statusLow from '../assets/plate-builder/status-low.svg';
 import statusHigh from '../assets/plate-builder/status-high.svg';
 
+// `topping` and `treat` are Level 1's groups; they borrow the Fats and
+// Snacks placeholders.
 export const FOOD_ART = {
   protein: artProtein,
+  topping: artFat,
+  treat: artSnack,
   grain: artGrain,
   vegetable: artVegetable,
   fruit: artFruit,
@@ -35,6 +39,8 @@ export const FOOD_ART = {
 
 export const PORTION_ART = {
   protein: portionProtein,
+  topping: portionFat,
+  treat: portionSnack,
   grain: portionGrain,
   vegetable: portionVegetable,
   fruit: portionFruit,

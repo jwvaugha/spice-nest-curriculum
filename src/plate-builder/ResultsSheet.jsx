@@ -5,7 +5,7 @@ import Chip from '@mui/material/Chip';
 import Slide from '@mui/material/Slide';
 import Typography from '@mui/material/Typography';
 import { spiceTokens } from '../theme';
-import { NUTRIENTS, targetStatus, formatAmount, scoreMessage } from './plateBuilderData';
+import { targetStatus, formatAmount, scoreMessage } from './plateBuilderData';
 
 const CHIP_COLOR = {
   met: { color: '#43a047', border: 'rgba(46,125,50,0.5)' },
@@ -16,9 +16,12 @@ const STATUS_WORD = { met: 'met', high: 'too high', low: 'too low' };
 
 // D5: results as a bottom sheet over the game, pinned to the bottom of the
 // content pane (the parent must be position: relative).
+// Level 1 shows the scenario's Educational Takeaway; Level 2 keeps the
+// Make's score message. `isLast` = last challenge of its level.
 export default function ResultsSheet({ open, challenge, totals, isLast, onEdit, onNext }) {
   const headingRef = useRef(null);
-  const rows = NUTRIENTS.map((n) => ({ ...n, value: totals[n.key], status: targetStatus(totals[n.key], challenge.targets[n.key]) }));
+  const nutrients = challenge.level.nutrients;
+  const rows = nutrients.map((n) => ({ ...n, value: totals[n.key], status: targetStatus(totals[n.key], challenge.targets[n.key], n.unit) }));
   const met = rows.filter((r) => r.status === 'met').length;
   const sorted = [...rows].sort((a, b) => (a.status === 'met') - (b.status === 'met'));
 
@@ -53,11 +56,18 @@ export default function ResultsSheet({ open, challenge, totals, isLast, onEdit, 
         <Box>
           <Typography variant="h6" sx={{ color: spiceTokens.orange[900] }}>Plate submitted</Typography>
           <Typography id="plate-results-heading" ref={headingRef} tabIndex={-1} variant="h2" sx={{ outline: 'none', mt: 0.5 }}>
-            {met} of {NUTRIENTS.length} targets met
+            {met} of {nutrients.length} targets met
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-            {scoreMessage(met)}
-          </Typography>
+          {challenge.takeaway ? (
+            <Typography variant="body2" sx={{ mt: 1 }}>
+              <Box component="span" sx={{ fontWeight: 500 }}>Takeaway: </Box>
+              {challenge.takeaway}
+            </Typography>
+          ) : (
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+              {scoreMessage(met, nutrients.length)}
+            </Typography>
+          )}
         </Box>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
           {sorted.map((r) => (
@@ -73,7 +83,7 @@ export default function ResultsSheet({ open, challenge, totals, isLast, onEdit, 
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1.5, flexWrap: 'wrap' }}>
           <Button variant="outlined" size="large" onClick={onEdit}>Edit My Plate</Button>
           <Button variant="contained" size="large" onClick={onNext} disableElevation>
-            {isLast ? 'Finish' : 'Next Challenge'}
+            {isLast ? `Finish Level ${challenge.level.number}` : 'Next Challenge'}
           </Button>
         </Box>
       </Box>

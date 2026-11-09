@@ -5,7 +5,7 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import { spiceTokens } from '../theme';
 import { FOOD_ART } from './art';
-import { FOODS, CATEGORIES, prettyServing } from './plateBuilderData';
+import { prettyServing } from './plateBuilderData';
 
 const BORDER_LIGHT = '#e9dbc6'; // Global/borderLight
 
@@ -59,11 +59,11 @@ const scrollRowSx = {
 };
 
 // The bottom food tray: category filter chips plus a sideways-scrolling
-// row of foods.
-export default function FoodTray({ plate, onAdd }) {
+// row of foods. `foods` and `categories` are the current level's.
+export default function FoodTray({ plate, onAdd, foods: allFoods, categories }) {
   const [category, setCategory] = useState('all');
-  const foods = category === 'all' ? FOODS : FOODS.filter((f) => f.category === category);
-  const chips = [{ id: 'all', label: 'All' }, ...CATEGORIES];
+  const foods = category === 'all' ? allFoods : allFoods.filter((f) => f.category === category);
+  const chips = [{ id: 'all', label: 'All' }, ...categories];
 
   return (
     <Box sx={{ bgcolor: spiceTokens.neutralA[25], borderRadius: 2, px: 1.5, pt: 1.25, pb: 1.5, display: 'flex', flexDirection: 'column', gap: 1.25, minWidth: 0 }}>

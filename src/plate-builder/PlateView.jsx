@@ -9,7 +9,7 @@ import { foodById } from './plateBuilderData';
 // to the plate (ratios read off the Figma D0/D3 instances: salmon ≈ 0.44 of
 // the plate's width, broccoli ≈ 0.36, quinoa/rice ≈ 0.30, avocado ≈ 0.25).
 // Portions are 80×64 ellipses, so height = 0.8 × width.
-const PORTION_WIDTH = { protein: 0.44, vegetable: 0.36, grain: 0.3, dairy: 0.3, fruit: 0.28, snack: 0.28, fat: 0.25 };
+const PORTION_WIDTH = { protein: 0.44, vegetable: 0.36, grain: 0.3, dairy: 0.3, fruit: 0.28, snack: 0.28, treat: 0.28, fat: 0.25, topping: 0.25 };
 
 // Where servings land, in the order they're added (fractions of the plate,
 // centre points inside the well). The first five reproduce the Figma D0
@@ -22,10 +22,11 @@ const SLOTS = [
 
 // The rim SVG is 332px for a 300px plate (shadow bleed): inset -4% / -5.33% / -6.67% / -5.33%.
 // The well is a 244px circle centred in the 300px plate.
-export default function PlateView({ size, plate, onPortionClick, emptyHint }) {
+// `foods` is the level's food list (plate ids are only unique within a level).
+export default function PlateView({ size, plate, foods, onPortionClick, emptyHint }) {
   const servings = [];
   Object.entries(plate).forEach(([id, qty]) => {
-    for (let i = 0; i < qty; i += 1) servings.push({ food: foodById(id), n: i });
+    for (let i = 0; i < qty; i += 1) servings.push({ food: foodById(id, foods), n: i });
   });
 
   return (

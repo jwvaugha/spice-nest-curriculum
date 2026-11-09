@@ -9,7 +9,7 @@ import { HEADER_HEIGHT, BACKLINK_HEIGHT, HERO_WIDTH, RESIZE_TRANSITION, getConte
 import PlateBuilderIntro from '../plate-builder/PlateBuilderIntro';
 import PlateBuilderGame from '../plate-builder/PlateBuilderGame';
 import ResultsSheet from '../plate-builder/ResultsSheet';
-import { CHALLENGES, plateTotals } from '../plate-builder/plateBuilderData';
+import { ALL_CHALLENGES, plateTotals } from '../plate-builder/plateBuilderData';
 
 // Plate Builder (Module 1 interactive), Figma "Approach D, refined"
 // (node 3825:36759 on the Plate-Builder Game Workspace page).
@@ -39,7 +39,8 @@ export default function PlateBuilderLab() {
   const [plate, setPlate] = useState({});
   const [completed, setCompleted] = useState(() => new Set());
   const [showResults, setShowResults] = useState(false);
-  const totals = useMemo(() => plateTotals(plate), [plate]);
+  const levelFoods = ALL_CHALLENGES[index].level.foods;
+  const totals = useMemo(() => plateTotals(plate, levelFoods), [plate, levelFoods]);
 
   // The game screen uses the design's tighter 24px side padding (D3: a
   // 592px pane holds a 544px stage), so the plate can sit beside the
@@ -49,8 +50,8 @@ export default function PlateBuilderLab() {
 
   const scrollTop = () => paneRef.current?.scrollTo({ top: 0 });
   const start = (i) => {
-    // Replaying from the top (all three done) starts a fresh run.
-    if (completed.size === CHALLENGES.length) setCompleted(new Set());
+    // Replaying from the top (every level done) starts a fresh run.
+    if (completed.size === ALL_CHALLENGES.length) setCompleted(new Set());
     setIndex(i);
     setPlate({});
     setShowResults(false);
@@ -58,12 +59,15 @@ export default function PlateBuilderLab() {
     scrollTop();
   };
   const submit = () => {
-    setCompleted((s) => new Set(s).add(CHALLENGES[index].id));
+    setCompleted((s) => new Set(s).add(ALL_CHALLENGES[index].id));
     setShowResults(true);
   };
+  // The last challenge of a level goes back to the intro, where the next
+  // level's first challenge is now "Up next".
+  const isLastInLevel = (i) => ALL_CHALLENGES[i].levelIndex === ALL_CHALLENGES[i].level.challenges.length - 1;
   const next = () => {
     setShowResults(false);
-    if (index === CHALLENGES.length - 1) {
+    if (isLastInLevel(index)) {
       setScreen('intro');
       scrollTop();
     } else {
@@ -110,9 +114,9 @@ export default function PlateBuilderLab() {
           {screen === 'game' && (
             <ResultsSheet
               open={showResults}
-              challenge={CHALLENGES[index]}
+              challenge={ALL_CHALLENGES[index]}
               totals={totals}
-              isLast={index === CHALLENGES.length - 1}
+              isLast={isLastInLevel(index)}
               onEdit={() => setShowResults(false)}
               onNext={next}
             />

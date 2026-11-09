@@ -10,13 +10,14 @@ import { spiceTokens } from '../theme';
 import PlateView from './PlateView';
 import TargetsWindow from './TargetsWindow';
 import FoodTray from './FoodTray';
-import { CHALLENGES, foodById, plateTotals, servingCount, prettyServing } from './plateBuilderData';
+import { ALL_CHALLENGES, KCAL_PER_GRAM, foodById, plateTotals, servingCount, prettyServing } from './plateBuilderData';
 
-// "Challenge 1 of 3" progress pips: the current one is a 24px bar.
-function ProgressPips({ index, completed }) {
+// "Challenge 1 of 3" progress pips for the current level: the current one
+// is a 24px bar.
+function ProgressPips({ level, index, completed }) {
   return (
     <Box sx={{ display: 'flex', gap: '6px' }} aria-hidden>
-      {CHALLENGES.map((c, i) => (
+      {level.challenges.map((c, i) => (
         <Box
           key={c.id}
           sx={{
@@ -31,12 +32,14 @@ function ProgressPips({ index, completed }) {
   );
 }
 
-// D3/D4: one challenge. `contentWidth` is the reading column's measured
+// D3/D4: one challenge. `index` is into ALL_CHALLENGES (every level). `contentWidth` is the reading column's measured
 // width; the plate shrinks from 260 to 196px below ~720px (the 900px-window
 // design) and the stage stacks on very narrow panes.
 export default function PlateBuilderGame({ index, completed, plate, setPlate, onSubmit, contentWidth }) {
-  const challenge = CHALLENGES[index];
-  const totals = useMemo(() => plateTotals(plate), [plate]);
+  const challenge = ALL_CHALLENGES[index];
+  const { level, levelIndex } = challenge;
+  const isMeal = Boolean(challenge.goal); // Level 1 scenario vs Level 2 condition
+  const totals = useMemo(() => plateTotals(plate, level.foods), [plate, level.foods]);
   const servings = servingCount(plate);
   const [hintsAnchor, setHintsAnchor] = useState(null);
   const [portion, setPortion] = useState(null); // { id, anchor }
@@ -53,7 +56,7 @@ export default function PlateBuilderGame({ index, completed, plate, setPlate, on
 
   const stacked = contentWidth && contentWidth < 520;
   const plateSize = contentWidth >= 720 ? 260 : 196;
-  const portionFood = portion && foodById(portion.id);
+  const portionFood = portion && foodById(portion.id, level.foods);
   const portionQty = portion ? plate[portion.id] || 0 : 0;
 
   return (
@@ -63,11 +66,16 @@ export default function PlateBuilderGame({ index, completed, plate, setPlate, on
         <Box sx={{ flex: 1, minWidth: 220 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
             <Typography variant="h6" component="p" sx={{ color: spiceTokens.orange[900] }}>
-              Challenge {index + 1} of {CHALLENGES.length}
+              Level {level.number} · Challenge {levelIndex + 1} of {level.challenges.length}
             </Typography>
-            <ProgressPips index={index} completed={completed} />
+            <ProgressPips level={level} index={levelIndex} completed={completed} />
           </Box>
-          <Typography variant="h2" component="h1">{challenge.name} plate</Typography>
+          <Typography variant="h2" component="h1">{isMeal ? challenge.name : `${challenge.name} plate`}</Typography>
+          {isMeal && (
+            <Typography variant="body2" sx={{ mt: 0.75, maxWidth: 560 }}>
+              <Box component="span" sx={{ fontWeight: 500 }}>{challenge.character}.</Box> {challenge.goal}
+            </Typography>
+          )}
         </Box>
         <Button
           variant="text"
@@ -87,6 +95,7 @@ export default function PlateBuilderGame({ index, completed, plate, setPlate, on
         <PlateView
           size={stacked ? 220 : plateSize}
           plate={plate}
+          foods={level.foods}
           emptyHint="Tap a food below to add it"
           onPortionClick={(id, anchor) => setPortion({ id, anchor })}
         />
@@ -95,9 +104,9 @@ export default function PlateBuilderGame({ index, completed, plate, setPlate, on
         </Box>
       </Box>
 
-      <FoodTray plate={plate} onAdd={add} />
+      <FoodTray plate={plate} onAdd={add} foods={level.foods} categories={level.categories} />
 
-      {/* Hints: the Make prototype's "Healthy Hints" for this condition. */}
+      {/* Hints: Level 1's Helpful Tip, or the Make's "Healthy Hints". */}
       <Popover
         open={Boolean(hintsAnchor)}
         anchorEl={hintsAnchor}
@@ -106,13 +115,26 @@ export default function PlateBuilderGame({ index, completed, plate, setPlate, on
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         slotProps={{ paper: { sx: { p: 2.5, maxWidth: 340, borderRadius: 2 } } }}
       >
-        <Typography variant="h6" component="h2" sx={{ color: spiceTokens.orange[900], mb: 1 }}>Hints</Typography>
-        <Typography variant="body2" sx={{ mb: 1.5 }}>{challenge.description}</Typography>
-        <Box component="ul" sx={{ m: 0, pl: 2.5, display: 'flex', flexDirection: 'column', gap: 0.75 }}>
-          {challenge.tips.map((t) => (
-            <Typography component="li" variant="body2" key={t}>{t}</Typography>
-          ))}
-        </Box>
+        {isMeal ? (
+          <>
+            <Typography variant="h6" component="h2" sx={{ color: spiceTokens.orange[900], mb: 1 }}>Helpful tip</Typography>
+            <Typography variant="body2" sx={{ mb: 1.5 }}>{challenge.tip}</Typography>
+            <Typography variant="caption" color="text.secondary" component="p">
+              Carbohydrates, protein and fat are scored as a share of your plate&apos;s calories, counting{' '}
+              {KCAL_PER_GRAM.carbs} calories per gram of carbohydrate or protein and {KCAL_PER_GRAM.fat} per gram of fat.
+            </Typography>
+          </>
+        ) : (
+          <>
+            <Typography variant="h6" component="h2" sx={{ color: spiceTokens.orange[900], mb: 1 }}>Hints</Typography>
+            <Typography variant="body2" sx={{ mb: 1.5 }}>{challenge.description}</Typography>
+            <Box component="ul" sx={{ m: 0, pl: 2.5, display: 'flex', flexDirection: 'column', gap: 0.75 }}>
+              {challenge.tips.map((t) => (
+                <Typography component="li" variant="body2" key={t}>{t}</Typography>
+              ))}
+            </Box>
+          </>
+        )}
       </Popover>
 
       {/* Tapping a portion on the plate: change servings or take it off. */}
