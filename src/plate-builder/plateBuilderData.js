@@ -183,12 +183,13 @@ export const LEVEL_1_CATEGORIES = [
 // ---- Level 1: Foundational Nutrition -----------------------------------
 // Verbatim from the scenario document (2026-11-09). `character`, `goal`,
 // `tip` and `takeaway` are the doc's Character / Goal / Helpful Tip /
-// Educational Takeaway. Targets: calories against the plate's displayed
-// calorie total; carbsPct/proteinPct/fatPct as a % of the macro-derived
-// calories (4/4/9 kcal per g), per the doc's gameplay notes; sodium is
-// "less than" (strict). Sugar and fiber are deliberately not scored.
+// Educational Takeaway. Targets (doc values, verbatim): calories against
+// the plate's displayed calorie total; carbsPct/proteinPct/fatPct as a % of
+// the macro-derived calories (4/4/9 kcal per g), per the doc's gameplay
+// notes; sodium is "less than" (strict). Sugar and fiber aren't scored.
+// The gram targets (carbs/protein/fat) are DERIVED below, not in the doc.
 // `art` is a placeholder tile choice for the intro card, not from the doc.
-export const LEVEL_1_CHALLENGES = [
+const LEVEL_1_SCENARIOS = [
   {
     id: 'office-lunch',
     name: 'Office Worker Lunch Rush',
@@ -239,14 +240,45 @@ export const LEVEL_1_CHALLENGES = [
   },
 ];
 
-// Level 1's 5 targets. `unit: '%'` values are shares of calories; `grams`
-// names the gram total shown beside the percentage.
+// Energy per gram, from the Level 1 doc's gameplay notes.
+export const KCAL_PER_GRAM = { carbs: 4, protein: 4, fat: 9 };
+
+// Gram ranges implied by the doc: (calorie min × share min) to (calorie
+// max × share max), ÷ kcal per gram, widened to whole grams. Per the user
+// (2026-11-09), carbs/protein/fat show as grams so a half-built plate reads
+// sensibly (one food alone is never "45–55% carbs"), and the doc's % rule
+// becomes the separate Proportion row. A plate meeting the doc's targets
+// almost always meets these too: an exhaustive check failed only 0.05–0.5%
+// of doc-winning plates, at range edges where label calories and
+// macro-derived calories differ by a few percent.
+function gramRange({ calories }, pct, kcal) {
+  return { min: Math.floor((calories.min * pct.min) / 100 / kcal), max: Math.ceil((calories.max * pct.max) / 100 / kcal) };
+}
+export const LEVEL_1_CHALLENGES = LEVEL_1_SCENARIOS.map((c) => ({
+  ...c,
+  targets: {
+    ...c.targets,
+    carbs: gramRange(c.targets, c.targets.carbsPct, KCAL_PER_GRAM.carbs),
+    protein: gramRange(c.targets, c.targets.proteinPct, KCAL_PER_GRAM.protein),
+    fat: gramRange(c.targets, c.targets.fatPct, KCAL_PER_GRAM.fat),
+  },
+}));
+
+// Level 1's 6 targets: five single-nutrient meters plus Proportion, which
+// scores the doc's three % ranges together (`kind: 'proportion'`) and always
+// renders last. `parts` are the plateTotals keys and target keys it uses.
+export const PROPORTION_PARTS = [
+  { key: 'carbsPct', label: 'Carbs' },
+  { key: 'proteinPct', label: 'Protein' },
+  { key: 'fatPct', label: 'Fat' },
+];
 export const LEVEL_1_NUTRIENTS = [
   { key: 'calories', label: 'Calories', unit: 'kcal' },
-  { key: 'carbsPct', label: 'Carbohydrates', unit: '%', grams: 'carbs' },
-  { key: 'proteinPct', label: 'Protein', unit: '%', grams: 'protein' },
-  { key: 'fatPct', label: 'Fat', unit: '%', grams: 'fat' },
+  { key: 'carbs', label: 'Carbohydrates', unit: 'g' },
+  { key: 'protein', label: 'Protein', unit: 'g' },
+  { key: 'fat', label: 'Fat', unit: 'g' },
   { key: 'sodium', label: 'Sodium', unit: 'mg' },
+  { key: 'proportion', label: 'Proportion', kind: 'proportion' },
 ];
 
 // The doc's "General Disclaimer (Display Before Gameplay)", verbatim.
@@ -384,9 +416,6 @@ export function foodById(id, foods) {
   return foods.find((f) => f.id === id);
 }
 
-// Energy per gram, from the Level 1 doc's gameplay notes.
-export const KCAL_PER_GRAM = { carbs: 4, protein: 4, fat: 9 };
-
 // `plate` is { [foodId]: servings }; `foods` is the level's food list. Besides the summed nutrients, returns
 // carbsPct/proteinPct/fatPct: each macro's share of the macro-derived
 // calories (not the displayed calorie total, which can differ slightly
@@ -423,6 +452,22 @@ export function targetStatus(value, { min, max, lessThan }, unit) {
 // Bar fill, 0-100: value against max (or against min when there's no max),
 // as in the Make's MacroIndicator. Matches the Figma D3 levels (368 kcal
 // against a 600 max ≈ 60%).
+// The Proportion row: each part's status against its % target, and the
+// row's overall status ('met' only when all three are; 'low' on an empty
+// plate, where there's nothing to proportion yet).
+export function proportionStatus(totals, targets) {
+  const parts = PROPORTION_PARTS.map((p) => ({ ...p, value: totals[p.key], target: targets[p.key], status: targetStatus(totals[p.key], targets[p.key], '%') }));
+  const empty = totals.carbs + totals.protein + totals.fat === 0;
+  const status = empty ? 'low' : parts.every((p) => p.status === 'met') ? 'met' : 'high';
+  return { parts, status, empty };
+}
+
+// Status of any row in a level's nutrient list.
+export function rowStatus(nutrient, totals, targets) {
+  if (nutrient.kind === 'proportion') return proportionStatus(totals, targets).status;
+  return targetStatus(totals[nutrient.key], targets[nutrient.key], nutrient.unit);
+}
+
 export function targetFill(value, { min, max, lessThan }) {
   const ref = max ?? lessThan ?? min;
   return Math.max(0, Math.min(100, (value / ref) * 100));

@@ -5,7 +5,7 @@ import Chip from '@mui/material/Chip';
 import Slide from '@mui/material/Slide';
 import Typography from '@mui/material/Typography';
 import { spiceTokens } from '../theme';
-import { targetStatus, formatAmount, scoreMessage } from './plateBuilderData';
+import { rowStatus, formatAmount, scoreMessage, proportionStatus } from './plateBuilderData';
 
 const CHIP_COLOR = {
   met: { color: '#43a047', border: 'rgba(46,125,50,0.5)' },
@@ -21,7 +21,13 @@ const STATUS_WORD = { met: 'met', high: 'too high', low: 'too low' };
 export default function ResultsSheet({ open, challenge, totals, isLast, onEdit, onNext }) {
   const headingRef = useRef(null);
   const nutrients = challenge.level.nutrients;
-  const rows = nutrients.map((n) => ({ ...n, value: totals[n.key], status: targetStatus(totals[n.key], challenge.targets[n.key], n.unit) }));
+  const rows = nutrients.map((n) => ({ ...n, value: totals[n.key], status: rowStatus(n, totals, challenge.targets) }));
+  // The Proportion chip reads "Proportion · 51/24/25% · met".
+  const chipText = (r) => {
+    if (r.kind !== 'proportion') return `${r.label} · ${formatAmount(r.value, r.unit)} · ${STATUS_WORD[r.status]}`;
+    const { parts } = proportionStatus(totals, challenge.targets);
+    return `${r.label} · ${parts.map((p) => Math.round(p.value)).join('/')}% · ${r.status === 'met' ? 'met' : 'off balance'}`;
+  };
   const met = rows.filter((r) => r.status === 'met').length;
   const sorted = [...rows].sort((a, b) => (a.status === 'met') - (b.status === 'met'));
 
@@ -75,7 +81,7 @@ export default function ResultsSheet({ open, challenge, totals, isLast, onEdit, 
               key={r.key}
               size="small"
               variant="outlined"
-              label={`${r.label} · ${formatAmount(r.value, r.unit)} · ${STATUS_WORD[r.status]}`}
+              label={chipText(r)}
               sx={{ color: CHIP_COLOR[r.status].color, borderColor: CHIP_COLOR[r.status].border, fontSize: '0.8125rem' }}
             />
           ))}

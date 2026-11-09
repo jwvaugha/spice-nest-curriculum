@@ -120,8 +120,9 @@ export default function PlateBuilderGame({ index, completed, plate, setPlate, on
             <Typography variant="h6" component="h2" sx={{ color: spiceTokens.orange[900], mb: 1 }}>Helpful tip</Typography>
             <Typography variant="body2" sx={{ mb: 1.5 }}>{challenge.tip}</Typography>
             <Typography variant="caption" color="text.secondary" component="p">
-              Carbohydrates, protein and fat are scored as a share of your plate&apos;s calories, counting{' '}
-              {KCAL_PER_GRAM.carbs} calories per gram of carbohydrate or protein and {KCAL_PER_GRAM.fat} per gram of fat.
+              The Proportion row shows how your plate&apos;s calories split between carbohydrates, protein and fat,
+              counting {KCAL_PER_GRAM.carbs} calories per gram of carbohydrate or protein and {KCAL_PER_GRAM.fat} per
+              gram of fat. It&apos;s most useful once your plate has a few foods on it.
             </Typography>
           </>
         ) : (

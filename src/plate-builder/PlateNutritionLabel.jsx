@@ -26,16 +26,10 @@ function Row({ label, amount, dv, status, bold = true, indent = false }) {
   );
 }
 
-// Level 1 scores carbs/protein/fat as % of calories, so those rows take
-// the status of their percentage target (carbsPct etc.); fiber and sugar
-// aren't scored there and show no status.
+// A row the level doesn't score (Level 1: fiber, sugar) shows no status.
 export default function PlateNutritionLabel({ totals, servings, challenge }) {
   const t = challenge.targets;
-  const st = (k) => {
-    if (t[k]) return targetStatus(totals[k], t[k]);
-    if (t[`${k}Pct`]) return targetStatus(totals[`${k}Pct`], t[`${k}Pct`], '%');
-    return undefined;
-  };
+  const st = (k) => (t[k] ? targetStatus(totals[k], t[k]) : undefined);
   const dv = (k) => Math.round((totals[k] / DAILY_VALUES[k]) * 100);
   const g = (k) => `${Math.round(totals[k])}g`;
 
