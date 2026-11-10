@@ -104,7 +104,7 @@ export default function PlateBuilderGame({ index, completed, plate, setPlate, on
         </Box>
       </Box>
 
-      <FoodTray plate={plate} onAdd={add} foods={level.foods} categories={level.categories} />
+      <FoodTray plate={plate} onAdd={add} onChange={change} foods={level.foods} categories={level.categories} />
 
       {/* Hints: Level 1's Helpful Tip, or the Make's "Healthy Hints". */}
       <Popover
